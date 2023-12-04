@@ -63,7 +63,7 @@ export const HomePage = () => {
   const renderOrdinalCards = () => {
     const filteredOrdinals = ordinals.filter(
       (ordinal) =>
-        ordinal.data.map.subTypeData.collectionId ===
+        ordinal?.data?.map?.subTypeData?.collectionId ===
         "b68a700c91c6ece44aa6c2148c84c25a9a22da739769110e1ba01dbb0ff2df4a_1"
     );
     return (
