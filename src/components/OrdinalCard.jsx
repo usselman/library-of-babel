@@ -22,7 +22,7 @@ const calculateStats = (itemName) => {
   let suffix = "";
   let baseItemName = "";
 
-  if (parts.includes("of")) {
+  if (parts?.includes("of")) {
     // Find the index where 'of' is located
     const ofIndex = parts.indexOf("of");
     prefix = parts.slice(0, ofIndex).join(" ");
@@ -37,10 +37,10 @@ const calculateStats = (itemName) => {
   let statType;
   let armorType = null;
 
-  if (weaponItems.includes(baseItemName)) {
+  if (weaponItems?.includes(baseItemName)) {
     baseStatValue = baseAttackStats[baseItemName] || 0;
     statType = 'attack';
-  } else if (clothingItems.includes(baseItemName)) {
+  } else if (clothingItems?.includes(baseItemName)) {
     baseStatValue = baseDefenseStats[baseItemName] || 0;
     statType = 'defense';
     armorType = armorTypes[baseItemName];
