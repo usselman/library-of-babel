@@ -83,13 +83,13 @@ const OrdinalCard = ({ ordinal }) => {
   const isAttackStat = stats && stats.attack !== undefined;
 
   const rarityStyles = {
-    Common: "border-black text-black shadow-common",
-    Uncommon: "border-blue-500 text-blue-500 shadow-uncommon",
-    Rare: "border-yellow-500 shadow-rare rainbow-text hover:bg-red-800",
+    Common: "border-black text-black shadow-common hover:bg-gray-300",
+    Uncommon: "border-blue-500 text-blue-500 shadow-uncommon hover:bg-blue-300",
+    Rare: "border-yellow-500 shadow-rare rainbow-text hover:border-2 hover:animate-pulse",
   };
 
   return (
-    <div className={`rounded-lg overflow-hidden m-4 p-4 bg-white border-2 ${rarityStyles[rarity]} hover:bg-gray-200`}>
+    <div className={`rounded-lg overflow-hidden m-4 p-4 bg-white border-2 ${rarityStyles[rarity]} `}>
       <div className="px-6 py-4">
         <div className="font-bold text-lg mb-2">{ordinal.data.insc.text}</div>
         <p className="text-gray-700 text-base">{rarity}</p>
