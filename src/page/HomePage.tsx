@@ -78,20 +78,29 @@ export const HomePage = () => {
   return (
     <div className="App">
       <div className="bg-gray m-4 p-4">
-        <div className="h-8" />
         {/* <img
           src={pandaIcon}
           alt="Panda Wallet Icon"
           className="mx-auto h-20 w-20"
         /> */}
-        <h1 className="text-2xl font-bold text-center">Your Panda Wallet</h1>
+        { ordinals.length == 0 && 
+        
+        <>
+        <div className="h-8" />
+        <h1 className="text-2xl font-bold text-center rainbow-text">Connect your Panda Wallet to view gear:</h1>
         <div className="place-content-center flex">
           <PandaConnectButton
             className="mt-4 p-2 bg-blue-900 text-white rounded hover:bg-blue-600"
             onClick={handleConnect}
           />
-        </div>
-        <div className="h-8" />
+        </div> 
+        <h2 className="text-lg font-bold text-center italic rainbow-text mt-8">(Refresh after logging in if nothing shows)</h2>
+
+        <div className="h-8" /> 
+        </>
+        
+        }
+
         {/* {pubKey && (
           <p className="mt-2 text-sm text-gray-700">Public Key: {pubKey}</p>
         )}
@@ -100,11 +109,14 @@ export const HomePage = () => {
             Addresses: {JSON.stringify(addresses)}
           </p>
         )} */}
-        {ordinals.length > 0 && (
+        {wallet && ordinals.length > 0 && (
           <div className="mt-4">
-            <h4 className="text-lg font-semibold text-black text-center">
-              Your Ordinals:
+            <h4 className="text-3xl font-semibold text-black text-center rainbow-text">
+              Tale of Shua Gear:
             </h4>
+            <p className="text-md text-black text-center italic">
+            (Latest 100)
+            </p>
             {renderOrdinalCards()}
           </div>
         )}
