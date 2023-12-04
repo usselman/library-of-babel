@@ -28,3 +28,8 @@ code {
   box-shadow: 0 8px 12px -1px rgba(234, 179, 8, 0.5), 0 4px 8px -1px rgba(234, 179, 8, 0.25);
 }
 
+.rainbow-text {
+  background: linear-gradient(120deg, red, orange, gold, green, blue, indigo, violet);
+  -webkit-background-clip: text;
+  color: transparent;
+}

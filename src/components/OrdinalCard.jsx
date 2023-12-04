@@ -85,7 +85,7 @@ const OrdinalCard = ({ ordinal }) => {
   const rarityStyles = {
     Common: "border-black text-black shadow-common",
     Uncommon: "border-blue-500 text-blue-500 shadow-uncommon",
-    Rare: "border-yellow-500 text-yellow-500 shadow-rare",
+    Rare: "border-yellow-500 text-yellow-500 shadow-rare rainbow-text",
   };
 
   return (
