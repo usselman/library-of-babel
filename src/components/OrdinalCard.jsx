@@ -1,6 +1,7 @@
 import rarityData from "../rarity.json";
 import atkIcon from '../assets/atk.png';
 import defIcon from '../assets/def.png';
+import { Tooltip } from 'react-tooltip'
 import { clothingItems, weaponItems, baseDefenseStats, baseAttackStats, weaponTypes, armorTypes, prefixes, suffixes } from './statsData';
 
 // Convert rarityData numbers to modifiers
@@ -62,7 +63,7 @@ const calculateStats = (itemName) => {
     
   // }
 
-  return { [statType]: finalStatValue, armorType };
+  return { [statType]: finalStatValue, baseStatValue, prefixModifier, suffixModifier, armorType };
 };
 
 const OrdinalCard = ({ ordinal }) => {
@@ -103,7 +104,15 @@ const OrdinalCard = ({ ordinal }) => {
                 className="h-4 w-4 mr-2" 
               />
               <p className={`${isAttackStat ? "text-red-500" : "text-blue-500"} text-sm font-bold`}>
-                {isAttackStat ? `Attack: ${stats.attack}` : `Defense: ${stats.defense}`}
+                <a
+                  data-tooltip-id="my-tooltip"
+                  data-tooltip-content={`Base: ${stats.baseStatValue} + 
+                  Modifiers: ${stats.prefixModifier} / ${stats.suffixModifier}`}
+                  data-tooltip-place="bottom"
+                >
+                  {isAttackStat ? `Attack: ${stats.attack}` : `Defense: ${stats.defense}`}
+                </a>
+                <Tooltip id="my-tooltip" />
               </p>
             </div>
             {weaponType && (
