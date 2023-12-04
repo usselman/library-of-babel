@@ -17,7 +17,7 @@ const modifiers = {
 
 const calculateStats = (itemName) => {
   // Split the item name
-  const parts = itemName.split(" ");
+  const parts = itemName?.split(" ");
   let prefix = "";
   let suffix = "";
   let baseItemName = "";
@@ -66,6 +66,7 @@ const calculateStats = (itemName) => {
 };
 
 const OrdinalCard = ({ ordinal }) => {
+  console.log("passed ordinal", ordinal);
   const getRarity = (name) => {
     const parts = name.split(" ");
     const hasPrefix = parts.length > 1 && parts[0] !== "of";
@@ -78,7 +79,7 @@ const OrdinalCard = ({ ordinal }) => {
 
   const stats = calculateStats(ordinal.data.insc.text);
   const rarity = getRarity(ordinal.data.insc.text);
-  const itemType = ordinal.data.insc.text.split(" ")[ordinal.data.insc.text.split(" ").length - 1];
+  const itemType = ordinal?.data?.insc?.text?.split(" ")[ordinal?.data?.insc?.text?.split(" ").length - 1];
   const weaponType = weaponTypes[itemType];
   const isAttackStat = stats && stats.attack !== undefined;
 
