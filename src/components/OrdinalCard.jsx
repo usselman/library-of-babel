@@ -377,6 +377,195 @@ const baseAttackStats = {
   "Staff": 5,
 };
 
+const weaponTypes = {
+  // Scrolls, Tomes, and Wands (Magical Weapons)
+  "Water Scroll": "Water Magic",
+  "Fire Scroll": "Fire Magic",
+  "Thunder Tome": "Thunder Magic",
+  "Wind Tome": "Wind Magic",
+  "Dark Scroll": "Dark Magic",
+  "Earth Scroll": "Earth Magic",
+  "Light Wand": "Light Magic",
+  "Thunder Wand": "Thunder Magic",
+  "Ice Wand": "Ice Magic",
+  "Light Scroll": "Light Magic",
+  "Dark Tome": "Dark Magic",
+  "Fire Staff": "Fire Magic",
+  "Light Staff": "Light Magic",
+  "Wind Staff": "Wind Magic",
+  "Wind Wand": "Wind Magic",
+  "Dark Staff": "Dark Magic",
+  "Water Tome": "Water Magic",
+  "Earth Tome": "Earth Magic",
+  "Earth Wand": "Earth Magic",
+  "Ice Staff": "Ice Magic",
+  "Thunder Staff": "Thunder Magic",
+  "Earth Staff": "Earth Magic",
+  "Light Tome": "Light Magic",
+  "Fire Tome": "Fire Magic",
+  "Ice Tome": "Ice Magic",
+  "Wind Scroll": "Wind Magic",
+  "Ice Scroll": "Ice Magic",
+  "Fire Wand": "Fire Magic",
+  "Water Wand": "Water Magic",
+
+  // Melee and Physical Weapons
+  "Club": "Blunt",
+  "Longsword": "Slash",
+  "Sickle": "Slash",
+  "Katana": "Slash",
+  "Lance": "Pierce",
+  "Wand": "Magic Conduit",
+  "Spear": "Pierce",
+  "Knife": "Stab",
+  "Lightsaber": "Energy Slash",
+  "Catclaws": "Slash",
+  "Greatsword": "Heavy Slash",
+  "Rapier": "Finesse Pierce",
+  "Sabre": "Slash",
+  "Knuckles": "Blunt",
+  "Derringer": "Small Firearm",
+  "Bow": "Ranged",
+  "Estoc": "Pierce",
+  "Falchion": "Slash",
+  "Naginata": "Slash and Pierce",
+  "Axe": "Chop",
+  "Scalers": "Climbing Tool",
+  "Revolving Pistol": "Firearm",
+  "Sniper Rifle": "Precision Ranged",
+  "Fists": "Blunt",
+  "Dark Wand": "Dark Magic",
+  "Claws": "Slash",
+  "Shortsword": "Slash",
+  "Claymore": "Heavy Slash",
+  "Dagger": "Stab",
+  "Needle": "Precision Stab",
+  "Tomahawk": "Chop",
+  "Whip": "Lash",
+  "Gatling Gun": "Rapid Firearm",
+  "Shotgun": "Spread Firearm",
+  "Machete": "Chop",
+  "Scythe": "Sweep Slash",
+  "Mace": "Blunt",
+  "Blade": "Slash",
+  "Hatchet": "Chop",
+  "Longbow": "Ranged",
+  "Hammer": "Blunt",
+  "Scimitar": "Curve Slash",
+  "Parrying Dagger": "Defensive Stab",
+  "Crossbow": "Ranged",
+  "Blunderbuss": "Spread Firearm",
+  "Water Staff": "Water Magic",
+  "Staff": "Magic Conduit",
+  "Kunai": "Throwing Weapon",
+  "Sniperbow": "Precision Ranged",
+
+  // Generic or Unclassified
+  "Scroll": "Magic Scroll",
+  "Tome": "Magic Tome",
+  "Demonica": "Dark Magic",
+  "Scalers": "Utility",
+  "Fists": "Blunt",
+  "Assault Rifle": "Rapid Firearm",
+};
+
+const armorTypes = {
+  "Trousers": "Legs",
+  "Bronze Boots": "Feet",
+  "Amulet": "Accessory",
+  "Ninja Mask": "Head",
+  "Dark Knight Greaves": "Legs",
+  "Hood": "Head",
+  "Dragoon Boots": "Feet",
+  "Dragoon Helmet": "Head",
+  "Steel Shield": "Shield",
+  "Kevlar": "Body",
+  "Leather Gloves": "Hands",
+  "Bronze Gloves": "Hands",
+  "Bandana": "Head",
+  "Bronze Shield": "Shield",
+  "Wizard Hat": "Head",
+  "Mythril Helmet": "Head",
+  "Mask": "Head",
+  "Tunic": "Body",
+  "Ring": "Accessory",
+  "Leather Armor": "Body",
+  "Gloves": "Hands",
+  "Boots": "Feet",
+  "Greaves": "Legs",
+  "Leather Boots": "Feet",
+  "Sorceress Circlet": "Head",
+  "Shield": "Shield",
+  "Headband": "Head",
+  "Leggings": "Legs",
+  "Skullcap": "Head",
+  "Silk Leggings": "Legs",
+  "Shoes": "Feet",
+  "Mythril Shield": "Shield",
+  "Wristbands": "Hands",
+  "Leather Shield": "Shield",
+  "Steel Gloves": "Hands",
+  "Feather Cap": "Head",
+  "Gauntlets": "Hands",
+  "Mythril Armor": "Body",
+  "Mythril Gloves": "Hands",
+  "Cap": "Head",
+  "Bracers": "Arms",
+  "Dragoon Gauntlets": "Hands",
+  "Sorceress Slippers": "Feet",
+  "Tiara": "Head",
+  "Wizard Slippers": "Feet",
+  "Feather Boots": "Feet",
+  "Circlet": "Head",
+  "Leather Helmet": "Head",
+  "Mythril Boots": "Feet",
+  "Scales": "Body",
+  "Dark Knight Gauntlets": "Hands",
+  "Tuxedo": "Body",
+  "Parrying Shield": "Shield",
+  "Heels": "Feet",
+  "Helmet": "Head",
+  "Assassin Garb": "Body",
+  "Dark Knight Helmet": "Head",
+  "Buckler": "Shield",
+  "Slippers": "Feet",
+  "Horned Helment": "Head",
+  "Necklace": "Accessory",
+  "Wooden Shield": "Shield",
+  "Husk": "Body",
+  "Charm": "Accessory",
+  "Full Plate Armor": "Body",
+  "Longboots": "Feet",
+  "Mail": "Body",
+  "Earrings": "Accessory",
+  "Top Hat": "Head",
+  "Dragoon Shield": "Shield",
+  "Vest": "Body",
+  "Cloak": "Body",
+  "Sash": "Accessory",
+  "Belt": "Accessory",
+  "Dress Shoes": "Feet",
+  "Dragoon Armor": "Body",
+  "Sorceress Robe": "Body",
+  "Gi": "Body",
+  "Steel Boots": "Feet",
+  "Silk Robe": "Body",
+  "Cotton Robe": "Body",
+  "Robe": "Body",
+  "Chain Mail": "Body",
+  "Dark Knight Shield": "Shield",
+  "Wizard Robe": "Body",
+  "Dark Knight Armor": "Body",
+  "Bronze Helmet": "Head",
+  "Gown": "Body",
+  "Sage Robe": "Body",
+  "Suit": "Body",
+  "Bronze Armor": "Body",
+  "Steel Helmet": "Head",
+  "Armor": "Body",
+  "Garb": "Body",
+  "Ninja Garb": "Body"
+};
 
 
 const prefixes = [
@@ -485,15 +674,19 @@ const calculateStats = (itemName) => {
 
   let baseStatValue;
   let statType;
+  let armorType = null;
+
   if (weaponItems.includes(baseItemName)) {
     baseStatValue = baseAttackStats[baseItemName] || 0;
     statType = 'attack';
   } else if (clothingItems.includes(baseItemName)) {
     baseStatValue = baseDefenseStats[baseItemName] || 0;
     statType = 'defense';
+    armorType = armorTypes[baseItemName];
   } else {
     return null;
   }
+
 
   // Apply modifiers
   const prefixModifier = modifiers.prefixes[prefix] ? (modifiers.prefixes[prefix] - 1) * baseStatValue : 0;
@@ -504,7 +697,11 @@ const calculateStats = (itemName) => {
   // Limiting to two decimal places
   const finalStatValue = parseFloat(Math.ceil(totalStat));
 
-  return { [statType]: finalStatValue };
+  // if (!isAttackStat && armorTypes[baseItemName]) {
+    
+  // }
+
+  return { [statType]: finalStatValue, armorType };
 };
 
 const OrdinalCard = ({ ordinal }) => {
@@ -520,6 +717,9 @@ const OrdinalCard = ({ ordinal }) => {
 
   const stats = calculateStats(ordinal.data.insc.text);
   const rarity = getRarity(ordinal.data.insc.text);
+  const itemType = ordinal.data.insc.text.split(" ")[ordinal.data.insc.text.split(" ").length - 1];
+  const weaponType = weaponTypes[itemType];
+  const isAttackStat = stats && stats.attack !== undefined;
 
   const rarityStyles = {
     Common: "border-black text-black shadow-common",
@@ -527,24 +727,33 @@ const OrdinalCard = ({ ordinal }) => {
     Rare: "border-yellow-500 text-yellow-500 shadow-rare",
   };
 
-  const isAttackStat = stats && stats.attack !== undefined;
-
   return (
     <div className={`rounded-lg overflow-hidden m-4 p-4 bg-white border-2 ${rarityStyles[rarity]} hover:bg-gray-200`}>
       <div className="px-6 py-4">
-        <div className="font-bold text-lg mb-2 outline-black">{ordinal.data.insc.text}</div>
+        <div className="font-bold text-lg mb-2">{ordinal.data.insc.text}</div>
         <p className="text-gray-700 text-base">{rarity}</p>
-        <div className="h-4" />
         {stats && (
-          <div className="flex place-items-center text-center">
-            <img 
-              src={isAttackStat ? atkIcon : defIcon} 
-              alt={isAttackStat ? "Attack Icon" : "Defense Icon"}
-              className="h-4 w-4 mr-2" 
-            />
-            <p className={`${isAttackStat ? "text-red-500" : "text-blue-500"} text-sm font-bold`}>
-              {isAttackStat ? `Attack: ${stats.attack}` : `Defense: ${stats.defense}`}
-            </p>
+          <div className="mt-4">
+            <div className="flex items-center">
+              <img 
+                src={isAttackStat ? atkIcon : defIcon} 
+                alt={isAttackStat ? "Attack Icon" : "Defense Icon"}
+                className="h-4 w-4 mr-2" 
+              />
+              <p className={`${isAttackStat ? "text-red-500" : "text-blue-500"} text-sm font-bold`}>
+                {isAttackStat ? `Attack: ${stats.attack}` : `Defense: ${stats.defense}`}
+              </p>
+            </div>
+            {weaponType && (
+              <p className="text-sm italic text-black mt-2 text-left font-bold">
+                {weaponType}
+              </p>
+            )}
+            {stats.armorType && (
+              <p className="text-sm italic text-black mt-2 text-left font-bold">
+                {stats.armorType}
+              </p>
+            )}
           </div>
         )}
       </div>
