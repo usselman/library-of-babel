@@ -107,7 +107,7 @@ const OrdinalCard = ({ ordinal }) => {
                 <a
                   data-tooltip-id="my-tooltip"
                   data-tooltip-content={`Base: ${stats.baseStatValue} + 
-                  Modifiers: ${stats.prefixModifier} / ${stats.suffixModifier}`}
+                  Modifiers: ${stats.prefixModifier.toFixed(1)} / ${stats.suffixModifier.toFixed(1)}`}
                   data-tooltip-place="bottom"
                 >
                   {isAttackStat ? `Attack: ${stats.attack}` : `Defense: ${stats.defense}`}
