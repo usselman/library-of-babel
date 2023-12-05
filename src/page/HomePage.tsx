@@ -127,16 +127,22 @@ export const HomePage = () => {
         )} */}
         {wallet && ordinals.length > 0 && (
           <div className="mt-4">
-            <h4 className="text-3xl font-semibold text-black text-center">
-              LRC-20s:
-            </h4>
-            {renderLRC20Cards()}
-            <h4 className="text-3xl font-semibold text-black text-center">
-              Tale of Shua Gear:
+            <h4 className="text-4xl font-semibold text-black text-center">
+              Your Inscriptions
             </h4>
             <p className="text-md text-black text-center italic">
             (Latest 100)
             </p>
+            <div className="h-8" />
+            <h4 className="text-3xl font-semibold text-black text-center">
+              LRC-20s:
+            </h4>
+            {renderLRC20Cards()}
+            <div className="h-8" />
+            <h4 className="text-3xl font-semibold text-black text-center">
+              Tale of Shua Gear:
+            </h4>
+            
             {renderOrdinalCards()}
           </div>
         )}
