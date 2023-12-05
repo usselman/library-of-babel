@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { PandaConnectButton } from "../components/PandaConnectButton";
 import OrdinalCard from "../components/OrdinalCard";
 import LRCCard from "../components/LRCCard";
+import SonataCard from "../components/SonataCard";
 import {
   Addresses,
   SignedMessage,
@@ -36,10 +37,10 @@ export const HomePage = () => {
         if (isConnected) {
           const addrs = await wallet.getAddresses();
           if (addrs) setAddresses(addrs);
-          console.log(addrs);
+          console.log("addresses: ", addrs);
           const ords = await wallet.getOrdinals();
           if (ords) setOrdinals(ords);
-          console.log(ords);
+          console.log("ords: ", ords);
         }
       }
     };
@@ -60,6 +61,21 @@ export const HomePage = () => {
     const key = await wallet.connect();
     if (key) setPubKey(key);
   };
+
+  const renderSonatas = () => {
+    const filteredSonatas = ordinals.filter(
+      (ordinal) =>
+        ordinal?.data?.insc?.json?.p ===
+        "sonata"
+    );
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {filteredSonatas.map((ordinal, index) => (
+          <SonataCard key={index} ordinal={ordinal} />
+        ))}
+      </div>
+    );
+  }
 
   const renderLRC20Cards = () => {
     const filteredLRC20s = ordinals.filter(
@@ -133,6 +149,11 @@ export const HomePage = () => {
             <p className="text-md text-black text-center italic">
             (Latest 100)
             </p>
+            <div className="h-8" />
+            <h4 className="text-3xl font-semibold text-black text-center">
+              Sonatas:
+            </h4>
+            {renderSonatas()}
             <div className="h-8" />
             <h4 className="text-3xl font-semibold text-black text-center">
               LRC-20s:
