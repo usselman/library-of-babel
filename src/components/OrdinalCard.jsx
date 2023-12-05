@@ -49,21 +49,20 @@ const calculateStats = (itemName) => {
     return null;
   }
 
-
   // Apply modifiers
-  const prefixModifier = modifiers.prefixes[prefix] ? (modifiers.prefixes[prefix] - 1) * baseStatValue : 0;
-  const suffixModifier = modifiers.suffixes[suffix] ? (modifiers.suffixes[suffix] - 1) * baseStatValue : 0;
+const prefixModifier = modifiers.prefixes[prefix] ? (modifiers.prefixes[prefix] - 1) * baseStatValue : 0;
+const suffixModifier = modifiers.suffixes[suffix] ? (modifiers.suffixes[suffix] - 1) * baseStatValue : 0;
 
-  const totalStat = baseStatValue + prefixModifier + suffixModifier;
+const totalStat = baseStatValue + prefixModifier + suffixModifier;
 
-  // Limiting to two decimal places
-  const finalStatValue = parseFloat(Math.ceil(totalStat));
+// Limiting to two decimal places
+const finalStatValue = parseFloat(Math.ceil(totalStat));
 
-  // if (!isAttackStat && armorTypes[baseItemName]) {
-    
-  // }
+// if (!isAttackStat && armorTypes[baseItemName]) {
+  
+// }
 
-  return { [statType]: finalStatValue, baseStatValue, prefixModifier, suffixModifier, armorType };
+return { [statType]: finalStatValue, baseStatValue, prefixModifier, suffixModifier, armorType };
 };
 
 const OrdinalCard = ({ ordinal }) => {

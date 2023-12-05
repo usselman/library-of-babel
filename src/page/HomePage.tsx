@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { PandaConnectButton } from "../components/PandaConnectButton";
 import OrdinalCard from "../components/OrdinalCard";
+import LRCCard from "../components/LRCCard";
 import {
   Addresses,
   SignedMessage,
@@ -60,6 +61,21 @@ export const HomePage = () => {
     if (key) setPubKey(key);
   };
 
+  const renderLRC20Cards = () => {
+    const filteredLRC20s = ordinals.filter(
+      (ordinal) =>
+        ordinal?.data?.insc?.json?.p ===
+        "lrc-20"
+    );
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {filteredLRC20s.map((ordinal, index) => (
+          <LRCCard key={index} ordinal={ordinal} />
+        ))}
+      </div>
+    );
+  }
+
   const renderOrdinalCards = () => {
     const filteredOrdinals = ordinals.filter(
       (ordinal) =>
@@ -111,6 +127,10 @@ export const HomePage = () => {
         )} */}
         {wallet && ordinals.length > 0 && (
           <div className="mt-4">
+            <h4 className="text-3xl font-semibold text-black text-center">
+              LRC-20s:
+            </h4>
+            {renderLRC20Cards()}
             <h4 className="text-3xl font-semibold text-black text-center">
               Tale of Shua Gear:
             </h4>
