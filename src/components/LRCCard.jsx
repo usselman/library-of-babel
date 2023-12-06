@@ -17,7 +17,8 @@ const LRCCard = ({ ordinal }) => {
         <div className="font-bold text-lg mb-2">Ticker: {lrcName}</div>
         <div className="font-bold text-lg mb-2">Amount: {ordinal.data.insc.json.amt}</div>
         <div className="font-bold text-lg mb-2 underline"><a href={`https://whatsonchain.com/${ordinal.txid}`}>{ordinal.data.insc.json.op} tx</a></div>
-
+        <div className="font-bold text-lg mb-2 underline"><a href={`https://whatsonchain.com/block-height/${ordinal.height}`}>blk: {ordinal.height}</a></div>
+        <div className="font-bold text-lg mb-2 underline"><a href={`https://1satordinals.com/inscription/${ordinal.origin.num}`}>#{ordinal.origin.num}</a></div>
         </div>
       </div>
     );
