@@ -154,14 +154,14 @@ export const HomePage = () => {
         
         <>
         <div className="h-8" />
-        <h1 className="text-2xl font-bold text-center rainbow-text">Connect your Panda Wallet to view gear:</h1>
+        <h1 className="text-2xl font-bold text-center text-black">Connect your Panda Wallet to view inscriptions:</h1>
         <div className="place-content-center flex">
           <PandaConnectButton
             className="mt-4 p-2 bg-blue-900 text-white rounded hover:bg-blue-600"
             onClick={handleConnect}
           />
         </div> 
-        <h2 className="text-lg font-bold text-center italic rainbow-text mt-8">(Refresh after logging in if nothing shows)</h2>
+        <h2 className="text-lg font-bold text-center italic text-black mt-8">(Refresh after logging in if nothing shows)</h2>
 
         <div className="h-8" /> 
         </>
