@@ -86,12 +86,15 @@ const OrdinalCard = ({ ordinal }) => {
   const rarityStyles = {
     Common: "border-black text-black shadow-common hover:bg-gray-300",
     Uncommon: "border-blue-500 text-blue-500 shadow-uncommon hover:bg-blue-300",
-    Rare: "border-yellow-500 shadow-rare rainbow-text hover:border-2 hover:animate-pulse",
+    Rare: "border-yellow-500 shadow-rare rainbow-text hover:border-2",
   };
 
+  const tooltipId = `tooltip-${ordinal.origin.num}`;
+
   return (
-    <div className={`rounded-lg overflow-hidden m-4 p-4 bg-white border-2 ${rarityStyles[rarity]} `}>
-      <div className="px-6 py-4">
+    <div className={`relative rounded-lg overflow-hidden m-4 p-4 bg-white border-4 ${rarityStyles[rarity]} `}>
+      <div className="px-6 py-4 mb-32">
+      <div className={`border-0 rounded-lg p-4 bg-white ${rarityStyles[rarity]} hover:bg-white`}>
         <div className="font-bold text-lg mb-2">{ordinal.data.insc.text}</div>
         <p className="text-gray-700 text-base">{rarity}</p>
         {stats && (
@@ -104,14 +107,14 @@ const OrdinalCard = ({ ordinal }) => {
               />
               <p className={`${isAttackStat ? "text-red-500" : "text-blue-500"} text-sm font-bold`}>
                 <a
-                  data-tooltip-id="my-tooltip"
+                  data-tooltip-id={tooltipId}
                   data-tooltip-content={`Base: ${stats.baseStatValue} + 
                   Modifiers: ${stats.prefixModifier.toFixed(1)} / ${stats.suffixModifier.toFixed(1)}`}
                   data-tooltip-place="bottom"
                 >
                   {isAttackStat ? `Attack: ${stats.attack}` : `Defense: ${stats.defense}`}
                 </a>
-                <Tooltip id="my-tooltip" />
+                <Tooltip id={tooltipId}/>
               </p>
             </div>
             {weaponType && (
@@ -126,7 +129,14 @@ const OrdinalCard = ({ ordinal }) => {
             )}
           </div>
         )}
+        </div>
+        <div className={`absolute bottom-0 left-0 right-0 border-0 border-black shadow-none text-sm rounded-xl p-4 m-4 bg-white ${rarityStyles[rarity]} hover:bg-tr`}>
+          <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/${ordinal.txid}`}>tx</a></div>
+          <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/block-height/${ordinal.height}`}>blk: {ordinal.height}</a></div>
+          <div className="font-bold mb-2 underline"><a href={`https://1satordinals.com/inscription/${ordinal.origin.num}`}>#{ordinal.origin.num}</a></div>
+        </div>
       </div>
+      
     </div>
   );
 };

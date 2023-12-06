@@ -18,15 +18,18 @@ code {
 }
 
 .shadow-common {
-  box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.1), 0 4px 8px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 10px 8px 12px -1px rgba(0, 0, 0, 0.1), 10px 4px 8px -1px rgba(0, 0, 0, 0.06);
 }
 
 .shadow-uncommon {
-  box-shadow: 0 8px 12px -1px rgba(59, 130, 246, 0.5), 0 4px 8px -1px rgba(59, 130, 246, 0.25);
+  box-shadow: 10px 8px 12px -1px rgba(59, 130, 246, 0.5), 10px 4px 8px -1px rgba(59, 130, 246, 0.25);
 }
 
 .shadow-rare {
-  box-shadow: 0 8px 12px -1px rgba(234, 179, 8, 0.5), 0 4px 8px -1px rgba(234, 179, 8, 0.25);
+  box-shadow: 10px 8px 12px -1px rgba(234, 179, 8, 0.5), 10px 4px 8px -1px rgba(234, 179, 8, 0.25);
+}
+.rainbow-text:hover{
+  background: linear-gradient(66deg, red, orange, gold, green, blue, indigo, violet);
 }
 
 .rainbow-text {
