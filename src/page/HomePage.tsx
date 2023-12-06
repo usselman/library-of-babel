@@ -3,6 +3,7 @@ import { PandaConnectButton } from "../components/PandaConnectButton";
 import OrdinalCard from "../components/OrdinalCard";
 import LRCCard from "../components/LRCCard";
 import SonataCard from "../components/SonataCard";
+import OGCards from "../components/OGCards";
 import {
   Addresses,
   SignedMessage,
@@ -92,6 +93,40 @@ export const HomePage = () => {
     );
   }
 
+  const extractNumber = (text: string): number | null => {
+    const parts = text.split(" ");
+    if (parts.length > 0 && !isNaN(parseInt(parts[0], 10))) {
+      return parseInt(parts[0], 10);
+    } 
+    return null;
+  };
+  
+
+  const renderOGCards = () => {
+    const filteredOGs = ordinals
+      .filter((ordinal) => {
+        return (
+          ordinal?.origin?.data?.insc?.words &&
+          ordinal.origin.data.insc.words.length > 1 &&
+          ordinal.origin.data.insc.words[1] === "og"
+        );
+      })
+      .sort((a, b) => {
+        const numA = extractNumber(a?.data?.insc.text);
+        const numB = extractNumber(b?.data?.insc.text);
+        return (numA ?? 0) - (numB ?? 0);
+      });
+  
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {filteredOGs.map((ordinal, index) => (
+          <OGCards key={index} ordinal={ordinal} />
+        ))}
+      </div>
+    );
+  }
+  
+
   const renderOrdinalCards = () => {
     const filteredOrdinals = ordinals.filter(
       (ordinal) =>
@@ -149,6 +184,11 @@ export const HomePage = () => {
             <p className="text-md text-black text-center italic">
             (Latest 100)
             </p>
+            <div className="h-8" />
+            <h4 className="text-3xl font-semibold text-black text-center">
+              .OGs:
+            </h4>
+            {renderOGCards()}
             <div className="h-8" />
             <h4 className="text-3xl font-semibold text-black text-center">
               Sonatas:
