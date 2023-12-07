@@ -11,8 +11,9 @@ const OGCards = ({ ordinal, address }) => {
 
     const checkOnOrdinalsGorillaPool = async (txid) => {
         try {
-            const ordinalsResponse = await fetch(`https://ordinals.gorillapool.io/api/locks/txid/${txid}`);
+            const ordinalsResponse = await fetch(`https://ordinals.gorillapool.io/api/locks/origin/${txid}`);
             const ordinalsData = await ordinalsResponse.json();
+            console.log("response: ", ordinalsData);
 
             if (ordinalsData.length > 0 && ordinalsData[0].satoshis >= 1000000 && ordinalsData[0].data && ordinalsData[0].data.lock && ordinalsData[0].data.lock.until === 1050000) {
                 setVerificationStatus("Verified (✓)");
