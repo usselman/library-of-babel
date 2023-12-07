@@ -58,9 +58,9 @@ const OGCards = ({ ordinal, address }) => {
         <div className={`rounded-lg overflow-hidden m-4 p-4 bg-white border-4 border-black shadow-xl hover:bg-gray-300`}>
             <div className="px-6 py-4">
                 <div className="font-bold text-lg mb-2">{ordinal.data.insc.text}</div>
-                <button onClick={verifyRecord} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                {/* <button onClick={verifyRecord} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     Verify
-                </button>
+                </button> */}
                 <div 
                 className="m-4"
                 style={{ color: verificationStatus.includes("✓") ? 'green' : 'red' }}>
