@@ -31,6 +31,7 @@ export const HomePage = () => {
   const [addresses, setAddresses] = useState<Addresses | undefined>();
   const [ordinals, setOrdinals] = useState<any[]>([]);
   const [ordAddress, setOrdAddress] = useState<string | undefined>();
+  const [hodlSum, setHodlSum] = useState<number>(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -91,11 +92,15 @@ export const HomePage = () => {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {filteredLRC20s.map((ordinal, index) => (
-          <LRCCard key={index} ordinal={ordinal} />
+          <LRCCard key={index} ordinal={ordinal} setHodlSum={setHodlSum}/>
         ))}
       </div>
     );
   }
+
+//   const handleHodlUpdate = (amount: number) => {
+//     setHodlSum(prevTotal => prevTotal + amount);
+// };
 
   const extractNumber = (text: string): number | null => {
     const parts = text.split(" ");
@@ -185,13 +190,16 @@ export const HomePage = () => {
             <h4 className="text-4xl font-semibold text-black text-center">
               Your Inscriptions
             </h4>
-            <p className="text-md text-black text-center italic">
-            (Latest 100)
+            <p className="text-md text-black text-center italic mt-4">
+            Keep in mind the amounts may not be accurate! Panda Wallet shows latest 100 inscriptions.
             </p>
             <div className="h-8" />
             <h4 className="text-3xl font-semibold text-black text-center">
               .OGs:
             </h4>
+            <p className="text-md text-black text-center italic mt-4">
+            Verification will show invalid if the .og has been transferred to another address after minting.
+            </p>
             {renderOGCards()}
             <div className="h-8" />
             <h4 className="text-3xl font-semibold text-black text-center">
@@ -201,6 +209,7 @@ export const HomePage = () => {
             <div className="h-8" />
             <h4 className="text-3xl font-semibold text-black text-center">
               LRC-20s:
+              <div>Total $hodl: {hodlSum}</div>
             </h4>
             {renderLRC20Cards()}
             <div className="h-8" />
