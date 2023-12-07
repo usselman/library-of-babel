@@ -30,6 +30,7 @@ export const HomePage = () => {
   const [pubKey, setPubKey] = useState<string | undefined>();
   const [addresses, setAddresses] = useState<Addresses | undefined>();
   const [ordinals, setOrdinals] = useState<any[]>([]);
+  const [ordAddress, setOrdAddress] = useState<string | undefined>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,7 +38,10 @@ export const HomePage = () => {
         const isConnected = await wallet.isConnected();
         if (isConnected) {
           const addrs = await wallet.getAddresses();
-          if (addrs) setAddresses(addrs);
+          if (addrs) {
+            setAddresses(addrs);
+            setOrdAddress(addrs.ordAddress);
+          }
           console.log("addresses: ", addrs);
           const ords = await wallet.getOrdinals();
           if (ords) setOrdinals(ords);
@@ -120,7 +124,7 @@ export const HomePage = () => {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {filteredOGs.map((ordinal, index) => (
-          <OGCards key={index} ordinal={ordinal} />
+          <OGCards key={index} ordinal={ordinal} address={ordAddress} />
         ))}
       </div>
     );

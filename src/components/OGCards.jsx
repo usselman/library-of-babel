@@ -1,22 +1,76 @@
+import { useState } from 'react';
 
+const OGCards = ({ ordinal, address }) => {
+    const [verificationStatus, setVerificationStatus] = useState('Pending');
 
-const OGCards = ({ ordinal }) => {
-    console.log("passed LRC-20", ordinal);
+    const isDigit = (item) => {
+        const selectedIndex = item.data?.insc?.words[0] === 'og' ? 1 : 0;
+        const parsed = parseInt(item.data?.insc?.words[selectedIndex], 10);
+        return !isNaN(parsed);
+    };
+
+    const checkOnOrdinalsGorillaPool = async (txid) => {
+        try {
+            const ordinalsResponse = await fetch(`https://ordinals.gorillapool.io/api/locks/txid/${txid}`);
+            const ordinalsData = await ordinalsResponse.json();
+
+            if (ordinalsData.length > 0 && ordinalsData[0].satoshis >= 1000000 && ordinalsData[0].data && ordinalsData[0].data.lock && ordinalsData[0].data.lock.until === 1050000) {
+                setVerificationStatus("Verified (✓)");
+            } else {
+                setVerificationStatus("Not Verified (✗)");
+            }
+        } catch (error) {
+            console.error('Error checking on Ordinals GorillaPool:', error);
+            setVerificationStatus("Verification Error");
+        }
+    };
+
+    const verifyRecord = async () => {
+        if (isDigit(ordinal)) {
+            try {
+                const searchResponse = await fetch('https://v3.ordinals.gorillapool.io/api/inscriptions/search?sort=ASC&limit=1&offset=0', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ insc: { file: { hash: ordinal.data.insc.file.hash } } })
+                });
+                const searchData = await searchResponse.json();
+
+                if (searchData[0] && searchData[0].txid === ordinal.txid) {
+                    checkOnOrdinalsGorillaPool(ordinal.txid);
+                } else {
+                    setVerificationStatus("Not the first inscription (✗)");
+                }
+            } catch (error) {
+                console.error('Error verifying record:', error);
+                setVerificationStatus("Verification Error");
+            }
+        } else {
+            setVerificationStatus("Not A Number (✗)");
+        }
+    };
 
     return (
-      <div className={`rounded-lg overflow-hidden m-4 p-4 bg-white border-4 border-black shadow-xl hover:bg-gray-300`}>
-        <div className="px-6 py-4">
-        {/* <div className="font-bold mb-2 text-xs overflow-wrap"><a href={`https://whatsonchain.com/${ordinal.txid}`}>{ordinal.txid}</a></div> */}
-        <div className="font-bold text-lg mb-2">{ordinal.data.insc.text}</div>
-        <div className="border-2 border-black text-md rounded-xl p-4 bg-white">
-          <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/tx/${ordinal.txid}`}>tx</a></div>
-          <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/block-height/${ordinal.height}`}>blk: {ordinal.height}</a></div>
-          <div className="font-bold mb-2 underline"><a href={`https://1satordinals.com/inscription/${ordinal.origin.num}`}>#{ordinal.origin.num}</a></div>
+        <div className={`rounded-lg overflow-hidden m-4 p-4 bg-white border-4 border-black shadow-xl hover:bg-gray-300`}>
+            <div className="px-6 py-4">
+                <div className="font-bold text-lg mb-2">{ordinal.data.insc.text}</div>
+                <button onClick={verifyRecord} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Verify
+                </button>
+                <div 
+                className="m-4"
+                style={{ color: verificationStatus.includes("✓") ? 'green' : 'red' }}>
+                    {verificationStatus}
+                </div>
+                <div className="border-2 border-black text-md rounded-xl p-4 bg-white mt-4">
+                    <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/tx/${ordinal.txid}`}>tx</a></div>
+                    <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/block-height/${ordinal.height}`}>blk: {ordinal.height}</a></div>
+                    <div className="font-bold mb-2 underline"><a href={`https://1satordinals.com/inscription/${ordinal.origin.num}`}>#{ordinal.origin.num}</a></div>
+                </div>
+            </div>
         </div>
-        </div>
-      </div>
     );
-  };
-  
-  export default OGCards;
-  
+};
+
+export default OGCards;
