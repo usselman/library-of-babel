@@ -1,23 +1,38 @@
-const LRCCard = ({ ordinal }) => {
+import React, { useEffect } from "react";
+
+const LRCCard = ({ ordinal, setHodlSum }) => {
   console.log("passed LRC-20", ordinal);
 
   let lrcName;
   let verificationMessage = null;
   let verificationStyle = {};
+  let valid;
+  const amount = parseFloat(ordinal.data.insc.json.amt);
 
   if (ordinal.data.insc.json.id === 'bfd3bfe2d65a131e9792ee04a2da9594d9dc8741a7ab362c11945bfc368d2063_1') {
       lrcName = '$hodl';
+      
+
       // Check block height for $hodl
       if (ordinal.height > 821205) {
           verificationMessage = 'Invalid mint (after blk #21205)';
           verificationStyle = { color: 'red' };
+          valid = false;
       } else {
           verificationMessage = 'Valid mint';
           verificationStyle = { color: 'green' };
+          valid = true;
       }
   } else {
       lrcName = 'unknown LRC-20';
   }
+
+  useEffect(() => {
+    if (valid) {
+      setHodlSum(prev => prev + amount);
+    }
+  }, []); 
+
 
   return (
     <div className={`rounded-lg overflow-hidden m-4 p-4 bg-white border-4 border-black shadow-xl hover:bg-gray-300`}>
