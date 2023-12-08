@@ -90,18 +90,28 @@ const renderContent = () => {
 
 
   const renderSonatas = () => {
+    
     const filteredSonatas = ordinals.filter(
       (ordinal) =>
         ordinal?.data?.insc?.json?.p ===
         "sonata"
     );
     return (
+      <>
+      <div className="text-center text-2xl mt-4 mb-4">
+        Sonata is an experimental format to inscribe music metadata on-chain.
+      </div>
+      <div className="text-center text-2xl m-8">
+        <a className="hover:text-blue-900 hover:bg-blue-200 bg-gray-100 text-gray-900 border-0 border-black rounded-xl p-4 m-4" href="https://usselman.github.io/distromint/">Inscribe here</a>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {filteredSonatas.map((ordinal, index) => (
           <SonataCard key={index} ordinal={ordinal} />
         ))}
       </div>
+    </>
     );
+
   }
 
   const renderLRC20Cards = () => {
