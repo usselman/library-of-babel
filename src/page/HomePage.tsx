@@ -32,6 +32,7 @@ export const HomePage = () => {
   const [ordinals, setOrdinals] = useState<any[]>([]);
   const [ordAddress, setOrdAddress] = useState<string | undefined>();
   const [hodlSum, setHodlSum] = useState<number>(0);
+  const [selectedType, setSelectedType] = useState('OGs');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -68,6 +69,26 @@ export const HomePage = () => {
     if (key) setPubKey(key);
   };
 
+  const handleChange = (event: any) => {
+    setSelectedType(event.target.value);
+};
+
+const renderContent = () => {
+    switch (selectedType) {
+        case 'OGs':
+            return renderOGCards();
+        case 'Sonatas':
+            return renderSonatas();
+        case 'LRC-20s':
+            return renderLRC20Cards();
+        case 'Tale of Shua Gears':
+            return renderOrdinalCards();
+        default:
+            return null;
+    }
+};
+
+
   const renderSonatas = () => {
     const filteredSonatas = ordinals.filter(
       (ordinal) =>
@@ -90,11 +111,20 @@ export const HomePage = () => {
         "lrc-20"
     );
     return (
+      <>
+      <div>
+          <h4 className="text-2xl font-semibold text-black text-center">
+            Total $hodl: {hodlSum}
+          </h4>
+        </div>
+      
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        
         {filteredLRC20s.map((ordinal, index) => (
           <LRCCard key={index} ordinal={ordinal} setHodlSum={setHodlSum}/>
         ))}
       </div>
+      </>
     );
   }
 
@@ -194,30 +224,14 @@ export const HomePage = () => {
             Keep in mind the amounts may not be accurate! Panda Wallet shows latest 100 inscriptions.
             </p>
             <div className="h-8" />
-            <h4 className="text-3xl font-semibold text-black text-center">
-              .OGs:
-            </h4>
-            <p className="text-md text-black text-center italic mt-4">
-            Verification will show invalid if the .og has been transferred to another address after minting.
-            </p>
-            {renderOGCards()}
-            <div className="h-8" />
-            <h4 className="text-3xl font-semibold text-black text-center">
-              Sonatas:
-            </h4>
-            {renderSonatas()}
-            <div className="h-8" />
-            <h4 className="text-3xl font-semibold text-black text-center">
-              LRC-20s:
-              <div>Total $hodl: {hodlSum}</div>
-            </h4>
-            {renderLRC20Cards()}
-            <div className="h-8" />
-            <h4 className="text-3xl font-semibold text-black text-center">
-              Tale of Shua Gear:
-            </h4>
-            
-            {renderOrdinalCards()}
+            <select value={selectedType} onChange={handleChange} className="mb-4 rounded-xl border-2 p-4 border-black">
+                    <option value="OGs">.OGs</option>
+                    <option value="Sonatas">Sonatas</option>
+                    <option value="LRC-20s">LRC-20s</option>
+                    <option value="Tale of Shua Gears">Tale of Shua Gears</option>
+                </select>
+
+                {renderContent()}
           </div>
         )}
       </div>
