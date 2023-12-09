@@ -106,8 +106,8 @@ const renderContent = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {filteredSonatas.map((ordinal, index) => (
-          <SonataCard key={index} ordinal={ordinal} />
-        ))}
+      <SonataCard key={index} ordinal={ordinal} transferOrdinal={transferOrdinal} />
+      ))}
       </div>
     </>
     );
@@ -169,12 +169,11 @@ const renderContent = () => {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {filteredOGs.map((ordinal, index) => (
-          <OGCards key={index} ordinal={ordinal} address={ordAddress} />
+          <OGCards key={index} ordinal={ordinal} address={ordAddress} transferOrdinal={transferOrdinal} />
         ))}
       </div>
     );
   }
-  
 
   const renderOrdinalCards = () => {
     const filteredOrdinals = ordinals.filter(
@@ -185,10 +184,21 @@ const renderContent = () => {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {filteredOrdinals.map((ordinal, index) => (
-          <OrdinalCard key={index} ordinal={ordinal} />
+          <OrdinalCard key={index} ordinal={ordinal} transferOrdinal={transferOrdinal}/>
         ))}
       </div>
     );
+  };
+
+  const transferOrdinal = async (address: string, origin: string, outpoint: string) => {
+    try {
+      const txid = await wallet.transferOrdinal({ address, origin, outpoint });
+      console.log(txid);
+      alert(`Transfer successful! Transaction ID: ${txid}`);
+    } catch (err: any) {
+      console.error(err);
+      alert(`Transfer failed: ${err.message}`);
+    }
   };
 
   return (
