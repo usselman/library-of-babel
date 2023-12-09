@@ -236,12 +236,12 @@ export const HomePage = () => {
           </p>
         )} */}
         {wallet && ordinals.length > 0 && (
-          <div className="mt-8">
+          <div className="mt-12">
             <div className="parchment-container">
               <h4 className="text-4xl font-semibold text-black text-center title">
                 Library of Babel
               </h4>
-              <p className="text-xl font-semibold text-black text-center hover:text-blue-500 rounded-xl p-4 author">
+              <p className="text-sm font-semibold text-black text-center hover:text-blue-500 rounded-xl author">
                 <a href="https://twitter.com/worldbuilder_us">@worldbuilder.us</a>
               </p>
               {/* Rest of your content */}
