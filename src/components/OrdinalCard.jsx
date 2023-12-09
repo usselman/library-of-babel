@@ -147,17 +147,18 @@ const OrdinalCard = ({ ordinal, transferOrdinal }) => {
             <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/${ordinal.txid}`}>tx</a></div>
             <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/block-height/${ordinal.height}`}>blk: {ordinal.height}</a></div>
             <div className="font-bold mb-2 underline"><a href={`https://1satordinals.com/inscription/${ordinal.origin.num}`}>#{ordinal.origin.num}</a></div>
+            <div className="text-center mt-4">
+              <button
+                onClick={handleTransfer}
+                className="transfer-btn border-0 text-md bg-blue-500 hover:bg-black hover:text-white border-black rounded-xl p-4 place-content-center">
+                Transfer
+              </button>
+            </div>
           </div>
         </div>
 
       </div>
-      <div className="text-center mt-4">
-        <button
-          onClick={handleTransfer}
-          className="transfer-btn border-0 text-md bg-blue-500 hover:bg-black hover:text-white border-black rounded-xl p-4 place-content-center">
-          Transfer
-        </button>
-      </div>
+
     </>
   );
 };
