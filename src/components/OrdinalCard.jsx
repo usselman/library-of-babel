@@ -106,7 +106,7 @@ const OrdinalCard = ({ ordinal, transferOrdinal }) => {
   return (
     <>
       <div className={`relative rounded-lg overflow-hidden m-4 p-4 bg-white border-4 ${rarityStyles[rarity]} `}>
-        <div className="px-6 py-4 mb-32">
+        <div className="px-6 py-4 mb-48">
           <div className={`border-0 rounded-lg p-4 bg-white ${rarityStyles[rarity]} hover:bg-white`}>
             <div className="font-bold text-lg mb-2">{ordinal.data.insc.text}</div>
             <p className="text-gray-700 text-base">{rarity}</p>
@@ -143,17 +143,17 @@ const OrdinalCard = ({ ordinal, transferOrdinal }) => {
               </div>
             )}
           </div>
-          <div className={`absolute bottom-0 left-0 right-0 border-0 border-black shadow-none text-sm rounded-xl p-4 m-4 bg-white ${rarityStyles[rarity]} hover:bg-tr`}>
+          <div className={`absolute bottom-0 left-0 right-0 border-0 border-black shadow-none text-sm rounded-xl p-4 m-4 bg-white ${rarityStyles[rarity]} hover:bg-transparent`}>
             <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/${ordinal.txid}`}>tx</a></div>
             <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/block-height/${ordinal.height}`}>blk: {ordinal.height}</a></div>
             <div className="font-bold mb-2 underline"><a href={`https://1satordinals.com/inscription/${ordinal.origin.num}`}>#{ordinal.origin.num}</a></div>
-            {/* <div className="text-center mt-4">
+            <div className="text-center">
               <button
                 onClick={handleTransfer}
-                className="transfer-btn border-0 text-md bg-blue-500 hover:bg-black hover:text-white border-black rounded-xl p-4 place-content-center">
+                className="transfer-btn text-black border-0 text-md bg-blue-500 hover:bg-black hover:text-white border-black rounded-xl p-4 place-content-center">
                 Transfer
               </button>
-            </div> */}
+            </div>
           </div>
         </div>
 

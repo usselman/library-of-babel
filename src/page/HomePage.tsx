@@ -71,26 +71,26 @@ export const HomePage = () => {
 
   const handleChange = (event: any) => {
     setSelectedType(event.target.value);
-};
+  };
 
-const renderContent = () => {
+  const renderContent = () => {
     switch (selectedType) {
-        case 'OGs':
-            return renderOGCards();
-        case 'Sonatas':
-            return renderSonatas();
-        case 'LRC-20s':
-            return renderLRC20Cards();
-        case 'Tale of Shua Gears':
-            return renderOrdinalCards();
-        default:
-            return null;
+      case 'OGs':
+        return renderOGCards();
+      case 'Sonatas':
+        return renderSonatas();
+      case 'LRC-20s':
+        return renderLRC20Cards();
+      case 'Tale of Shua Gears':
+        return renderOrdinalCards();
+      default:
+        return null;
     }
-};
+  };
 
 
   const renderSonatas = () => {
-    
+
     const filteredSonatas = ordinals.filter(
       (ordinal) =>
         ordinal?.data?.insc?.json?.p ===
@@ -98,18 +98,18 @@ const renderContent = () => {
     );
     return (
       <>
-      <div className="text-center text-2xl mt-4 mb-4">
-        Sonata is an experimental format to inscribe music metadata on-chain.
-      </div>
-      <div className="text-center text-2xl m-8">
-        <a className="hover:text-blue-900 hover:bg-blue-200 bg-gray-100 text-gray-900 border-0 border-black rounded-xl p-4 m-4" href="https://usselman.github.io/distromint/">Inscribe here</a>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {filteredSonatas.map((ordinal, index) => (
-      <SonataCard key={index} ordinal={ordinal} transferOrdinal={transferOrdinal} />
-      ))}
-      </div>
-    </>
+        <div className="text-center text-2xl mt-4 mb-4">
+          Sonata is an experimental format to inscribe music metadata on-chain.
+        </div>
+        <div className="text-center text-2xl m-8">
+          <a className="hover:text-blue-900 hover:bg-blue-200 bg-gray-100 text-gray-900 border-0 border-black rounded-xl p-4 m-4" href="https://usselman.github.io/distromint/">Inscribe here</a>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {filteredSonatas.map((ordinal, index) => (
+            <SonataCard key={index} ordinal={ordinal} transferOrdinal={transferOrdinal} />
+          ))}
+        </div>
+      </>
     );
 
   }
@@ -122,34 +122,34 @@ const renderContent = () => {
     );
     return (
       <>
-      <div>
+        <div>
           <h4 className="text-2xl font-semibold text-black text-center">
             Total $hodl: {hodlSum}
           </h4>
         </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        
-        {filteredLRC20s.map((ordinal, index) => (
-          <LRCCard key={index} ordinal={ordinal} setHodlSum={setHodlSum}/>
-        ))}
-      </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+
+          {filteredLRC20s.map((ordinal, index) => (
+            <LRCCard key={index} ordinal={ordinal} setHodlSum={setHodlSum} />
+          ))}
+        </div>
       </>
     );
   }
 
-//   const handleHodlUpdate = (amount: number) => {
-//     setHodlSum(prevTotal => prevTotal + amount);
-// };
+  //   const handleHodlUpdate = (amount: number) => {
+  //     setHodlSum(prevTotal => prevTotal + amount);
+  // };
 
   const extractNumber = (text: string): number | null => {
     const parts = text.split(" ");
     if (parts.length > 0 && !isNaN(parseInt(parts[0], 10))) {
       return parseInt(parts[0], 10);
-    } 
+    }
     return null;
   };
-  
+
 
   const renderOGCards = () => {
     const filteredOGs = ordinals
@@ -165,7 +165,7 @@ const renderContent = () => {
         const numB = extractNumber(b?.data?.insc.text);
         return (numA ?? 0) - (numB ?? 0);
       });
-  
+
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {filteredOGs.map((ordinal, index) => (
@@ -184,7 +184,7 @@ const renderContent = () => {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {filteredOrdinals.map((ordinal, index) => (
-          <OrdinalCard key={index} ordinal={ordinal} transferOrdinal={transferOrdinal}/>
+          <OrdinalCard key={index} ordinal={ordinal} transferOrdinal={transferOrdinal} />
         ))}
       </div>
     );
@@ -209,22 +209,22 @@ const renderContent = () => {
           alt="Panda Wallet Icon"
           className="mx-auto h-20 w-20"
         /> */}
-        { ordinals.length == 0 && 
-        
-        <>
-        <div className="h-8" />
-        <h1 className="text-2xl font-bold text-center text-black">Connect your Panda Wallet to view inscriptions:</h1>
-        <div className="place-content-center flex">
-          <PandaConnectButton
-            className="mt-4 p-2 bg-blue-900 text-white rounded hover:bg-blue-600"
-            onClick={handleConnect}
-          />
-        </div> 
-        <h2 className="text-lg font-bold text-center italic text-black mt-8">(Refresh after logging in if nothing shows)</h2>
+        {ordinals.length == 0 &&
 
-        <div className="h-8" /> 
-        </>
-        
+          <>
+            <div className="h-8" />
+            <h1 className="text-2xl font-bold text-center text-black">Connect your Panda Wallet to view inscriptions:</h1>
+            <div className="place-content-center flex">
+              <PandaConnectButton
+                className="mt-4 p-2 bg-blue-900 text-white rounded hover:bg-blue-600"
+                onClick={handleConnect}
+              />
+            </div>
+            <h2 className="text-lg font-bold text-center italic text-black mt-8">(Refresh after logging in if nothing shows)</h2>
+
+            <div className="h-8" />
+          </>
+
         }
 
         {/* {pubKey && (
@@ -236,22 +236,32 @@ const renderContent = () => {
           </p>
         )} */}
         {wallet && ordinals.length > 0 && (
-          <div className="mt-4">
+          <div className="mt-8">
+            <div className="parchment-container">
+              <h4 className="text-4xl font-semibold text-black text-center title">
+                Library of Babel
+              </h4>
+              <p className="text-xl font-semibold text-black text-center hover:text-blue-500 rounded-xl p-4 author">
+                <a href="https://twitter.com/worldbuilder_us">@worldbuilder.us</a>
+              </p>
+              {/* Rest of your content */}
+            </div>
+            <div className="h-20" />
             <h4 className="text-4xl font-semibold text-black text-center">
               Your Inscriptions
             </h4>
-            <p className="text-md text-black text-center italic mt-4">
-            Keep in mind the amounts may not be accurate! Panda Wallet shows latest 100 inscriptions.
+            <p className="text-md text-black text-center mt-4">
+              Keep in mind the amounts may not be accurate! Panda Wallet (v2.6.2) shows latest 1000 inscriptions.
             </p>
             <div className="h-8" />
             <select value={selectedType} onChange={handleChange} className="mb-4 rounded-xl border-2 p-4 border-black">
-                    <option value="OGs">.OGs</option>
-                    <option value="Sonatas">Sonatas</option>
-                    <option value="LRC-20s">LRC-20s</option>
-                    <option value="Tale of Shua Gears">Tale of Shua Gears</option>
-                </select>
+              <option value="OGs">.OGs</option>
+              <option value="Sonatas">Sonatas</option>
+              <option value="LRC-20s">LRC-20s</option>
+              <option value="Tale of Shua Gears">Tale of Shua Gears</option>
+            </select>
 
-                {renderContent()}
+            {renderContent()}
           </div>
         )}
       </div>
