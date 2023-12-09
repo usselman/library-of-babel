@@ -82,7 +82,7 @@ const OGCards = ({ ordinal, address, transferOrdinal }) => {
                     <button
                         onClick={handleTransfer}
                         className="transfer-btn border-0 text-md bg-blue-500 hover:bg-black hover:text-white border-black rounded-xl p-4 place-content-center">
-                        Transfer?
+                        Transfer
                     </button>
                 </div>
                 <div className="border-2 border-black text-md rounded-xl p-4 bg-white mt-4">
