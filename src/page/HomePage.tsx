@@ -6,11 +6,19 @@ import LRCCard from "../components/LRCCard";
 import SonataCard from "../components/SonataCard";
 import OGCards from "../components/OGCards";
 import MarketplaceCard from "../components/MarketplaceCard";
+import bsv from 'bsv';
 import {
   Addresses,
   SignedMessage,
   usePandaWallet,
 } from "panda-wallet-provider";
+// import {
+//   getRawtx,
+//   getUTXOs,
+//   getPaymentUTXOs,
+//   payForRawTx,
+//   broadcast,
+// } from '../components/helpers';
 
 const initProvider = () => {
   if ("panda" in window) {
@@ -33,9 +41,12 @@ export const HomePage = () => {
   const [addresses, setAddresses] = useState<Addresses | undefined>();
   const [ordinals, setOrdinals] = useState<any[]>([]);
   const [ordAddress, setOrdAddress] = useState<string | undefined>();
+  const [bsvAddress, setBsvAddress] = useState<string | undefined>();
+  const [identityAddress, setIdentityAddress] = useState<string | undefined>();
   const [hodlSum, setHodlSum] = useState<number>(0);
   const [selectedType, setSelectedType] = useState('Tale of Shua Gears');
   const [orderBook, setOrderBook] = useState<any[]>([]);
+  const [viewMode, setViewMode] = useState('collection');
 
   useEffect(() => {
     const fetchOrderBook = async () => {
@@ -60,6 +71,8 @@ export const HomePage = () => {
           if (addrs) {
             setAddresses(addrs);
             setOrdAddress(addrs.ordAddress);
+            setBsvAddress(addrs.bsvAddress);
+            setIdentityAddress(addrs.identityAddress);
           }
           console.log("addresses: ", addrs);
           const ords = await wallet.getOrdinals();
@@ -89,6 +102,53 @@ export const HomePage = () => {
   const handleChange = (event: any) => {
     setSelectedType(event.target.value);
   };
+
+  const listOrdinal = async () => {
+    alert('Coming soon!');
+  }
+
+  // const listOrdinal = async (txid, idx, payPkWIF, ordPkWIF, payoutAddress, satoshisPayout) => {
+  //   let bsvtx = bsv.Transaction();
+  //   const prevRawTx = await getRawtx(txid);
+  //   const ordUtxo = getUTXO(prevRawTx, idx);
+  //   const paymentAddress = getAddressFromPrivateKey(payPkWIF);
+  //   const paymentUtxo = await getPaymentUTXOs(paymentAddress, 1);
+  //   const utxos = [ordUtxo, paymentUtxo[0]];
+  //   bsvtx.from(utxos);
+  //   const payOutput = new bsv.Transaction.Output({
+  //     script: bsv.Script(bsv.Address.fromString(payoutAddress)),
+  //     satoshis: satoshisPayout
+  //   })
+  //   const hexPayOutput = payOutput.toBufferWriter().toBuffer().toString('hex');
+  //   const ownerOutput = bsv.Transaction.Output({
+  //     script: bsv.Script(bsv.Address.fromString(getAddressFromPrivateKey(ordPkWIF))),
+  //     satoshis: 1
+  //   });
+  //   const addressHex = ownerOutput.script.chunks[2].buf.toString('hex');
+  //   const ordLockHex = `${bsv.Script(ORD_LOCK_PREFIX).toASM()} ${addressHex} ${hexPayOutput} ${bsv.Script(ORD_LOCK_SUFFIX).toASM()}`;
+  //   const ordLockScript = bsv.Script.fromASM(ordLockHex);
+  //   bsvtx.addOutput(new bsv.Transaction.Output({ script: ordLockScript, satoshis: 1 }));
+  //   const inputSatoshis = utxos.reduce(((t, e) => t + e.satoshis), 0);
+  //   bsvtx.to(paymentAddress, inputSatoshis - 1 - 1);
+  //   bsvtx = signInput(bsvtx, ordUtxo, ordPkWIF, 0);
+  //   bsvtx = signInput(bsvtx, utxos[1], payPkWIF, 1);
+  //   return bsvtx.toString();
+  // }
+  // const cancelListing = async (listingTxid, listingIdx, ordPkWIF, payPkWIF, toAddress, changeAddress) => {
+  //   let bsvtx = bsv.Transaction();
+  //   const prevRawTx = await getRawtx(listingTxid);
+  //   const ordUtxo = getUTXO(prevRawTx, listingIdx);
+  //   const paymentAddress = getAddressFromPrivateKey(payPkWIF);
+  //   const paymentUtxo = await getPaymentUTXOs(paymentAddress, 1);
+  //   const utxos = [ordUtxo, paymentUtxo[0]];
+  //   bsvtx.from(utxos);
+  //   bsvtx.to(toAddress, 1);
+  //   const inputSatoshis = utxos.reduce(((t, e) => t + e.satoshis), 0);
+  //   bsvtx.to(changeAddress, inputSatoshis - 1 - 1);
+  //   bsvtx = signInput(bsvtx, ordUtxo, ordPkWIF, 0, true);
+  //   bsvtx = signInput(bsvtx, utxos[1], payPkWIF, 1);
+  //   return bsvtx.toString();
+  // }
 
   const purchaseOrdinal = async (outpoint: any, marketplaceRate: any, marketplaceAddress: string) => {
     const purchaseParams = {
@@ -229,7 +289,7 @@ export const HomePage = () => {
         <div className="text-center text-2xl mt-4 mb-4">
           <span className="underline hover:text-blue-500 rounded-xl"><a href="https://www.hodlocker.com/zackwins/post/d2167c682c0ce72574fe2d21a81987571d42dc51b38c94c0cbe16ac40ad770c0">.OG</a></span> is the first of its kind lock-to-mint numbered namespace.
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {filteredOGs.map((ordinal, index) => (
             <OGCards key={index} ordinal={ordinal} address={ordAddress} transferOrdinal={transferOrdinal} />
           ))}
@@ -249,6 +309,8 @@ export const HomePage = () => {
   };
 
   const renderOrdinalCards = () => {
+    const dataToShow = viewMode === 'collection' ? ordinals : orderBook;
+
     const filteredOrdinals = ordinals.filter(
       (ordinal) =>
         ordinal?.data?.map?.subTypeData?.collectionId ===
@@ -260,7 +322,7 @@ export const HomePage = () => {
       }))
       .sort((a, b) => b.rarityValue - a.rarityValue) // Sort by descending rarity value
       .map((ordinal, index) => (
-        <OrdinalCard key={index} ordinal={ordinal} transferOrdinal={transferOrdinal} />
+        <OrdinalCard key={index} ordinal={ordinal} transferOrdinal={transferOrdinal} listOrdinal={listOrdinal} />
       ));
 
     return (
@@ -268,7 +330,7 @@ export const HomePage = () => {
         <div className="text-center text-2xl mt-4 mb-4">
           <span className="underline hover:text-blue-500 rounded-xl"><a href="https://taleofshua.com">Tale of Shua Gear</a></span> is a lock-to-mint collection by Joshua Henslee.
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {filteredOrdinals}
         </div>
       </>

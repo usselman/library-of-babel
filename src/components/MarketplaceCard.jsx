@@ -66,7 +66,7 @@ const calculateStats = (itemName) => {
 
 
 const MarketplaceCard = ({ listing, purchaseOrdinal }) => {
-    console.log("passed listing", listing);
+    //console.log("passed listing", listing);
 
     const getRarity = (name) => {
         const parts = name.split(" ");
@@ -115,9 +115,9 @@ const MarketplaceCard = ({ listing, purchaseOrdinal }) => {
     };
 
     return (
-        <>
+        <div className="border-0 border-black">
 
-            <div className={`relative rounded-lg overflow-hidden m-4 p-4 bg-white border-4 ${rarityStyles[rarity]} `}>
+            <div className={`relative rounded-lg overflow-hidden m-4 p-4 h-5/6 bg-white border-4 ${rarityStyles[rarity]} `}>
                 <div className="px-6 py-4 mb-64">
                     <div className={`border-0 rounded-lg p-4 bg-white ${rarityStyles[rarity]} hover:bg-white hover:border-0`}>
                         <div className="font-bold text-lg mb-2">{listing?.origin?.data?.insc?.text}</div>
@@ -160,21 +160,24 @@ const MarketplaceCard = ({ listing, purchaseOrdinal }) => {
                         <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/block-height/${listing.height}`}>blk: {listing.height}</a></div>
                         <div className="font-bold mb-2 underline"><a href={`https://1satlistings.com/inscription/${listing.origin.num}`}>#{listing.origin.num}</a></div>
                         <div className="text-center text-black">
-                            <p className="m-2">Owned:</p>
+                            <p className="m-2">Owned by:</p>
                             <p className="font-light text-xs m-2">{listing?.owner}</p>
-                            <button
-                                onClick={handleBuyClick}
-                                className="buy-btn border-0 text-md bg-blue-500 hover:bg-green-700 hover:text-white border-black rounded-xl p-4">
-                                {listing?.data?.list?.price / 100000000} BSV
-                            </button>
+
 
                         </div>
                     </div>
                 </div>
 
             </div>
+            <div>
+                <button
+                    onClick={handleBuyClick}
+                    className="buy-btn border-0 text-md bg-blue-500 hover:bg-green-700 hover:text-white border-black rounded-xl p-4">
+                    {(listing?.data?.list?.price / 100000000).toFixed(2)} BSV
+                </button>
+            </div>
 
-        </>
+        </div>
         // <div className={`rounded-lg overflow-hidden m-4 p-4 bg-blue-200 border-4 border-black shadow-xl `}>
         //     <div className="px-6 py-4 text-center">
         //         {/* <div className="font-bold mb-2 text-xs overflow-wrap"><a href={`https://whatsonchain.com/${listing.txid}`}>{listing.txid}</a></div> */}
