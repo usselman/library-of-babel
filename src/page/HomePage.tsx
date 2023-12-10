@@ -122,6 +122,9 @@ export const HomePage = () => {
     );
     return (
       <>
+        <div className="text-center text-2xl mt-4 mb-4">
+          <span className="underline hover:text-blue-500 rounded-xl"><a href="https://v3.ordinals.gorillapool.io/content/1f2d8349d15ef5287c5cada779f7e6875e123fe0ab788b478a17514b5746db90_0">$hodl</a></span> is the first of its kind LRC-20 token.
+        </div>
         <div>
           <h4 className="text-2xl font-semibold text-black text-center">
             Total $hodl: {hodlSum}
@@ -152,6 +155,7 @@ export const HomePage = () => {
 
 
   const renderOGCards = () => {
+
     const filteredOGs = ordinals
       .filter((ordinal) => {
         return (
@@ -167,11 +171,16 @@ export const HomePage = () => {
       });
 
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {filteredOGs.map((ordinal, index) => (
-          <OGCards key={index} ordinal={ordinal} address={ordAddress} transferOrdinal={transferOrdinal} />
-        ))}
-      </div>
+      <>
+        <div className="text-center text-2xl mt-4 mb-4">
+          <span className="underline hover:text-blue-500 rounded-xl"><a href="https://www.hodlocker.com/zackwins/post/d2167c682c0ce72574fe2d21a81987571d42dc51b38c94c0cbe16ac40ad770c0">.OG</a></span> is the first of its kind lock-to-mint numbered namespace.
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {filteredOGs.map((ordinal, index) => (
+            <OGCards key={index} ordinal={ordinal} address={ordAddress} transferOrdinal={transferOrdinal} />
+          ))}
+        </div>
+      </>
     );
   }
 
@@ -184,21 +193,6 @@ export const HomePage = () => {
     if (hasPrefix || hasSuffix) return 2; // Uncommon
     return 1; // Common
   };
-
-  // const renderOrdinalCards = () => {
-  //   const filteredOrdinals = ordinals.filter(
-  //     (ordinal) =>
-  //       ordinal?.data?.map?.subTypeData?.collectionId ===
-  //       "b68a700c91c6ece44aa6c2148c84c25a9a22da739769110e1ba01dbb0ff2df4a_1"
-  //   );
-  //   return (
-  //     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-  //       {filteredOrdinals.map((ordinal, index) => (
-  //         <OrdinalCard key={index} ordinal={ordinal} transferOrdinal={transferOrdinal} />
-  //       ))}
-  //     </div>
-  //   );
-  // };
 
   const renderOrdinalCards = () => {
     const filteredOrdinals = ordinals.filter(
@@ -216,9 +210,14 @@ export const HomePage = () => {
       ));
 
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {filteredOrdinals}
-      </div>
+      <>
+        <div className="text-center text-2xl mt-4 mb-4">
+          <span className="underline hover:text-blue-500 rounded-xl"><a href="https://taleofshua.com">Tale of Shua Gear</a></span> is a lock-to-mint collection by Joshua Henslee.
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {filteredOrdinals}
+        </div>
+      </>
     );
   };
 
