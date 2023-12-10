@@ -66,7 +66,7 @@ const calculateStats = (itemName) => {
 };
 
 const OrdinalCard = ({ ordinal, transferOrdinal }) => {
-  console.log("passed ordinal", ordinal);
+  //console.log("passed ordinal", ordinal);
   const getRarity = (name) => {
     const parts = name.split(" ");
     const hasPrefix = parts.length > 1 && parts[0] !== "of";

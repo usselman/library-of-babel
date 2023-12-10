@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from 'react';
+import getGlobalOrderBook from './api/orderbook';
 import { PandaConnectButton } from "../components/PandaConnectButton";
 import OrdinalCard from "../components/OrdinalCard";
 import LRCCard from "../components/LRCCard";
 import SonataCard from "../components/SonataCard";
 import OGCards from "../components/OGCards";
+import MarketplaceCard from "../components/MarketplaceCard";
 import {
   Addresses,
   SignedMessage,
@@ -33,6 +35,21 @@ export const HomePage = () => {
   const [ordAddress, setOrdAddress] = useState<string | undefined>();
   const [hodlSum, setHodlSum] = useState<number>(0);
   const [selectedType, setSelectedType] = useState('Tale of Shua Gears');
+  const [orderBook, setOrderBook] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchOrderBook = async () => {
+      try {
+        const data = await getGlobalOrderBook();
+        setOrderBook(data);
+        console.log('order book: ', data);
+      } catch (error) {
+        console.error("Failed to fetch order book", error);
+      }
+    };
+
+    fetchOrderBook();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,6 +90,23 @@ export const HomePage = () => {
     setSelectedType(event.target.value);
   };
 
+  const purchaseOrdinal = async (outpoint: any, marketplaceRate: any, marketplaceAddress: string) => {
+    const purchaseParams = {
+      outpoint,
+      marketplaceRate,
+      marketplaceAddress
+    };
+
+    try {
+      const txid = await wallet.purchaseOrdinal(purchaseParams);
+      console.log(`Purchase successful! Transaction ID: ${txid}`);
+      // Update the UI or state as needed
+    } catch (err: any) {
+      console.error(`Purchase failed: ${err.message}`);
+      // Handle errors and update UI accordingly
+    }
+  };
+
   const renderContent = () => {
     switch (selectedType) {
       case 'OGs':
@@ -84,10 +118,30 @@ export const HomePage = () => {
       case 'Tale of Shua Gears':
         return renderOrdinalCards();
       default:
+      case 'Global Marketplace':
+        return renderGlobalMarketplace();
         return null;
     }
   };
 
+  const renderGlobalMarketplace = () => {
+    const filteredListings = orderBook.filter(
+      (listing: any) =>
+        listing?.origin?.data?.map?.app === "taleofshua"
+    );
+    return (
+      <>
+        <div className="text-center text-2xl mt-4 mb-4">
+          Tale of Shua Gear Marketplace
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {filteredListings.map((listing, index) => (
+            <MarketplaceCard key={index} listing={listing} purchaseOrdinal={purchaseOrdinal} />
+          ))}
+        </div>
+      </>
+    )
+  }
 
   const renderSonatas = () => {
 
@@ -290,6 +344,7 @@ export const HomePage = () => {
               <option value="Sonatas">Sonatas</option>
               <option value="LRC-20s">LRC-20s</option>
               <option value="Tale of Shua Gears">Tale of Shua Gears</option>
+              <option value="Global Marketplace">Global Marketplace</option>
             </select>
 
             {renderContent()}
