@@ -30,6 +30,7 @@ code {
 }
 .rainbow-text:hover{
   background: linear-gradient(66deg, red, orange, gold, green, blue, indigo, violet);
+  color: black;
 }
 
 .rainbow-text {

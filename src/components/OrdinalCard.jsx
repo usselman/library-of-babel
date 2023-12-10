@@ -119,7 +119,7 @@ const OrdinalCard = ({ ordinal, transferOrdinal }) => {
     <>
       <div className={`relative rounded-lg overflow-hidden m-4 p-4 bg-white border-4 ${rarityStyles[rarity]} `}>
         <div className="px-6 py-4 mb-48">
-          <div className={`border-0 rounded-lg p-4 bg-white ${rarityStyles[rarity]} hover:bg-white`}>
+          <div className={`border-0 rounded-lg p-4 bg-white ${rarityStyles[rarity]} hover:bg-white hover:border-0`}>
             <div className="font-bold text-lg mb-2">{ordinal.data.insc.text}</div>
             <span className="text-sm">{renderRarityBadge(rarity)}</span>
             {stats && (
@@ -155,7 +155,7 @@ const OrdinalCard = ({ ordinal, transferOrdinal }) => {
               </div>
             )}
           </div>
-          <div className={`absolute bottom-0 left-0 right-0 border-0 border-black shadow-none text-sm rounded-xl p-4 m-4 bg-white ${rarityStyles[rarity]} hover:bg-transparent`}>
+          <div className={`absolute bottom-0 left-0 right-0 border-0 border-black shadow-none text-sm rounded-xl p-4 m-4 bg-white hover:bg-white ${rarityStyles[rarity]} hover:border-0`}>
             <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/${ordinal.txid}`}>tx</a></div>
             <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/block-height/${ordinal.height}`}>blk: {ordinal.height}</a></div>
             <div className="font-bold mb-2 underline"><a href={`https://1satordinals.com/inscription/${ordinal.origin.num}`}>#{ordinal.origin.num}</a></div>
