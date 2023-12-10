@@ -26,7 +26,7 @@ code {
 }
 
 .shadow-rare {
-  box-shadow: 10px 8px 12px -1px rgba(234, 179, 8, 0.5), 10px 4px 8px -1px rgba(234, 179, 8, 0.25);
+  box-shadow: 10px 8px 12px -1px rgba(234, 179, 8, 0.5), 10px 4px 8px -1px rgba(216, 206, 149, 0.5);
 }
 .rainbow-text:hover{
   background: linear-gradient(66deg, red, orange, gold, green, blue, indigo, violet);

@@ -32,7 +32,7 @@ export const HomePage = () => {
   const [ordinals, setOrdinals] = useState<any[]>([]);
   const [ordAddress, setOrdAddress] = useState<string | undefined>();
   const [hodlSum, setHodlSum] = useState<number>(0);
-  const [selectedType, setSelectedType] = useState('OGs');
+  const [selectedType, setSelectedType] = useState('Tale of Shua Gears');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -175,17 +175,49 @@ export const HomePage = () => {
     );
   }
 
+  const getRarityValue = (name: string) => {
+    const parts = name.split(" ");
+    const hasPrefix = parts.length > 1 && parts[0] !== "of";
+    const hasSuffix = parts.includes("of");
+
+    if (hasPrefix && hasSuffix) return 3; // Rare
+    if (hasPrefix || hasSuffix) return 2; // Uncommon
+    return 1; // Common
+  };
+
+  // const renderOrdinalCards = () => {
+  //   const filteredOrdinals = ordinals.filter(
+  //     (ordinal) =>
+  //       ordinal?.data?.map?.subTypeData?.collectionId ===
+  //       "b68a700c91c6ece44aa6c2148c84c25a9a22da739769110e1ba01dbb0ff2df4a_1"
+  //   );
+  //   return (
+  //     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+  //       {filteredOrdinals.map((ordinal, index) => (
+  //         <OrdinalCard key={index} ordinal={ordinal} transferOrdinal={transferOrdinal} />
+  //       ))}
+  //     </div>
+  //   );
+  // };
+
   const renderOrdinalCards = () => {
     const filteredOrdinals = ordinals.filter(
       (ordinal) =>
         ordinal?.data?.map?.subTypeData?.collectionId ===
         "b68a700c91c6ece44aa6c2148c84c25a9a22da739769110e1ba01dbb0ff2df4a_1"
-    );
+    )
+      .map(ordinal => ({
+        ...ordinal,
+        rarityValue: getRarityValue(ordinal.data.insc.text)
+      }))
+      .sort((a, b) => b.rarityValue - a.rarityValue) // Sort by descending rarity value
+      .map((ordinal, index) => (
+        <OrdinalCard key={index} ordinal={ordinal} transferOrdinal={transferOrdinal} />
+      ));
+
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {filteredOrdinals.map((ordinal, index) => (
-          <OrdinalCard key={index} ordinal={ordinal} transferOrdinal={transferOrdinal} />
-        ))}
+        {filteredOrdinals}
       </div>
     );
   };
