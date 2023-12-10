@@ -6,19 +6,11 @@ import LRCCard from "../components/LRCCard";
 import SonataCard from "../components/SonataCard";
 import OGCards from "../components/OGCards";
 import MarketplaceCard from "../components/MarketplaceCard";
-import bsv from 'bsv';
 import {
   Addresses,
   SignedMessage,
   usePandaWallet,
 } from "panda-wallet-provider";
-// import {
-//   getRawtx,
-//   getUTXOs,
-//   getPaymentUTXOs,
-//   payForRawTx,
-//   broadcast,
-// } from '../components/helpers';
 
 const initProvider = () => {
   if ("panda" in window) {
@@ -106,49 +98,6 @@ export const HomePage = () => {
   const listOrdinal = async () => {
     alert('Coming soon!');
   }
-
-  // const listOrdinal = async (txid, idx, payPkWIF, ordPkWIF, payoutAddress, satoshisPayout) => {
-  //   let bsvtx = bsv.Transaction();
-  //   const prevRawTx = await getRawtx(txid);
-  //   const ordUtxo = getUTXO(prevRawTx, idx);
-  //   const paymentAddress = getAddressFromPrivateKey(payPkWIF);
-  //   const paymentUtxo = await getPaymentUTXOs(paymentAddress, 1);
-  //   const utxos = [ordUtxo, paymentUtxo[0]];
-  //   bsvtx.from(utxos);
-  //   const payOutput = new bsv.Transaction.Output({
-  //     script: bsv.Script(bsv.Address.fromString(payoutAddress)),
-  //     satoshis: satoshisPayout
-  //   })
-  //   const hexPayOutput = payOutput.toBufferWriter().toBuffer().toString('hex');
-  //   const ownerOutput = bsv.Transaction.Output({
-  //     script: bsv.Script(bsv.Address.fromString(getAddressFromPrivateKey(ordPkWIF))),
-  //     satoshis: 1
-  //   });
-  //   const addressHex = ownerOutput.script.chunks[2].buf.toString('hex');
-  //   const ordLockHex = `${bsv.Script(ORD_LOCK_PREFIX).toASM()} ${addressHex} ${hexPayOutput} ${bsv.Script(ORD_LOCK_SUFFIX).toASM()}`;
-  //   const ordLockScript = bsv.Script.fromASM(ordLockHex);
-  //   bsvtx.addOutput(new bsv.Transaction.Output({ script: ordLockScript, satoshis: 1 }));
-  //   const inputSatoshis = utxos.reduce(((t, e) => t + e.satoshis), 0);
-  //   bsvtx.to(paymentAddress, inputSatoshis - 1 - 1);
-  //   bsvtx = signInput(bsvtx, ordUtxo, ordPkWIF, 0);
-  //   bsvtx = signInput(bsvtx, utxos[1], payPkWIF, 1);
-  //   return bsvtx.toString();
-  // }
-  // const cancelListing = async (listingTxid, listingIdx, ordPkWIF, payPkWIF, toAddress, changeAddress) => {
-  //   let bsvtx = bsv.Transaction();
-  //   const prevRawTx = await getRawtx(listingTxid);
-  //   const ordUtxo = getUTXO(prevRawTx, listingIdx);
-  //   const paymentAddress = getAddressFromPrivateKey(payPkWIF);
-  //   const paymentUtxo = await getPaymentUTXOs(paymentAddress, 1);
-  //   const utxos = [ordUtxo, paymentUtxo[0]];
-  //   bsvtx.from(utxos);
-  //   bsvtx.to(toAddress, 1);
-  //   const inputSatoshis = utxos.reduce(((t, e) => t + e.satoshis), 0);
-  //   bsvtx.to(changeAddress, inputSatoshis - 1 - 1);
-  //   bsvtx = signInput(bsvtx, ordUtxo, ordPkWIF, 0, true);
-  //   bsvtx = signInput(bsvtx, utxos[1], payPkWIF, 1);
-  //   return bsvtx.toString();
-  // }
 
   const purchaseOrdinal = async (outpoint: any, marketplaceRate: any, marketplaceAddress: string) => {
     const purchaseParams = {
@@ -254,10 +203,6 @@ export const HomePage = () => {
       </>
     );
   }
-
-  //   const handleHodlUpdate = (amount: number) => {
-  //     setHodlSum(prevTotal => prevTotal + amount);
-  // };
 
   const extractNumber = (text: string): number | null => {
     const parts = text.split(" ");

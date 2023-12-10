@@ -178,30 +178,6 @@ const MarketplaceCard = ({ listing, purchaseOrdinal }) => {
             </div>
 
         </div>
-        // <div className={`rounded-lg overflow-hidden m-4 p-4 bg-blue-200 border-4 border-black shadow-xl `}>
-        //     <div className="px-6 py-4 text-center">
-        //         {/* <div className="font-bold mb-2 text-xs overflow-wrap"><a href={`https://whatsonchain.com/${listing.txid}`}>{listing.txid}</a></div> */}
-        //         <div className="font-bold text-lg mb-2">{listing?.origin?.data?.insc?.text}</div>
-        //         <div className="font-bold text-xs mb-2">{listing?.owner}</div>
-        //         <div className="text-center mt-4">
-
-        //             {/* <button
-        //                 onClick={handleTransfer}
-        //                 className="transfer-btn border-0 text-md bg-blue-500 hover:bg-black hover:text-white border-black rounded-xl p-4 place-content-center">
-        //                 Transfer
-        //             </button> */}
-        //         </div>
-        //         <div className="h-4" />
-        //         {/* <div className="border-2 border-black text-md rounded-xl p-4 bg-white text-center">
-
-        //             <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/tx/${listing.txid}`}>{listing.data.insc.json.op} tx</a></div>
-        //             <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/block-height/${listing.height}`}>blk: {listing.height}</a></div>
-        //             <div className="font-bold mb-2 underline"><a href={`https://1satlistings.com/inscription/${listing.origin.num}`}>#{listing.origin.num}</a></div>
-
-        //         </div> */}
-
-        //     </div>
-        // </div>
     );
 };
 
