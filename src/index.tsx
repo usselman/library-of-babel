@@ -3,6 +3,7 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { App } from "./App";
 import { PandaProvider } from "panda-wallet-provider";
+import { Analytics } from "@vercel/analytics/react";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -10,6 +11,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <PandaProvider>
     <App />
+    <Analytics />
   </PandaProvider>
 );
 
