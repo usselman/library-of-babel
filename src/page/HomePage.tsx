@@ -311,14 +311,15 @@ export const HomePage = () => {
 
           <>
             <div className="h-8" />
-            <h1 className="text-2xl font-bold text-center text-black">Connect your Panda Wallet to view inscriptions:</h1>
+            <h1 className="text-2xl font-bold text-center text-black">Connect your <span className="underline hover:text-blue-500"><a href="https://github.com/Panda-Wallet/panda-wallet#getting-started-alpha">Panda Wallet</a></span> to view inscriptions:</h1>
             <div className="place-content-center flex">
               <PandaConnectButton
-                className="mt-4 p-2 bg-blue-900 text-white rounded hover:bg-blue-600"
+                className="m-4 p-4 bg-blue-900 text-white rounded hover:bg-blue-600"
                 onClick={handleConnect}
               />
             </div>
-            <h2 className="text-lg font-bold text-center italic text-black mt-8">(Refresh after logging in if nothing shows)</h2>
+            <h2 className="text-lg font-bold text-center italic text-black mt-2">Refresh after logging in if nothing shows.</h2>
+            <h2 className="text-lg font-bold text-center italic text-black mt-2">If nothing shows after that, open extension and refresh.</h2>
 
             <div className="h-8" />
           </>
@@ -349,7 +350,7 @@ export const HomePage = () => {
               Your Inscriptions
             </h4>
             <p className="text-md text-black text-center mt-4">
-              Keep in mind the amounts may not be accurate! Panda Wallet (v2.6.2) shows latest 1000 inscriptions.
+              Keep in mind the amounts may not be accurate! <span className="underline hover:text-blue-500"><a href="https://github.com/Panda-Wallet/panda-wallet#getting-started-alpha">Panda Wallet (v2.6.2)</a></span> shows latest 1000 inscriptions.
             </p>
             <div className="h-8" />
             <select value={selectedType} onChange={handleChange} className="mb-4 rounded-xl border-2 p-4 border-black">
