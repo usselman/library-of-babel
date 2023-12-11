@@ -162,12 +162,6 @@ export const HomePage = () => {
     );
     return (
       <>
-        <MetaTags>
-          <title>Babel</title>
-          <meta name="description" content="The onchain library." />
-          <meta property="og:title" content="Babel" />
-        </MetaTags>
-        {/* <meta property="og:image" content="path/to/image.jpg" /> */}
         <div className="text-center text-2xl mt-4 mb-4">
           Sonata is an experimental format to inscribe music metadata on-chain.
         </div>
@@ -302,6 +296,11 @@ export const HomePage = () => {
 
   return (
     <div className="App">
+      <MetaTags>
+        <title>Babel</title>
+        <meta name="description" content="The onchain library." />
+        <meta property="og:title" content="Babel" />
+      </MetaTags>
       <div className="bg-gray m-4 p-4">
         {/* <img
           src={pandaIcon}
