@@ -6,6 +6,7 @@ import LRCCard from "../components/LRCCard";
 import SonataCard from "../components/SonataCard";
 import OGCards from "../components/OGCards";
 import MarketplaceCard from "../components/MarketplaceCard";
+import MetaTags from 'react-meta-tags';
 import {
   Addresses,
   SignedMessage,
@@ -161,6 +162,9 @@ export const HomePage = () => {
     );
     return (
       <>
+        <meta name="description" content="The onchain library." />
+        <meta property="og:title" content="Babel" />
+        {/* <meta property="og:image" content="path/to/image.jpg" /> */}
         <div className="text-center text-2xl mt-4 mb-4">
           Sonata is an experimental format to inscribe music metadata on-chain.
         </div>
