@@ -162,8 +162,11 @@ export const HomePage = () => {
     );
     return (
       <>
-        <meta name="description" content="The onchain library." />
-        <meta property="og:title" content="Babel" />
+        <MetaTags>
+          <title>Babel</title>
+          <meta name="description" content="The onchain library." />
+          <meta property="og:title" content="Babel" />
+        </MetaTags>
         {/* <meta property="og:image" content="path/to/image.jpg" /> */}
         <div className="text-center text-2xl mt-4 mb-4">
           Sonata is an experimental format to inscribe music metadata on-chain.
