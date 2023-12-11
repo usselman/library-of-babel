@@ -6,7 +6,6 @@ import LRCCard from "../components/LRCCard";
 import SonataCard from "../components/SonataCard";
 import OGCards from "../components/OGCards";
 import MarketplaceCard from "../components/MarketplaceCard";
-// import MetaTags from 'react-meta-tags';
 import {
   Addresses,
   SignedMessage,
@@ -296,11 +295,6 @@ export const HomePage = () => {
 
   return (
     <div className="App">
-      {/* <MetaTags>
-        <title>Babel</title>
-        <meta name="description" content="The onchain library." />
-        <meta property="og:title" content="Babel" />
-      </MetaTags> */}
       <div className="bg-gray m-4 p-4">
         {/* <img
           src={pandaIcon}
@@ -343,7 +337,6 @@ export const HomePage = () => {
               <p className="text-sm font-semibold text-black text-center hover:text-blue-500 rounded-xl author">
                 <a href="https://twitter.com/worldbuilder_us">@worldbuilder.us</a>
               </p>
-              {/* Rest of your content */}
             </div>
             <div className="h-20" />
             <h4 className="text-4xl font-semibold text-black text-center">
