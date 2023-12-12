@@ -135,9 +135,18 @@ export const HomePage = () => {
 
   const renderGlobalMarketplace = () => {
     const filteredListings = orderBook.filter(
-      (listing: any) =>
-        listing?.origin?.data?.map?.app === "taleofshua"
-    );
+      (listing: any) => {
+        return (
+          listing?.origin?.data?.map?.app === "taleofshua"
+        )
+      }
+    ).sort((a, b) => {
+      // Assuming the price is stored in `listing.data.list.price` and is a number
+      const numA = extractNumber(a?.data?.list?.price?.toString());
+      const numB = extractNumber(b?.data?.list?.price?.toString());
+      return (numA ?? 0) - (numB ?? 0);
+    });
+
     return (
       <>
         <div className="text-center text-2xl mt-4 mb-4">
@@ -151,6 +160,7 @@ export const HomePage = () => {
       </>
     )
   }
+
 
   const renderSonatas = () => {
 
