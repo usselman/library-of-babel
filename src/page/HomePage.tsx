@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import getGlobalOrderBook from './api/orderbook';
+import getHodlBook from './api/hodlbook';
 import { PandaConnectButton } from "../components/PandaConnectButton";
 import OrdinalCard from "../components/OrdinalCard";
 import LRCCard from "../components/LRCCard";
@@ -39,6 +40,7 @@ export const HomePage = () => {
   const [hodlSum, setHodlSum] = useState<number>(0);
   const [selectedType, setSelectedType] = useState('Tale of Shua Gears');
   const [orderBook, setOrderBook] = useState<any[]>([]);
+  const [hodlBook, setHodlBook] = useState<any[]>([]);
   const [viewMode, setViewMode] = useState('collection');
 
   useEffect(() => {
@@ -53,6 +55,20 @@ export const HomePage = () => {
     };
 
     fetchOrderBook();
+  }, []);
+
+  useEffect(() => {
+    const fetchHodlBook = async () => {
+      try {
+        const data = await getHodlBook();
+        setHodlBook(data);
+        console.log('hodl book: ', data);
+      } catch (error) {
+        console.error("Failed to fetch hodl book", error);
+      }
+    };
+
+    fetchHodlBook();
   }, []);
 
   useEffect(() => {
@@ -165,7 +181,7 @@ export const HomePage = () => {
   }
 
   const renderGlobalHodlMarketplace = () => {
-    const filteredListings = orderBook.filter(
+    const filteredListings = hodlBook.filter(
       (listing: any) => {
         return (
           listing?.origin?.data?.insc?.json?.id === "bfd3bfe2d65a131e9792ee04a2da9594d9dc8741a7ab362c11945bfc368d2063_1"

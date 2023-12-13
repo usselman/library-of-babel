@@ -14,15 +14,15 @@ const HODLMarketplaceCard = ({ listing, purchaseOrdinal }) => {
 
 
         // Check block height for $hodl
-        if (listing.height > 821205) {
-            verificationMessage = 'Invalid mint (after blk 821205)';
-            verificationStyle = { color: 'red' };
-            valid = false;
-        } else {
-            verificationMessage = 'Valid mint';
-            verificationStyle = { color: 'green' };
-            valid = true;
-        }
+        // if (listing.height > 821205 || !listing.height) {
+        //     verificationMessage = 'Invalid mint';
+        //     verificationStyle = { color: 'red' };
+        //     valid = false;
+        // } else {
+        //     verificationMessage = 'Valid mint';
+        //     verificationStyle = { color: 'green' };
+        //     valid = true;
+        // }
     } else {
         lrcName = 'unknown LRC-20';
     }
