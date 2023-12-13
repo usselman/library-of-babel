@@ -7,7 +7,7 @@ const HODLMarketplaceCard = ({ listing, purchaseOrdinal }) => {
     let verificationMessage = null;
     let verificationStyle = {};
     let valid;
-    const amount = (parseFloat(listing?.data?.list?.price) / 100000000).toFixed(4);
+    const amount = parseFloat(listing?.origin?.data?.insc?.json?.amt);
 
     if (listing) {
         lrcName = '$hodl';
