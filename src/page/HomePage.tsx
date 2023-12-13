@@ -199,7 +199,7 @@ export const HomePage = () => {
         <div className="text-center text-2xl mt-4 mb-4">
           HODL Marketplace
         </div>
-        <div className="text-2xl font-bold">
+        <div className="text-2xl font-bold text-red-500">
           <h2>This is an EXPERIMENTAL MARKETPLACE live before a proper indexer is in place.</h2>
           <h2>TRADE AT YOUR OWN RISK.</h2>
         </div>
