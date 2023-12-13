@@ -187,18 +187,21 @@ export const HomePage = () => {
           listing?.origin?.data?.insc?.json?.id === "bfd3bfe2d65a131e9792ee04a2da9594d9dc8741a7ab362c11945bfc368d2063_1"
         )
       }
-    );
-    // ).sort((a, b) => {
-    //   // Assuming the price is stored in `listing.data.list.price` and is a number
-    //   const numA = extractNumber(a?.data?.list?.price?.toString());
-    //   const numB = extractNumber(b?.data?.list?.price?.toString());
-    //   return (numA ?? 0) - (numB ?? 0);
-    // });
+    ).sort((a, b) => {
+      // Assuming the price is stored in `listing.data.list.price` and is a number
+      const numA = extractNumber(a?.data?.list?.price?.toString());
+      const numB = extractNumber(b?.data?.list?.price?.toString());
+      return (numA ?? 0) - (numB ?? 0);
+    });
 
     return (
       <>
         <div className="text-center text-2xl mt-4 mb-4">
           HODL Marketplace
+        </div>
+        <div className="text-2xl font-bold">
+          <h2>This is an EXPERIMENTAL MARKETPLACE live before a proper indexer is in place.</h2>
+          <h2>TRADE AT YOUR OWN RISK.</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredListings.map((listing, index) => (
