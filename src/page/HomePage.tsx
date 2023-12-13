@@ -6,6 +6,7 @@ import LRCCard from "../components/LRCCard";
 import SonataCard from "../components/SonataCard";
 import OGCards from "../components/OGCards";
 import MarketplaceCard from "../components/MarketplaceCard";
+import HODLMarketplaceCard from "../components/HODLMarketplaceCard";
 import {
   Addresses,
   SignedMessage,
@@ -129,6 +130,8 @@ export const HomePage = () => {
       default:
       case 'Global Marketplace':
         return renderGlobalMarketplace();
+      case 'HODL Marketplace':
+        return renderGlobalHodlMarketplace();
         return null;
     }
   };
@@ -161,6 +164,34 @@ export const HomePage = () => {
     )
   }
 
+  const renderGlobalHodlMarketplace = () => {
+    const filteredListings = orderBook.filter(
+      (listing: any) => {
+        return (
+          listing?.origin?.data?.insc?.json?.id === "bfd3bfe2d65a131e9792ee04a2da9594d9dc8741a7ab362c11945bfc368d2063_1"
+        )
+      }
+    );
+    // ).sort((a, b) => {
+    //   // Assuming the price is stored in `listing.data.list.price` and is a number
+    //   const numA = extractNumber(a?.data?.list?.price?.toString());
+    //   const numB = extractNumber(b?.data?.list?.price?.toString());
+    //   return (numA ?? 0) - (numB ?? 0);
+    // });
+
+    return (
+      <>
+        <div className="text-center text-2xl mt-4 mb-4">
+          HODL Marketplace
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {filteredListings.map((listing, index) => (
+            <HODLMarketplaceCard key={index} listing={listing} purchaseOrdinal={purchaseOrdinal} />
+          ))}
+        </div>
+      </>
+    )
+  }
 
   const renderSonatas = () => {
 
@@ -221,7 +252,6 @@ export const HomePage = () => {
     }
     return null;
   };
-
 
   const renderOGCards = () => {
 
@@ -362,6 +392,7 @@ export const HomePage = () => {
               <option value="LRC-20s">LRC-20s</option>
               <option value="Tale of Shua Gears">Tale of Shua Gears</option>
               <option value="Global Marketplace">Global Marketplace</option>
+              <option value="HODL Marketplace">HODL Marketplace</option>
             </select>
 
             {renderContent()}
