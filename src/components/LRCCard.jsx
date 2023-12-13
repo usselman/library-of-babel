@@ -14,7 +14,7 @@ const LRCCard = ({ ordinal, setHodlSum }) => {
 
 
     // Check block height for $hodl
-    if (ordinal.height > 821205) {
+    if (ordinal.height > 821205 && ordinal.idx < 21000) {
       verificationMessage = 'Invalid mint (after blk 821205)';
       verificationStyle = { color: 'red' };
       valid = false;

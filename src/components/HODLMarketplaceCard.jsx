@@ -13,8 +13,8 @@ const HODLMarketplaceCard = ({ listing, purchaseOrdinal }) => {
         lrcName = '$hodl';
 
 
-        // Check block height for $hodl
-        // if (listing.height > 821205 || !listing.height) {
+        //Check block height for $hodl
+        // if (listing.idx < 21000 || !listing.height) {
         //     verificationMessage = 'Invalid mint';
         //     verificationStyle = { color: 'red' };
         //     valid = false;
@@ -52,6 +52,9 @@ const HODLMarketplaceCard = ({ listing, purchaseOrdinal }) => {
                 </div>
             </div>
             <div>
+                <div className="text-sm p-2">
+                    Owned by: {listing?.owner}
+                </div>
                 <button
                     onClick={handleBuyClick}
                     className="buy-btn border-0 text-md bg-blue-500 hover:bg-green-700 hover:text-white border-black rounded-xl p-4">
