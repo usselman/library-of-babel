@@ -48,7 +48,7 @@ const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal }) => {
             valid = false;
         }
         else {
-            verificationMessage = 'Invalid mint!';
+            verificationMessage = 'Invalid mint (or sold)!';
             verificationStyle = { color: 'red' };
             valid = false;
         }
