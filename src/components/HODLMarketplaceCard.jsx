@@ -82,7 +82,7 @@ const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal }) => {
             </div>
             <div>
                 <div className="text-sm p-2">
-                    Owned by: {listing?.owner}
+                    Owned by: <span className="font-light">{listing?.owner}</span>
                 </div>
                 <button
                     onClick={handleBuyClick}
