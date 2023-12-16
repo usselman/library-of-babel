@@ -23,6 +23,7 @@ export const bsOrderToTxFormat = (bsvOrder) => {
 };
 
 const LRCCard = ({ ordinal, setHodlSum, locations }) => {
+  //console.log("my hodl", ordinal);
   let lrcName;
   let verificationMessage = null;
   let verificationStyle = {};
