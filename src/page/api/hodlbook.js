@@ -4,7 +4,6 @@ import axios from 'axios';
 // Create a function to fetch data from the endpoint
 const getHodlBook = async () => {
     try {
-        // Define the request body
         const requestBody = {
             insc: {
                 json: {

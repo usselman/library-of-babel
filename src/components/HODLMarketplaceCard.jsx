@@ -1,7 +1,29 @@
 import React from 'react';
+import { Buffer } from "buffer";
 
-const HODLMarketplaceCard = ({ listing, purchaseOrdinal }) => {
-    console.log("passed hodl", listing);
+export const bsOrderToTxFormat = (bsvOrder) => {
+    // Parse the input BSV ordinal outpoint into its components
+    const txidHex = bsvOrder.substring(0, 64); // Extract the first 64 characters as txid
+    const outputIndexHex = bsvOrder.substring(65); // Extract the remainder as outputIndex in hexadecimal
+
+    // Convert txid to little-endian format
+    const txidBytes = Buffer.from(txidHex, 'hex').reverse();
+
+    // Convert output index to uint32LE (4 bytes)
+    const outputIndex = Buffer.alloc(4);
+    outputIndex.writeUInt32LE(parseInt(outputIndexHex, 16));
+
+    // Concatenate txid and output index to get the final buffer
+    const txFormatBuffer = Buffer.concat([txidBytes, outputIndex]);
+
+    // Convert the buffer to a hexadecimal string
+    const txFormatHex = txFormatBuffer.toString('hex');
+    //console.log("converted txformat: ", txFormatHex);
+    return txFormatHex;
+};
+
+const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal }) => {
+    //console.log("passed hodl", listing);
 
     let lrcName;
     let verificationMessage = null;
@@ -12,17 +34,24 @@ const HODLMarketplaceCard = ({ listing, purchaseOrdinal }) => {
     if (listing) {
         lrcName = '$hodl';
 
+        lrcName = '$hodl';
 
-        //Check block height for $hodl
-        // if (listing.idx < 21000 || !listing.height) {
-        //     verificationMessage = 'Invalid mint';
-        //     verificationStyle = { color: 'red' };
-        //     valid = false;
-        // } else {
-        //     verificationMessage = 'Valid mint';
-        //     verificationStyle = { color: 'green' };
-        //     valid = true;
-        // }
+        const txFormat = bsOrderToTxFormat(listing.outpoint);
+
+        if (locations.includes(txFormat)) {
+            verificationMessage = 'Valid mint √';
+            verificationStyle = { color: 'green' };
+            valid = true;
+        } else if (listing.height === null) {
+            verificationMessage = 'Pending miner confirmation';
+            verificationStyle = { color: 'red' };
+            valid = false;
+        }
+        else {
+            verificationMessage = 'Invalid mint X';
+            verificationStyle = { color: 'red' };
+            valid = false;
+        }
     } else {
         lrcName = 'unknown LRC-20';
     }

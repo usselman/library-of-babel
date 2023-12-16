@@ -8,6 +8,7 @@ import SonataCard from "../components/SonataCard";
 import OGCards from "../components/OGCards";
 import MarketplaceCard from "../components/MarketplaceCard";
 import HODLMarketplaceCard from "../components/HODLMarketplaceCard";
+import axios from 'axios';
 import {
   Addresses,
   SignedMessage,
@@ -42,6 +43,7 @@ export const HomePage = () => {
   const [orderBook, setOrderBook] = useState<any[]>([]);
   const [hodlBook, setHodlBook] = useState<any[]>([]);
   const [viewMode, setViewMode] = useState('collection');
+  const [locations, setLocations] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchOrderBook = async () => {
@@ -95,6 +97,34 @@ export const HomePage = () => {
       fetchData();
     }
   }, [wallet]);
+
+  useEffect(() => {
+    // Define the pullHODLs function here
+    const pullHODLs = async () => {
+      const query = `
+          {locations}
+      `;
+
+      try {
+        const response = await axios.post('https://api.hodlock.com/graphql', { query });
+        if (response.data && response.data.data && response.data.data.locations) {
+          setLocations(response.data.data.locations);
+          console.log("GraphQL: ", response.data);
+        } else {
+          console.error('GraphQL response does not contain expected data.');
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    // Call pullHODLs when the component mounts
+    pullHODLs();
+  }, []);
+
+  useEffect(() => {
+    console.log("Locations: ", locations);
+  }, [locations]);
 
   const handleConnect = async () => {
     if (!wallet.connect) {
@@ -200,12 +230,12 @@ export const HomePage = () => {
           HODL Marketplace
         </div>
         <div className="text-2xl font-bold text-red-500">
-          <h2>This is an EXPERIMENTAL MARKETPLACE live before a proper indexer is in place.</h2>
+          <h2>This is an EXPERIMENTAL MARKETPLACE. Research before purchase!</h2>
           <h2>TRADE AT YOUR OWN RISK.</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredListings.map((listing, index) => (
-            <HODLMarketplaceCard key={index} listing={listing} purchaseOrdinal={purchaseOrdinal} />
+            <HODLMarketplaceCard key={index} listing={listing} locations={locations} purchaseOrdinal={purchaseOrdinal} />
           ))}
         </div>
       </>
@@ -257,12 +287,14 @@ export const HomePage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
 
           {filteredLRC20s.map((ordinal, index) => (
-            <LRCCard key={index} ordinal={ordinal} setHodlSum={setHodlSum} />
+            <LRCCard key={index} ordinal={ordinal} setHodlSum={setHodlSum} locations={locations} />
           ))}
         </div>
       </>
     );
   }
+
+
 
   const extractNumber = (text: string): number | null => {
     const parts = text.split(" ");
