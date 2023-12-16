@@ -198,8 +198,11 @@ export const HomePage = () => {
 
     return (
       <>
-        <div className="text-center text-2xl mt-4 mb-4">
+        {/* <div className="text-center text-2xl mt-4 mb-4">
           Tale of Shua Gear Marketplace
+        </div> */}
+        <div className="text-center text-2xl mt-4 mb-4">
+          <span className="underline hover:text-blue-500 rounded-xl"><a href="https://taleofshua.com">Gear</a></span> is a lock-to-mint collection by Joshua Henslee.
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredListings.map((listing, index) => (
@@ -227,7 +230,7 @@ export const HomePage = () => {
     return (
       <>
         <div className="text-center text-2xl mt-4 mb-4">
-          HODL Marketplace
+          <span className="underline hover:text-blue-500 rounded-xl"><a href="https://v3.ordinals.gorillapool.io/content/1f2d8349d15ef5287c5cada779f7e6875e123fe0ab788b478a17514b5746db90_0">$hodl</a></span> is the first of its kind LRC-20 token.
         </div>
         <div className="text-2xl font-bold text-red-500">
           <h2>This is an EXPERIMENTAL MARKETPLACE. Research before purchase!</h2>
@@ -443,7 +446,7 @@ export const HomePage = () => {
               <option value="Sonatas">Sonatas</option>
               <option value="LRC-20s">LRC-20s</option>
               <option value="Tale of Shua Gears">Tale of Shua Gears</option>
-              <option value="Global Marketplace">Global Marketplace</option>
+              <option value="Global Marketplace">Gear Marketplace</option>
               <option value="HODL Marketplace">HODL Marketplace</option>
             </select>
 
