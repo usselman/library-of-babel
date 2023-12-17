@@ -39,7 +39,7 @@ export const HomePage = () => {
   const [bsvAddress, setBsvAddress] = useState<string | undefined>();
   const [identityAddress, setIdentityAddress] = useState<string | undefined>();
   const [hodlSum, setHodlSum] = useState<number>(0);
-  const [selectedType, setSelectedType] = useState('Tale of Shua Gears');
+  const [selectedType, setSelectedType] = useState('HODL Marketplace');
   const [orderBook, setOrderBook] = useState<any[]>([]);
   const [hodlBook, setHodlBook] = useState<any[]>([]);
   const [viewMode, setViewMode] = useState('collection');
