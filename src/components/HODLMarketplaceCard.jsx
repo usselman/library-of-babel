@@ -70,7 +70,7 @@ const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal }) => {
                     <div className="font-bold text-lg mb-2">{lrcName}</div>
                     {verificationMessage && <div style={verificationStyle}>{verificationMessage}</div>}
                     <div className="font-bold text-lg mb-2">Amount: {amount}</div>
-                    <div className="border-2 border-black text-md rounded-xl p-4 bg-white">
+                    <div className="border-0 border-black text-md rounded-xl p-4 bg-white">
                         <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/tx/${listing.txid}`}>{listing.origin.data.insc.json.op} tx</a></div>
                         <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/block-height/${listing.height}`}>blk: {listing.height}</a></div>
                         <div className="font-bold mb-2 underline"><a href={`https://1satordinals.com/inscription/${listing.origin.num}`}>#{listing.origin.num}</a></div>

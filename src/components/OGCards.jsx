@@ -85,7 +85,7 @@ const OGCards = ({ ordinal, address, transferOrdinal }) => {
                         Transfer
                     </button>
                 </div>
-                <div className="border-2 border-black text-md rounded-xl p-4 bg-white mt-4">
+                <div className="border-0 border-black text-md rounded-xl p-4 bg-white mt-4">
                     <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/tx/${ordinal.txid}`}>tx</a></div>
                     <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/block-height/${ordinal.height}`}>blk: {ordinal.height}</a></div>
                     <div className="font-bold mb-2 underline"><a href={`https://1satordinals.com/inscription/${ordinal.origin.num}`}>#{ordinal.origin.num}</a></div>

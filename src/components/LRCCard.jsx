@@ -62,7 +62,7 @@ const LRCCard = ({ ordinal, setHodlSum, locations }) => {
         <div className="font-bold text-lg mb-2">{lrcName}</div>
         {verificationMessage && <div style={verificationStyle}>{verificationMessage}</div>}
         <div className="font-bold text-lg mb-2">Amount: {ordinal.data.insc.json.amt}</div>
-        <div className="border-2 border-black text-md rounded-xl p-4 bg-white">
+        <div className="border-0 border-black text-md rounded-xl p-4 bg-white">
           <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/tx/${ordinal.txid}`}>{ordinal.data.insc.json.op} tx</a></div>
           <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/block-height/${ordinal.height}`}>blk: {ordinal.height}</a></div>
           <div className="font-bold mb-2 underline"><a href={`https://1satordinals.com/inscription/${ordinal.origin.num}`}>#{ordinal.origin.num}</a></div>
