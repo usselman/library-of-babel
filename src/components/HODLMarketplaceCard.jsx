@@ -57,16 +57,13 @@ const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal }) => {
     }
 
     const handleBuyClick = () => {
-        // Assuming 'outpoint', 'marketplaceRate', and 'marketplaceAddress' are the needed parameters
-        // You might need to adjust these according to your application's logic
         const outpoint = listing.outpoint;
         const marketplaceRate = 0.00; // Example rate, adjust as needed
         const marketplaceAddress = "1NHeCkh457C114iNUXZnuMowHddq4GkoAg"; // Replace with actual address
 
         purchaseOrdinal(outpoint, marketplaceRate, marketplaceAddress);
     };
-
-    return (
+    return valid ? (
         <div>
             <div className={`rounded-lg overflow-hidden m-4 p-4 bg-white border-4 border-black shadow-xl hover:bg-gray-300`}>
                 <div className="px-6 py-4">
@@ -90,10 +87,9 @@ const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal }) => {
                     {(listing?.data?.list?.price / 100000000).toFixed(4)} BSV
                 </button>
             </div>
-
         </div>
-    );
-
+    ) : null;
 };
+
 
 export default HODLMarketplaceCard;
