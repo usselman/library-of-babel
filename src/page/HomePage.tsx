@@ -396,7 +396,7 @@ export const HomePage = () => {
           alt="Panda Wallet Icon"
           className="mx-auto h-20 w-20"
         /> */}
-        {ordinals.length == 0 &&
+        {/* {ordinals.length == 0 &&
 
           <>
             <div className="h-8" />
@@ -413,7 +413,7 @@ export const HomePage = () => {
             <div className="h-8" />
           </>
 
-        }
+        } */}
 
         {/* {pubKey && (
           <p className="mt-2 text-sm text-gray-700">Public Key: {pubKey}</p>
@@ -423,36 +423,41 @@ export const HomePage = () => {
             Addresses: {JSON.stringify(addresses)}
           </p>
         )} */}
-        {wallet && ordinals.length > 0 && (
-          <div className="mt-12">
-            <div className="parchment-container">
-              <h4 className="text-4xl font-semibold text-black text-center title">
-                Library of Babel
-              </h4>
-              <p className="text-sm font-semibold text-black text-center hover:text-blue-500 rounded-xl author">
-                <a href="https://twitter.com/worldbuilder_us">@worldbuilder.us</a>
-              </p>
-            </div>
-            <div className="h-20" />
-            <h4 className="text-4xl font-semibold text-black text-center">
-              Your Inscriptions
+        {/* {wallet && ordinals.length > 0 && ( */}
+        <div className="mt-12">
+          <div className="parchment-container">
+            <h4 className="text-4xl font-semibold text-black text-center title">
+              Library of Babel
             </h4>
-            <p className="text-md text-black text-center mt-4">
-              Keep in mind the amounts may not be accurate! <span className="underline hover:text-blue-500"><a href="https://github.com/Panda-Wallet/panda-wallet#getting-started-alpha">Panda Wallet (v2.6.2)</a></span> shows latest 1000 inscriptions.
-            </p>
-            <div className="h-8" />
-            <select value={selectedType} onChange={handleChange} className="mb-4 rounded-xl border-2 p-4 border-black">
-              <option value="OGs">.OGs</option>
-              <option value="Sonatas">Sonatas</option>
-              <option value="LRC-20s">LRC-20s</option>
-              <option value="Tale of Shua Gears">Tale of Shua Gears</option>
-              <option value="Global Marketplace">Gear Marketplace</option>
-              <option value="HODL Marketplace">HODL Marketplace</option>
-            </select>
 
-            {renderContent()}
+            <p className="text-sm font-semibold text-black text-center hover:text-blue-500 rounded-xl author">
+              <a href="https://twitter.com/worldbuilder_us">@worldbuilder.us</a>
+            </p>
           </div>
-        )}
+          <PandaConnectButton
+            className="m-4 p-4 rounded-md bg-blue-900 text-white hover:bg-blue-600 absolute top-4 right-4"
+            onClick={handleConnect}
+          />
+          <div className="h-20" />
+          <h4 className="text-4xl font-semibold text-black text-center">
+            Inscriptions
+          </h4>
+          <p className="text-md text-black text-center mt-4">
+            Keep in mind the amounts may not be accurate! <span className="underline hover:text-blue-500"><a href="https://github.com/Panda-Wallet/panda-wallet#getting-started-alpha">Panda Wallet (v2.6.2)</a></span> shows latest 1000 inscriptions.
+          </p>
+          <div className="h-8" />
+          <select value={selectedType} onChange={handleChange} className="mb-4 rounded-xl border-2 p-4 border-black">
+            <option value="OGs">.OGs</option>
+            <option value="Sonatas">Sonatas</option>
+            <option value="LRC-20s">LRC-20s</option>
+            <option value="Tale of Shua Gears">Tale of Shua Gears</option>
+            <option value="Global Marketplace">Gear Marketplace</option>
+            <option value="HODL Marketplace">HODL Marketplace</option>
+          </select>
+
+          {renderContent()}
+        </div>
+        {/* )} */}
       </div>
     </div>
   );
