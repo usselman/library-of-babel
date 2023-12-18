@@ -214,7 +214,7 @@ export const HomePage = () => {
   }
 
   const renderGlobalHodlMarketplace = () => {
-    const filteredListings = hodlBook.filter(
+    const filteredListings = hodlBook?.filter(
       (listing: any) => {
         return (
           listing?.origin?.data?.insc?.json?.id === "bfd3bfe2d65a131e9792ee04a2da9594d9dc8741a7ab362c11945bfc368d2063_1"
