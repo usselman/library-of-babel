@@ -58,8 +58,8 @@ const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal }) => {
 
     const handleBuyClick = () => {
         const outpoint = listing.outpoint;
-        const marketplaceRate = 0.00; // Example rate, adjust as needed
-        const marketplaceAddress = "1NHeCkh457C114iNUXZnuMowHddq4GkoAg"; // Replace with actual address
+        const marketplaceRate = 0.01; // Example rate, adjust as needed
+        const marketplaceAddress = "1PSmNxwoBVcsAB3bRRccDqbFkjtBemS5qh"; // Replace with actual address
 
         purchaseOrdinal(outpoint, marketplaceRate, marketplaceAddress);
     };
