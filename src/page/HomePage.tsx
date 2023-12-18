@@ -232,10 +232,7 @@ export const HomePage = () => {
         <div className="text-center text-2xl mt-4 mb-4">
           <span className="underline hover:text-blue-500 rounded-xl"><a href="https://v3.ordinals.gorillapool.io/content/1f2d8349d15ef5287c5cada779f7e6875e123fe0ab788b478a17514b5746db90_0">$hodl</a></span> is the first of its kind LRC-20 token.
         </div>
-        <div className="text-2xl font-bold text-red-500">
-          <h2>This is an EXPERIMENTAL MARKETPLACE. Research before purchase!</h2>
-          <h2>TRADE AT YOUR OWN RISK.</h2>
-        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredListings.map((listing, index) => (
             <HODLMarketplaceCard key={index} listing={listing} locations={locations} purchaseOrdinal={purchaseOrdinal} />
@@ -435,7 +432,7 @@ export const HomePage = () => {
             </p>
           </div>
           <PandaConnectButton
-            className="m-4 p-4 rounded-md bg-blue-900 text-white hover:bg-blue-600 absolute top-4 right-4"
+            className="m-4 p-4 rounded-md bg-blue-900 text-white hover:bg-blue-600 absolute top-4 right-4 sm:hidden md:flex"
             onClick={handleConnect}
           />
           <div className="h-20" />
@@ -445,6 +442,10 @@ export const HomePage = () => {
           <p className="text-md text-black text-center mt-4">
             Keep in mind the amounts may not be accurate! <span className="underline hover:text-blue-500"><a href="https://github.com/Panda-Wallet/panda-wallet#getting-started-alpha">Panda Wallet (v2.6.2)</a></span> shows latest 1000 inscriptions.
           </p>
+          <div className="text-xl font-bold text-red-500">
+            <h2>This is an EXPERIMENTAL MARKETPLACE. Research before purchase!</h2>
+            <h2>TRADE AT YOUR OWN RISK.</h2>
+          </div>
           <div className="h-8" />
           <select value={selectedType} onChange={handleChange} className="mb-4 rounded-xl border-2 p-4 border-black">
             <option value="OGs">.OGs</option>
