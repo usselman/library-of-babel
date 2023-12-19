@@ -64,7 +64,7 @@ export const HomePage = () => {
       try {
         const data = await getHodlBook();
         setHodlBook(data);
-        console.log('hodl book: ', data);
+        //console.log('hodl book: ', data);
       } catch (error) {
         console.error("Failed to fetch hodl book", error);
       }

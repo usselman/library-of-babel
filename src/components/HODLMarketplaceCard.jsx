@@ -23,7 +23,7 @@ export const bsOrderToTxFormat = (bsvOrder) => {
 };
 
 const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal }) => {
-    //console.log("passed hodl", listing);
+    console.log("passed hodl", listing);
 
     let lrcName;
     let verificationMessage = null;
@@ -32,8 +32,6 @@ const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal }) => {
     const amount = parseFloat(listing?.origin?.data?.insc?.json?.amt);
 
     if (listing) {
-        lrcName = '$hodl';
-
         lrcName = '$hodl';
 
         const txFormat = bsOrderToTxFormat(listing.outpoint);

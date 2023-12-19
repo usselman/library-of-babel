@@ -22,7 +22,7 @@ const getHodlBook = async () => {
             const responseData = response.data;
 
             // Now you can work with the responseData as needed
-            console.log(responseData);
+            //console.log(responseData);
 
             // Return the data if needed
             return responseData;
