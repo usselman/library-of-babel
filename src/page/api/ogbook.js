@@ -14,7 +14,7 @@ const getHodlBook = async () => {
         };
 
         // Make a POST request with the request body
-        const response = await axios.post('https://v3.ordinals.gorillapool.io/api/market', requestBody);
+        const response = await axios.post('https://ordinals.gorillapool.io/api/market', requestBody);
 
         // Check if the request was successful (status code 200)
         if (response.status === 200) {

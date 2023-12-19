@@ -3,7 +3,7 @@
 import axios from 'axios';
 
 const getGlobalOrderBook = async () => {
-  const url = "https://v3.ordinals.gorillapool.io/api/market";
+  const url = "https://ordinals.gorillapool.io/api/market";
   const params = {
     sort: "recent",
     dir: "DESC",

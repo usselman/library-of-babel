@@ -27,7 +27,7 @@ const OGCards = ({ ordinal, address, transferOrdinal }) => {
     const verifyRecord = async () => {
         if (isDigit(ordinal)) {
             try {
-                const searchResponse = await fetch('https://v3.ordinals.gorillapool.io/api/inscriptions/search?sort=ASC&limit=1&offset=0', {
+                const searchResponse = await fetch('https://ordinals.gorillapool.io/api/inscriptions/search?sort=ASC&limit=1&offset=0', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
