@@ -29,7 +29,11 @@ const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal }) => {
     let verificationMessage = null;
     let verificationStyle = {};
     let valid;
-    const amount = parseFloat(listing?.origin?.data?.insc?.json?.amt);
+
+    // Check if 'listing.data.insc.json' exists and has 'amt' and 'op' fields
+    const inscData = listing?.data?.insc?.json;
+    let amount = parseFloat(inscData?.amt);
+    let op = inscData?.op;
 
     if (listing) {
         lrcName = '$hodl';
@@ -54,6 +58,13 @@ const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal }) => {
         lrcName = 'unknown LRC-20';
     }
 
+    // Check if 'amount' and 'op' are defined; if not, fall back to 'listing.origin'
+    if (isNaN(amount) || !op) {
+        const originData = listing?.origin?.data;
+        amount = parseFloat(originData?.insc?.json?.amt);
+        op = originData?.insc?.json?.op;
+    }
+
     const handleBuyClick = () => {
         const outpoint = listing.outpoint;
         const marketplaceRate = 0.01; // Example rate, adjust as needed
@@ -61,6 +72,7 @@ const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal }) => {
 
         purchaseOrdinal(outpoint, marketplaceRate, marketplaceAddress);
     };
+
     return valid ? (
         <div>
             <div className={`rounded-lg overflow-hidden m-4 p-4 bg-white border-4 border-black shadow-xl hover:bg-gray-300`}>
@@ -69,7 +81,7 @@ const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal }) => {
                     {verificationMessage && <div style={verificationStyle}>{verificationMessage}</div>}
                     <div className="font-bold text-lg mb-2">Amount: {amount}</div>
                     <div className="border-0 border-black text-md rounded-xl p-4 bg-white">
-                        <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/tx/${listing.txid}`}>{listing.origin.data.insc.json.op} tx</a></div>
+                        <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/tx/${listing.txid}`}>{op} tx</a></div>
                         <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/block-height/${listing.height}`}>blk: {listing.height}</a></div>
                         <div className="font-bold mb-2 underline"><a href={`https://1satordinals.com/inscription/${listing.origin.num}`}>#{listing.origin.num}</a></div>
                     </div>
@@ -88,6 +100,5 @@ const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal }) => {
         </div>
     ) : null;
 };
-
 
 export default HODLMarketplaceCard;
