@@ -8,6 +8,7 @@ import SonataCard from "../components/SonataCard";
 import OGCards from "../components/OGCards";
 import MarketplaceCard from "../components/MarketplaceCard";
 import HODLMarketplaceCard from "../components/HODLMarketplaceCard";
+import PriceHistoryChart from "../components/PriceHistoryChart";
 import axios from 'axios';
 import {
   Addresses,
@@ -232,12 +233,15 @@ export const HomePage = () => {
         <div className="text-center text-2xl mt-4 mb-4">
           <span className="underline hover:text-blue-500 rounded-xl"><a href="https://ordinals.gorillapool.io/content/1f2d8349d15ef5287c5cada779f7e6875e123fe0ab788b478a17514b5746db90_0">$hodl</a></span> is the first of its kind LRC-20 token.
         </div>
-
+        <PriceHistoryChart data={filteredListings} />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredListings.map((listing, index) => (
             <HODLMarketplaceCard key={index} listing={listing} locations={locations} purchaseOrdinal={purchaseOrdinal} />
+
           ))}
         </div>
+
+
       </>
     )
   }
