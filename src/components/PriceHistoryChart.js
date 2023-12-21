@@ -37,8 +37,8 @@ const PriceHistoryChart = ({ data }) => {
 
     // Calculate the price/amount ratio in USD
     const priceAmountRatioUSD = amounts.map((amt, index) => (amt / prices[index]) * exchangeRate);
-    console.log("Price/amount ratio: ", priceAmountRatioUSD);
-    const marketcap = priceAmountRatioUSD[0] * 21000000;
+    console.log("Prices: ", prices);
+    const marketcap = (prices[0] * 21000) / 100000000 * exchangeRate;
 
     const chartData = {
         labels: heights.map(String), // Convert heights to strings for the X-axis (category)
@@ -80,7 +80,7 @@ const PriceHistoryChart = ({ data }) => {
 
     return (
         <div>
-            <h1 className="text-2xl font-bold">Marketcap: ${marketcap.toFixed(2)}</h1>
+            <h1 className="text-2xl font-bold">Marketcap: ${marketcap.toFixed(0)}</h1>
             <h2 className="font-bold">Listing Price History (USD) - WIP</h2>
             <Line data={chartData} options={options} />
         </div>
