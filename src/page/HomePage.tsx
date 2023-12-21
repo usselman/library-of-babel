@@ -480,7 +480,7 @@ export const HomePage = () => {
             onClick={handleConnect}
           />
           <h2 className="md:mt-2 sm:mt-0"><span className="text-green-600">${exchangeRate.toFixed(2)}</span> #{currentBlockHeight}</h2>
-          <div className="h-24" />
+          <div className="h-16" />
           <h4 className="text-4xl font-semibold text-black text-center">
             Inscriptions
           </h4>
