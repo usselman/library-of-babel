@@ -9,6 +9,7 @@ import OGCards from "../components/OGCards";
 import MarketplaceCard from "../components/MarketplaceCard";
 import HODLMarketplaceCard from "../components/HODLMarketplaceCard";
 import PriceHistoryChart from "../components/PriceHistoryChart";
+import { Tooltip } from 'react-tooltip';
 import axios from 'axios';
 import {
   Addresses,
@@ -45,6 +46,8 @@ export const HomePage = () => {
   const [hodlBook, setHodlBook] = useState<any[]>([]);
   const [viewMode, setViewMode] = useState('collection');
   const [locations, setLocations] = useState<any[]>([]);
+  const [exchangeRate, setExchangeRate] = useState<number>(0);
+  const [currentBlockHeight, setCurrentBlockHeight] = useState<number>(0);
 
   useEffect(() => {
     const fetchOrderBook = async () => {
@@ -126,6 +129,43 @@ export const HomePage = () => {
   useEffect(() => {
     console.log("Locations: ", locations);
   }, [locations]);
+
+  useEffect(() => {
+    async function getExchangeRate() {
+      const url = 'https://api.whatsonchain.com/v1/bsv/main/exchangerate';
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error('Network response was not ok ' + response.statusText);
+        }
+        const data = await response.json();
+        setExchangeRate(parseFloat(data.rate));
+        console.log("Exchange rate fetched: ", exchangeRate);
+      } catch (error) {
+        console.error("Fetching exchange rate failed: ", error);
+      }
+    }
+
+    getExchangeRate();
+  }, []);
+
+  useEffect(() => {
+    async function getCurrentBlockHeight() {
+      const url = 'https://api.whatsonchain.com/v1/bsv/main/chain/info';
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error('Network response was not ok ' + response.statusText);
+        }
+        const data = await response.json();
+        setCurrentBlockHeight(parseInt(data.blocks, 10));
+        console.log("Current block height fetched: ", currentBlockHeight);
+      } catch (error) {
+        console.error("Fetching block height failed: ", error);
+      }
+    }
+    getCurrentBlockHeight();
+  }, []);
 
   const handleConnect = async () => {
     if (!wallet.connect) {
@@ -299,8 +339,6 @@ export const HomePage = () => {
     );
   }
 
-
-
   const extractNumber = (text: string): number | null => {
     const parts = text.split(" ");
     if (parts.length > 0 && !isNaN(parseInt(parts[0], 10))) {
@@ -389,6 +427,8 @@ export const HomePage = () => {
     }
   };
 
+  const tooltipId = `tooltip-disclaimer`;
+
   return (
     <div className="App">
       <div className="bg-gray m-4 p-4">
@@ -439,19 +479,30 @@ export const HomePage = () => {
             className="m-4 p-4 rounded-md bg-blue-900 text-white hover:bg-blue-600 absolute top-4 right-4 sm:hidden md:flex"
             onClick={handleConnect}
           />
-          <div className="h-20" />
+          <h2 className="md:mt-2 sm:mt-0"><span className="text-green-600">${exchangeRate.toFixed(2)}</span> #{currentBlockHeight}</h2>
+          <div className="h-24" />
           <h4 className="text-4xl font-semibold text-black text-center">
             Inscriptions
           </h4>
           <p className="text-md text-black text-center mt-4">
-            Keep in mind the amounts may not be accurate! <span className="underline hover:text-blue-500"><a href="https://github.com/Panda-Wallet/panda-wallet#getting-started-alpha">Panda Wallet (v2.6.2)</a></span> shows latest 1000 inscriptions.
+            Keep in mind the amounts may not be accurate! <span className="underline hover:text-blue-500"><a href="https://github.com/Panda-Wallet/panda-wallet#getting-started-alpha">Panda Wallet</a></span> shows latest 1000 inscriptions as of (v2.6.2).
           </p>
-          <div className="text-xl font-bold text-red-500">
-            <h2>This is an EXPERIMENTAL MARKETPLACE. Research before purchase!</h2>
-            <h2>TRADE AT YOUR OWN RISK.</h2>
+          <div className="text-xl font-bold text-red-500 p-4 px-32">
+            <a
+              data-tooltip-id={tooltipId}
+              data-tooltip-content={`
+                This is an EXPERIMENTAL MARKETPLACE. Research before purchase!
+                TRADE AT YOUR OWN RISK.
+              `}
+              data-tooltip-place="bottom"
+            >
+              <p>DISCLAIMER</p>
+            </a>
+            <Tooltip id={tooltipId} />
           </div>
-          <div className="h-8" />
-          <select value={selectedType} onChange={handleChange} className="mb-4 rounded-xl border-2 p-4 border-black">
+
+          <div className="h-2" />
+          <select value={selectedType} onChange={handleChange} className="mb-4 rounded-xl border-2 p-4 border-black bg-white">
             <option value="OGs">.OGs</option>
             <option value="Sonatas">Sonatas</option>
             <option value="LRC-20s">LRC-20s</option>
