@@ -468,7 +468,7 @@ export const HomePage = () => {
         <div className="mt-12">
           <div className="parchment-container">
             <h4 className="text-4xl font-semibold text-black text-center title">
-              Library of Babel
+              <span className="hover:text-blue-500"><a href="https://github.com/usselman/library-of-babel">Library of Babel</a></span>
             </h4>
 
             <p className="text-sm font-semibold text-black text-center hover:text-blue-500 rounded-xl author">
