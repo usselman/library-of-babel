@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import getGlobalOrderBook from './api/orderbook';
 import getHodlBook from './api/hodlbook';
+import getOGBook from './api/ogbook';
 import { PandaConnectButton } from "../components/PandaConnectButton";
 import OrdinalCard from "../components/OrdinalCard";
 import LRCCard from "../components/LRCCard";
@@ -8,6 +9,7 @@ import SonataCard from "../components/SonataCard";
 import OGCards from "../components/OGCards";
 import MarketplaceCard from "../components/MarketplaceCard";
 import HODLMarketplaceCard from "../components/HODLMarketplaceCard";
+import OGMarketplaceCard from "../components/OGMarketplaceCard";
 import PriceHistoryChart from "../components/PriceHistoryChart";
 import { Tooltip } from 'react-tooltip';
 import axios from 'axios';
@@ -44,6 +46,7 @@ export const HomePage = () => {
   const [selectedType, setSelectedType] = useState('HODL Marketplace');
   const [orderBook, setOrderBook] = useState<any[]>([]);
   const [hodlBook, setHodlBook] = useState<any[]>([]);
+  const [ogBook, setOGBook] = useState<any[]>([]);
   const [viewMode, setViewMode] = useState('collection');
   const [locations, setLocations] = useState<any[]>([]);
   const [exchangeRate, setExchangeRate] = useState<number>(0);
@@ -75,6 +78,20 @@ export const HomePage = () => {
     };
 
     fetchHodlBook();
+  }, []);
+
+  useEffect(() => {
+    const fetchOGBook = async () => {
+      try {
+        const data = await getOGBook();
+        setOGBook(data);
+        console.log('og book: ', data);
+      } catch (error) {
+        console.error("Failed to fetch og book", error);
+      }
+    };
+
+    fetchOGBook();
   }, []);
 
   useEffect(() => {
@@ -219,6 +236,8 @@ export const HomePage = () => {
         return renderGlobalMarketplace();
       case 'HODL Marketplace':
         return renderGlobalHodlMarketplace();
+      case 'OG Marketplace':
+        return renderGlobalOGMarketplace();
         return null;
     }
   };
@@ -282,6 +301,32 @@ export const HomePage = () => {
         </div>
 
 
+      </>
+    )
+  }
+
+  const renderGlobalOGMarketplace = () => {
+    const filteredListings = ogBook.filter(
+      (listing: any) => {
+        return (
+          listing?.origin?.data?.insc?.words[1] === "og"
+        )
+      }
+    ).sort((a, b) => {
+      // Assuming the price is stored in `listing.data.list.price` and is a number
+      const numA = extractNumber(a?.data?.list?.price?.toString());
+      const numB = extractNumber(b?.data?.list?.price?.toString());
+      return (numA ?? 0) - (numB ?? 0);
+    });
+
+    return (
+      <>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {filteredListings.map((listing, index) => (
+            <OGMarketplaceCard listing={listing} purchaseOrdinal={purchaseOrdinal} />
+
+          ))}
+        </div>
       </>
     )
   }
@@ -357,11 +402,11 @@ export const HomePage = () => {
           ordinal.origin.data.insc.words[1] === "og"
         );
       })
-      .sort((a, b) => {
-        const numA = extractNumber(a?.data?.insc.text);
-        const numB = extractNumber(b?.data?.insc.text);
-        return (numA ?? 0) - (numB ?? 0);
-      });
+    // .sort((a, b) => {
+    //   const numA = extractNumber(a?.data?.insc?.text);
+    //   const numB = extractNumber(b?.data?.insc?.text);
+    //   return (numA ?? 0) - (numB ?? 0);
+    // });
 
     return (
       <>
@@ -513,6 +558,7 @@ export const HomePage = () => {
             <option value="Tale of Shua Gears">Tale of Shua Gears</option>
             <option value="Global Marketplace">Gear Marketplace</option>
             <option value="HODL Marketplace">HODL Marketplace</option>
+            <option value="OG Marketplace">OG Marketplace</option>
           </select>
 
           {renderContent()}

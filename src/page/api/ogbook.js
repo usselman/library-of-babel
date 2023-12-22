@@ -2,19 +2,17 @@
 import axios from 'axios';
 
 // Create a function to fetch data from the endpoint
-const getHodlBook = async () => {
+const getOGBook = async () => {
     try {
         // Define the request body
         const requestBody = {
-            insc: {
-                json: {
-                    id: "bfd3bfe2d65a131e9792ee04a2da9594d9dc8741a7ab362c11945bfc368d2063_1"
-                }
+            "insc": {
+                "words": ["og"]
             }
-        };
+        }
 
         // Make a POST request with the request body
-        const response = await axios.post('https://ordinals.gorillapool.io/api/market', requestBody);
+        const response = await axios.post('https://ordinals.gorillapool.io/api/market?limit=1000&offset=0', requestBody);
 
         // Check if the request was successful (status code 200)
         if (response.status === 200) {
@@ -35,4 +33,4 @@ const getHodlBook = async () => {
 }
 
 // Export the getHodlBook function without calling it
-export default getHodlBook;
+export default getOGBook;
