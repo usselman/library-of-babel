@@ -13,7 +13,17 @@ const OGCards = ({ ordinal, address, transferOrdinal }) => {
         try {
             const ordinalsResponse = await fetch(`https://ordinals.gorillapool.io/api/locks/txid/${txid}`);
             const ordinalsData = await ordinalsResponse.json();
-            if (ordinalsData.length > 0 && ordinalsData[0].satoshis >= 1000000 && ordinalsData[0].data && ordinalsData[0].data.lock && ordinalsData[0].data.lock.until === 1050000) {
+
+            // Iterate over the returned items and check for verification
+            let isVerified = false;
+            for (const item of ordinalsData) {
+                if (item.satoshis >= 1000000 && item.data && item.data.lock && item.data.lock.until === 1050000) {
+                    isVerified = true;
+                    break; // Found a verified item, no need to check further
+                }
+            }
+
+            if (isVerified) {
                 setVerificationStatus("Verified (✓)");
             } else {
                 setVerificationStatus("Not Verified (✗)");
@@ -24,10 +34,11 @@ const OGCards = ({ ordinal, address, transferOrdinal }) => {
         }
     };
 
+
     const verifyRecord = async () => {
         if (isDigit(ordinal)) {
             try {
-                const searchResponse = await fetch('https://ordinals.gorillapool.io/api/inscriptions/search?sort=ASC&limit=1&offset=0', {
+                const searchResponse = await fetch('https://ordinals.gorillapool.io/api/inscriptions/search?dir=ASC&limit=1&offset=0', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
