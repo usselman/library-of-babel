@@ -321,6 +321,9 @@ export const HomePage = () => {
 
     return (
       <>
+        <div className="text-center text-2xl mt-4 mb-4">
+          <span className="underline hover:text-blue-500 rounded-xl"><a href="https://www.hodlocker.com/zackwins/post/d2167c682c0ce72574fe2d21a81987571d42dc51b38c94c0cbe16ac40ad770c0">.OG</a></span> is the first of its kind lock-to-mint numbered namespace.
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredListings.map((listing, index) => (
             <OGMarketplaceCard listing={listing} purchaseOrdinal={purchaseOrdinal} />
