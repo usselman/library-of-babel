@@ -10,7 +10,7 @@ export const PandaConnectButton = (props: PandaConnectButtonProps) => {
   return (
     <button
       onClick={onClick}
-      className={`flex items-center p-4 rounded border-none cursor-pointer text-lg font-bold bg-green-500 ${className}`}
+      className={`flex items-center md:p-4 sm:p-2 rounded border-none cursor-pointer md:text-lg sm:text-md sm:hidden font-bold bg-green-500 ${className}`}
     >
       {/* <img src={pandaIcon} alt="icon" className="mr-4 w-6 h-6" /> */}
       Connect Panda Wallet

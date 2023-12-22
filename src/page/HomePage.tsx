@@ -475,12 +475,13 @@ export const HomePage = () => {
               <a href="https://twitter.com/worldbuilder_us">@worldbuilder.us</a>
             </p>
           </div>
-          <PandaConnectButton
-            className="m-4 p-4 rounded-md bg-blue-900 text-white hover:bg-blue-600 absolute top-4 right-4 sm:hidden md:flex"
-            onClick={handleConnect}
-          />
+
           <h2 className="md:mt-2 sm:mt-0"><span className="text-green-600">${exchangeRate.toFixed(2)}</span> #{currentBlockHeight}</h2>
           <div className="h-16" />
+          <PandaConnectButton
+            className="m-4 p-4 rounded-md bg-blue-900 text-white hover:bg-blue-600 md:absolute top-4 right-4 sm:hidden md:scale-100 sm:scale-50 place-content-center sm:justify-center md:flex"
+            onClick={handleConnect}
+          />
           <h4 className="text-4xl font-semibold text-black text-center">
             Inscriptions
           </h4>
@@ -490,7 +491,7 @@ export const HomePage = () => {
           <p className="text-md text-black text-center mt-2">
             Make sure you are running latest version of Panda (2.9.0).
           </p>
-          <div className="text-xl font-bold text-red-500 p-4 px-32">
+          <div className="text-xl font-bold text-red-500 p-4 text-center">
             <a
               data-tooltip-id={tooltipId}
               data-tooltip-content={`
