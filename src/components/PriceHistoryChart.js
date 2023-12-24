@@ -28,6 +28,9 @@ const PriceHistoryChart = ({ data }) => {
     const heights = data.map((item) => item.height);
     const prices = data.map((item) => item.data.list.price);
 
+    // Sort heights in ascending order
+    const sortedHeights = [...heights].sort((a, b) => a - b);
+
     // Filter out null values (missing data points) from the data
     const filteredData = data.filter((item) => item.origin && item.origin.data && item.origin.data.insc);
 
@@ -41,7 +44,7 @@ const PriceHistoryChart = ({ data }) => {
     const marketcap = (prices[0] * 21000) / 100000000 * exchangeRate;
 
     const chartData = {
-        labels: heights.map(String), // Convert heights to strings for the X-axis (category)
+        labels: sortedHeights.map(String), // Use sorted heights for the X-axis (category)
         datasets: [
             {
                 label: 'Price per Token',
@@ -59,7 +62,7 @@ const PriceHistoryChart = ({ data }) => {
             x: {
                 type: 'category', // Specify x-axis as "category"
                 position: 'bottom',
-                reverse: true, // Reverse the x-axis
+                reverse: false, // Keep the x-axis in ascending order
                 title: {
                     display: true,
                     text: 'Block Height',
