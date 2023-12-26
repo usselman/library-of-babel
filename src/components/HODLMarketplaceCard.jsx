@@ -22,8 +22,8 @@ export const bsOrderToTxFormat = (bsvOrder) => {
     return txFormatHex;
 };
 
-const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal }) => {
-    //console.log("passed hodl", listing);
+const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal, exchangeRate }) => {
+    console.log("passed hodl", listing);
 
     let lrcName;
     let verificationMessage = null;
@@ -31,12 +31,17 @@ const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal }) => {
     let valid;
 
     // Check if 'listing.data.insc.json' exists and has 'amt' and 'op' fields
-    const inscData = listing?.data?.insc?.json;
+    const inscData = listing?.origin?.data?.insc?.json;
     let amount = parseFloat(inscData?.amt);
     let op = inscData?.op;
+    let price = (listing?.data?.list?.price / 100000000).toFixed(4);
+    console.log("price: ", price, "amount: ", amount);
+    let pricePerToken = (price / amount).toFixed(4);
+    let USDpricePerToken = (pricePerToken * exchangeRate).toFixed(2);
+    let USDPrice = (price * exchangeRate).toFixed(2);
 
     if (listing) {
-        lrcName = '$hodl';
+        lrcName = 'hodl';
 
         const txFormat = bsOrderToTxFormat(listing.outpoint);
 
@@ -77,9 +82,11 @@ const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal }) => {
         <div>
             <div className={`rounded-lg overflow-hidden m-4 p-4 bg-white border-4 border-black shadow-xl hover:bg-gray-300`}>
                 <div className="px-6 py-4">
-                    <div className="font-bold text-lg mb-2">{lrcName}</div>
+                    <div className="text-2xl mb-2 flex-grow"><span className="font-bold">{amount}</span> {lrcName}</div>
                     {verificationMessage && <div style={verificationStyle}>{verificationMessage}</div>}
-                    <div className="font-bold text-lg mb-2">Amount: {amount}</div>
+                    {/* <div className="font-bold text-lg mb-2">Amount: {amount}</div> */}
+                    <div className="font-light text-md mb-2 mt-2">{pricePerToken}/hodl</div>
+                    <div className="font-light text-md">({USDpricePerToken}/hodl)</div>
                     <div className="border-0 border-black text-md rounded-xl p-4 bg-white">
                         <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/tx/${listing.txid}`}>{op} tx</a></div>
                         <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/block-height/${listing.height}`}>blk: {listing.height}</a></div>
@@ -93,8 +100,8 @@ const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal }) => {
                 </div>
                 <button
                     onClick={handleBuyClick}
-                    className="buy-btn border-0 text-md bg-blue-500 hover:bg-green-700 hover:text-white border-black rounded-xl p-4">
-                    {(listing?.data?.list?.price / 100000000).toFixed(4)} BSV
+                    className="buy-btn text-black border-0 text-md bg-blue-400 hover:bg-green-700 hover:text-white border-black rounded-xl p-4">
+                    {price} BSV (${USDPrice})
                 </button>
             </div>
         </div>

@@ -172,7 +172,7 @@ const MarketplaceCard = ({ listing, purchaseOrdinal }) => {
             <div>
                 <button
                     onClick={handleBuyClick}
-                    className="buy-btn border-0 text-md bg-blue-500 hover:bg-green-700 hover:text-white border-black rounded-xl p-4">
+                    className="buy-btn border-0 text-md bg-blue-400 hover:bg-green-700 hover:text-white border-black rounded-xl p-4">
                     {(listing?.data?.list?.price / 100000000).toFixed(4)} BSV
                 </button>
             </div>
