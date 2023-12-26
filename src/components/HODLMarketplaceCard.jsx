@@ -86,7 +86,7 @@ const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal, exchangeRate
                     {verificationMessage && <div style={verificationStyle}>{verificationMessage}</div>}
                     {/* <div className="font-bold text-lg mb-2">Amount: {amount}</div> */}
                     <div className="font-light text-md mb-2 mt-2">{pricePerToken}/hodl</div>
-                    <div className="font-light text-md">({USDpricePerToken}/hodl)</div>
+                    <div className="font-light text-md">(${USDpricePerToken}/hodl)</div>
                     <div className="border-0 border-black text-md rounded-xl p-4 bg-white">
                         <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/tx/${listing.txid}`}>{op} tx</a></div>
                         <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/block-height/${listing.height}`}>blk: {listing.height}</a></div>
