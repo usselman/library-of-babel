@@ -572,8 +572,20 @@ export const HomePage = () => {
             <option value="HODL Marketplace">HODL Marketplace</option>
           </select>
 
+          {wallet && (
+            <>
+              <h4 className="text-md font-light text-black text-center">
+                <span className="font-bold">Ord address:</span> {ordAddress}
+              </h4>
+              <h4 className="text-md font-light text-black text-center">
+                <span className="font-bold">BSV address:</span> {bsvAddress}
+              </h4>
+            </>)}
+
+
           {renderContent()}
         </div>
+
         {/* )} */}
       </div>
     </div>
