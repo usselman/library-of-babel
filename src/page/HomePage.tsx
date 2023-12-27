@@ -52,6 +52,7 @@ export const HomePage = () => {
   const [exchangeRate, setExchangeRate] = useState<number>(0);
   const [currentBlockHeight, setCurrentBlockHeight] = useState<number>(0);
 
+  /** FETCH GLOBAL ORDER BOOK **/
   useEffect(() => {
     const fetchOrderBook = async () => {
       try {
@@ -66,6 +67,7 @@ export const HomePage = () => {
     fetchOrderBook();
   }, []);
 
+  /** FETCH GLOBAL HODL BOOK **/
   useEffect(() => {
     const fetchHodlBook = async () => {
       try {
@@ -80,6 +82,7 @@ export const HomePage = () => {
     fetchHodlBook();
   }, []);
 
+  /** FETCH GLOBAL OG BOOK **/
   useEffect(() => {
     const fetchOGBook = async () => {
       try {
@@ -94,6 +97,7 @@ export const HomePage = () => {
     fetchOGBook();
   }, []);
 
+  /** FETCH WALLET INFO **/
   useEffect(() => {
     const fetchData = async () => {
       if (wallet && wallet.isConnected) {
@@ -119,8 +123,8 @@ export const HomePage = () => {
     }
   }, [wallet]);
 
+  /** HODL VERIFIER **/
   useEffect(() => {
-    // Define the pullHODLs function here
     const pullHODLs = async () => {
       const query = `
           {locations}
@@ -143,10 +147,7 @@ export const HomePage = () => {
     pullHODLs();
   }, []);
 
-  useEffect(() => {
-    console.log("Locations: ", locations);
-  }, [locations]);
-
+  /** GET EXCHANGE RATE **/
   useEffect(() => {
     async function getExchangeRate() {
       const url = 'https://api.whatsonchain.com/v1/bsv/main/exchangerate';
@@ -166,6 +167,7 @@ export const HomePage = () => {
     getExchangeRate();
   }, []);
 
+  /** GET CURRENT BLOCK HEIGHT **/
   useEffect(() => {
     async function getCurrentBlockHeight() {
       const url = 'https://api.whatsonchain.com/v1/bsv/main/chain/info';
@@ -536,7 +538,7 @@ export const HomePage = () => {
           />
 
           <h4 className="text-4xl font-semibold text-black text-center">
-            Inscriptions Market
+            Inscription Market
           </h4>
           <p className="text-md text-black text-center mt-2">Market Fee: 1.5%</p>
           {/* <p className="text-md text-black text-center mt-4">
