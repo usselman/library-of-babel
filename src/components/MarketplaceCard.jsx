@@ -68,7 +68,8 @@ const calculateStats = (itemName) => {
 const MarketplaceCard = ({ listing, purchaseOrdinal, exchangeRate }) => {
     //console.log("passed listing", listing);
 
-    let price = (listing?.data?.list?.price / 100000000).toFixed(4);
+    const MARKET_FEE_RATE = 0.015;
+    let price = ((listing?.data?.list?.price / 100000000) + (listing?.data?.list?.price / 100000000 * MARKET_FEE_RATE)).toFixed(4);
     let USDprice = (price * exchangeRate).toFixed(2);
 
     const getRarity = (name) => {
@@ -108,11 +109,9 @@ const MarketplaceCard = ({ listing, purchaseOrdinal, exchangeRate }) => {
     const tooltipId = `tooltip-${listing.origin.num}`;
 
     const handleBuyClick = () => {
-        // Assuming 'outpoint', 'marketplaceRate', and 'marketplaceAddress' are the needed parameters
-        // You might need to adjust these according to your application's logic
         const outpoint = listing.outpoint;
-        const marketplaceRate = 0.015; // Example rate, adjust as needed
-        const marketplaceAddress = "1PSmNxwoBVcsAB3bRRccDqbFkjtBemS5qh"; // Replace with actual address
+        const marketplaceRate = MARKET_FEE_RATE;
+        const marketplaceAddress = "1PSmNxwoBVcsAB3bRRccDqbFkjtBemS5qh";
 
         purchaseOrdinal(outpoint, marketplaceRate, marketplaceAddress);
     };

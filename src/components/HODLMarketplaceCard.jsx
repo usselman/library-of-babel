@@ -32,9 +32,10 @@ const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal, exchangeRate
 
     // Check if 'listing.data.insc.json' exists and has 'amt' and 'op' fields
     const inscData = listing?.origin?.data?.insc?.json;
+    const MARKET_FEE_RATE = 0.015;
     let amount = parseFloat(inscData?.amt);
     let op = inscData?.op;
-    let price = (listing?.data?.list?.price / 100000000).toFixed(4);
+    let price = ((listing?.data?.list?.price / 100000000) + (listing?.data?.list?.price / 100000000 * MARKET_FEE_RATE)).toFixed(4);
     console.log("price: ", price, "amount: ", amount);
     let pricePerToken = (price / amount).toFixed(4);
     let USDpricePerToken = (pricePerToken * exchangeRate).toFixed(2);
@@ -72,7 +73,7 @@ const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal, exchangeRate
 
     const handleBuyClick = () => {
         const outpoint = listing.outpoint;
-        const marketplaceRate = 0.015; // Example rate, adjust as needed
+        const marketplaceRate = MARKET_FEE_RATE; // Example rate, adjust as needed
         const marketplaceAddress = "1PSmNxwoBVcsAB3bRRccDqbFkjtBemS5qh"; // Replace with actual address
 
         purchaseOrdinal(outpoint, marketplaceRate, marketplaceAddress);

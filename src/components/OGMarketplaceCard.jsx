@@ -4,7 +4,8 @@ const OGMarketplaceCard = ({ listing, purchaseOrdinal, exchangeRate }) => {
     const [verificationStatus, setVerificationStatus] = useState('Pending');
     const [verificationStyle, setVerificationStyle] = useState({});
 
-    let price = (listing.data.list.price / 100000000).toFixed(4);
+    const MARKET_FEE_RATE = 0.015;
+    let price = ((listing.data.list.price / 100000000) + (listing.data.list.price / 100000000 * MARKET_FEE_RATE)).toFixed(4);
     let USDprice = (price * exchangeRate).toFixed(2);
 
 
@@ -24,7 +25,7 @@ const OGMarketplaceCard = ({ listing, purchaseOrdinal, exchangeRate }) => {
 
     const handleBuyClick = () => {
         const outpoint = listing.outpoint;
-        const marketplaceRate = 0.015; // Example rate, adjust as needed
+        const marketplaceRate = MARKET_FEE_RATE; // Example rate, adjust as needed
         const marketplaceAddress = "1PSmNxwoBVcsAB3bRRccDqbFkjtBemS5qh"; // Replace with actual address
 
         purchaseOrdinal(outpoint, marketplaceRate, marketplaceAddress);
