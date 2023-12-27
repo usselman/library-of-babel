@@ -281,18 +281,22 @@ export const HomePage = () => {
         )
       }
     ).sort((a, b) => {
-      // Assuming the price is stored in `listing.data.list.price` and is a number
       const numA = extractNumber(a?.data?.list?.price?.toString());
       const numB = extractNumber(b?.data?.list?.price?.toString());
       return (numA ?? 0) - (numB ?? 0);
     });
+
+    // let marketcap = (filteredListings[0].origin.data.list.price / filteredListings[0].origin.data.insc.json.amt) * exchangeRate;
+    // console.log("Hodl Marketcap: ", marketcap);
 
     return (
       <>
         <div className="text-center text-2xl mt-4 mb-4">
           <span className="underline hover:text-blue-500 rounded-xl"><a href="https://ordinals.gorillapool.io/content/1f2d8349d15ef5287c5cada779f7e6875e123fe0ab788b478a17514b5746db90_0">$hodl</a></span> is the first of its kind LRC-20 token.
         </div>
-        <PriceHistoryChart data={filteredListings} />
+        <div className="h-1/4">
+          <PriceHistoryChart data={filteredListings} />
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredListings.map((listing, index) => (
             <HODLMarketplaceCard key={index} listing={listing} locations={locations} purchaseOrdinal={purchaseOrdinal} exchangeRate={exchangeRate} />
@@ -532,7 +536,7 @@ export const HomePage = () => {
           />
 
           <h4 className="text-4xl font-semibold text-black text-center">
-            Inscriptions
+            Inscriptions Market
           </h4>
           <p className="text-md text-black text-center mt-2">Market Fee: 1.5%</p>
           {/* <p className="text-md text-black text-center mt-4">
