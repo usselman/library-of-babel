@@ -110,10 +110,8 @@ export const HomePage = () => {
             setBsvAddress(addrs.bsvAddress);
             setIdentityAddress(addrs.identityAddress);
           }
-          console.log("addresses: ", addrs);
           const ords = await wallet.getOrdinals();
           if (ords) setOrdinals(ords);
-          console.log("ords: ", ords);
         }
       }
     };
@@ -121,7 +119,7 @@ export const HomePage = () => {
     if (wallet) {
       fetchData();
     }
-  }, [wallet]);
+  }, [wallet, addresses]);
 
   /** HODL VERIFIER **/
   useEffect(() => {
