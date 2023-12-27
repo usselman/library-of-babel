@@ -105,9 +105,9 @@ const OGMarketplaceCard = ({ listing, purchaseOrdinal, exchangeRate }) => {
 
     return (
         <div className="marketplace-container">
-            <div className="listing-card rounded-lg overflow-hidden m-4 p-4 bg-white border-4 border-black shadow-xl hover:bg-blue-100">
+            <div className="listing-card rounded-lg overflow-hidden m-2 p-4 bg-white border-4 border-black shadow-xl hover:bg-blue-100">
                 <div className="px-6 py-4">
-                    <div className="font-bold text-2xl mb-2">{listing.origin.data.insc.text}</div>
+                    <div className="font-bold text-2xl mb-2 tracking-widest">{listing.origin.data.insc.text}</div>
                     <div style={verificationStyle}>{verificationStatus}</div>
                     <div className="border-0 border-black text-md rounded-xl p-2">
                         <div className="font-bold mb-2 underline hover:text-blue-500"><a href={`https://whatsonchain.com/tx/${listing.txid}`}>tx</a></div>

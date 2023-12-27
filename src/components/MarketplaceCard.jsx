@@ -123,7 +123,7 @@ const MarketplaceCard = ({ listing, purchaseOrdinal, exchangeRate }) => {
             <div className={`relative rounded-lg overflow-hidden m-4 p-4 h-5/6 bg-white border-4 ${rarityStyles[rarity]} `}>
                 <div className="px-6 py-4 mb-64">
                     <div className={`border-0 rounded-lg p-4 bg-white ${rarityStyles[rarity]} hover:bg-white hover:border-0`}>
-                        <div className="font-bold text-lg mb-2">{listing?.origin?.data?.insc?.text}</div>
+                        <div className="font-bold text-lg mb-2 tracking-wider">{listing?.origin?.data?.insc?.text}</div>
                         <span className="text-sm">{renderRarityBadge(rarity)}</span>
                         {stats && (
                             <div className="mt-4">

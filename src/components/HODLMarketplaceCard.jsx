@@ -80,9 +80,9 @@ const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal, exchangeRate
 
     return valid ? (
         <div>
-            <div className={`rounded-lg overflow-hidden m-4 p-4 bg-white border-4 border-black shadow-xl hover:bg-blue-100`}>
+            <div className={`rounded-lg overflow-hidden m-2 p-4 bg-white border-4 border-black shadow-xl hover:bg-blue-100`}>
                 <div className="px-6 py-4">
-                    <div className="text-2xl mb-2 flex-grow"><span className="font-bold">{amount}</span> {lrcName}</div>
+                    <div className="text-2xl mb-2 flex-grow tracking-wider"><span className="font-bold">{amount}</span> {lrcName}</div>
                     {verificationMessage && <div style={verificationStyle}>{verificationMessage}</div>}
                     {/* <div className="font-bold text-lg mb-2">Amount: {amount}</div> */}
                     <div className="font-light text-md mb-2 mt-2">{pricePerToken}/hodl</div>
