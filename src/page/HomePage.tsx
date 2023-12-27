@@ -530,15 +530,17 @@ export const HomePage = () => {
             className="m-4 p-4 rounded-md bg-blue-900 text-white hover:bg-blue-600 md:absolute top-4 right-4 sm:hidden md:scale-100 sm:scale-50 place-content-center sm:justify-center md:flex"
             onClick={handleConnect}
           />
+
           <h4 className="text-4xl font-semibold text-black text-center">
             Inscriptions
           </h4>
-          <p className="text-md text-black text-center mt-4">
+          <p className="text-md text-black text-center mt-2">Market Fee: 1.5%</p>
+          {/* <p className="text-md text-black text-center mt-4">
             Keep in mind the amounts may not be accurate! <span className="underline hover:text-blue-500"><a href="https://github.com/Panda-Wallet/panda-wallet#getting-started-alpha">Panda Wallet</a></span> shows latest 1000 inscriptions as of v2.6.2.
-          </p>
-          <p className="text-md text-black text-center mt-2">
+          </p> */}
+          {/* <p className="text-md text-black text-center mt-2">
             Make sure you are running latest version of Panda (2.9.0).
-          </p>
+          </p> */}
           <div className="text-xl font-bold text-red-500 p-4 text-center">
             <a
               data-tooltip-id={tooltipId}

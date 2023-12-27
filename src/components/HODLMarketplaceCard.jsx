@@ -72,7 +72,7 @@ const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal, exchangeRate
 
     const handleBuyClick = () => {
         const outpoint = listing.outpoint;
-        const marketplaceRate = 0.025; // Example rate, adjust as needed
+        const marketplaceRate = 0.015; // Example rate, adjust as needed
         const marketplaceAddress = "1PSmNxwoBVcsAB3bRRccDqbFkjtBemS5qh"; // Replace with actual address
 
         purchaseOrdinal(outpoint, marketplaceRate, marketplaceAddress);

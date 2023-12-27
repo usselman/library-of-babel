@@ -111,8 +111,8 @@ const MarketplaceCard = ({ listing, purchaseOrdinal, exchangeRate }) => {
         // Assuming 'outpoint', 'marketplaceRate', and 'marketplaceAddress' are the needed parameters
         // You might need to adjust these according to your application's logic
         const outpoint = listing.outpoint;
-        const marketplaceRate = 0.025; // Example rate, adjust as needed
-        const marketplaceAddress = "1NHeCkh457C114iNUXZnuMowHddq4GkoAg"; // Replace with actual address
+        const marketplaceRate = 0.015; // Example rate, adjust as needed
+        const marketplaceAddress = "1PSmNxwoBVcsAB3bRRccDqbFkjtBemS5qh"; // Replace with actual address
 
         purchaseOrdinal(outpoint, marketplaceRate, marketplaceAddress);
     };
