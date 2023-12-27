@@ -547,6 +547,15 @@ export const HomePage = () => {
           {/* <p className="text-md text-black text-center mt-2">
             Make sure you are running latest version of Panda (2.9.0).
           </p> */}
+          {wallet && (
+            <>
+              <h4 className="text-md font-light text-black text-center">
+                <span className="font-bold">Ord address:</span> {ordAddress}
+              </h4>
+              <h4 className="text-md font-light text-black text-center">
+                <span className="font-bold">BSV address:</span> {bsvAddress}
+              </h4>
+            </>)}
           <div className="text-xl font-bold text-red-500 p-4 text-center">
             <a
               data-tooltip-id={tooltipId}
@@ -561,6 +570,7 @@ export const HomePage = () => {
             <Tooltip id={tooltipId} />
           </div>
 
+
           <div className="h-2" />
           <select value={selectedType} onChange={handleChange} className="mb-4 rounded-xl border-2 p-4 border-black bg-white">
             <option value="OGs">Your .OGs</option>
@@ -572,15 +582,7 @@ export const HomePage = () => {
             <option value="HODL Marketplace">HODL Marketplace</option>
           </select>
 
-          {wallet && (
-            <>
-              <h4 className="text-md font-light text-black text-center">
-                <span className="font-bold">Ord address:</span> {ordAddress}
-              </h4>
-              <h4 className="text-md font-light text-black text-center">
-                <span className="font-bold">BSV address:</span> {bsvAddress}
-              </h4>
-            </>)}
+
 
 
           {renderContent()}
