@@ -65,8 +65,11 @@ const calculateStats = (itemName) => {
 };
 
 
-const MarketplaceCard = ({ listing, purchaseOrdinal }) => {
+const MarketplaceCard = ({ listing, purchaseOrdinal, exchangeRate }) => {
     //console.log("passed listing", listing);
+
+    let price = (listing?.data?.list?.price / 100000000).toFixed(4);
+    let USDprice = (price * exchangeRate).toFixed(2);
 
     const getRarity = (name) => {
         const parts = name.split(" ");
@@ -156,9 +159,9 @@ const MarketplaceCard = ({ listing, purchaseOrdinal }) => {
                         )}
                     </div>
                     <div className={`absolute bottom-0 left-0 right-0 border-0 border-black shadow-none text-sm rounded-xl p-4 m-4 bg-white hover:bg-white ${rarityStyles[rarity]} hover:border-0`}>
-                        <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/${listing.txid}`}>tx</a></div>
-                        <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/block-height/${listing.height}`}>blk: {listing.height}</a></div>
-                        <div className="font-bold mb-2 underline"><a href={`https://1satlistings.com/inscription/${listing.origin.num}`}>#{listing.origin.num}</a></div>
+                        <div className="font-bold mb-2 underline hover:text-blue-500"><a href={`https://whatsonchain.com/${listing.txid}`}>tx</a></div>
+                        <div className="font-bold mb-2 underline hover:text-blue-500"><a href={`https://whatsonchain.com/block-height/${listing.height}`}>blk: {listing.height}</a></div>
+                        <div className="font-bold mb-2 underline hover:text-blue-500"><a href={`https://1satlistings.com/inscription/${listing.origin.num}`}>#{listing.origin.num}</a></div>
                         <div className="text-center text-black">
                             <p className="m-2">Owned by:</p>
                             <p className="font-light text-xs m-2">{listing?.owner}</p>
@@ -173,7 +176,7 @@ const MarketplaceCard = ({ listing, purchaseOrdinal }) => {
                 <button
                     onClick={handleBuyClick}
                     className="buy-btn border-0 text-md bg-blue-400 hover:bg-green-700 hover:text-white border-black rounded-xl p-4">
-                    {(listing?.data?.list?.price / 100000000).toFixed(4)} BSV
+                    {price} BSV (${USDprice})
                 </button>
             </div>
 

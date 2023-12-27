@@ -72,7 +72,7 @@ const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal, exchangeRate
 
     const handleBuyClick = () => {
         const outpoint = listing.outpoint;
-        const marketplaceRate = 0.01; // Example rate, adjust as needed
+        const marketplaceRate = 0.025; // Example rate, adjust as needed
         const marketplaceAddress = "1PSmNxwoBVcsAB3bRRccDqbFkjtBemS5qh"; // Replace with actual address
 
         purchaseOrdinal(outpoint, marketplaceRate, marketplaceAddress);
@@ -80,17 +80,17 @@ const HODLMarketplaceCard = ({ listing, locations, purchaseOrdinal, exchangeRate
 
     return valid ? (
         <div>
-            <div className={`rounded-lg overflow-hidden m-4 p-4 bg-white border-4 border-black shadow-xl hover:bg-gray-300`}>
+            <div className={`rounded-lg overflow-hidden m-4 p-4 bg-white border-4 border-black shadow-xl hover:bg-blue-100`}>
                 <div className="px-6 py-4">
                     <div className="text-2xl mb-2 flex-grow"><span className="font-bold">{amount}</span> {lrcName}</div>
                     {verificationMessage && <div style={verificationStyle}>{verificationMessage}</div>}
                     {/* <div className="font-bold text-lg mb-2">Amount: {amount}</div> */}
                     <div className="font-light text-md mb-2 mt-2">{pricePerToken}/hodl</div>
                     <div className="font-light text-md">(${USDpricePerToken}/hodl)</div>
-                    <div className="border-0 border-black text-md rounded-xl p-4 bg-white">
-                        <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/tx/${listing.txid}`}>{op} tx</a></div>
-                        <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/block-height/${listing.height}`}>blk: {listing.height}</a></div>
-                        <div className="font-bold mb-2 underline"><a href={`https://1satordinals.com/inscription/${listing.origin.num}`}>#{listing.origin.num}</a></div>
+                    <div className="border-0 border-black text-md rounded-xl p-4 ">
+                        <div className="font-bold mb-2 underline hover:text-blue-500"><a href={`https://whatsonchain.com/tx/${listing.txid}`}>{op} tx</a></div>
+                        <div className="font-bold mb-2 underline hover:text-blue-500"><a href={`https://whatsonchain.com/block-height/${listing.height}`}>blk: {listing.height}</a></div>
+                        <div className="font-bold mb-2 underline hover:text-blue-500"><a href={`https://1satordinals.com/inscription/${listing.origin.num}`}>#{listing.origin.num}</a></div>
                     </div>
                 </div>
             </div>

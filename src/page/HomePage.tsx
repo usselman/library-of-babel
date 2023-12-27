@@ -266,7 +266,7 @@ export const HomePage = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredListings.map((listing, index) => (
-            <MarketplaceCard key={index} listing={listing} purchaseOrdinal={purchaseOrdinal} />
+            <MarketplaceCard key={index} listing={listing} purchaseOrdinal={purchaseOrdinal} exchangeRate={exchangeRate} />
           ))}
         </div>
       </>
@@ -326,7 +326,7 @@ export const HomePage = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredListings.map((listing, index) => (
-            <OGMarketplaceCard listing={listing} purchaseOrdinal={purchaseOrdinal} />
+            <OGMarketplaceCard listing={listing} purchaseOrdinal={purchaseOrdinal} exchangeRate={exchangeRate} />
 
           ))}
         </div>
@@ -555,13 +555,13 @@ export const HomePage = () => {
 
           <div className="h-2" />
           <select value={selectedType} onChange={handleChange} className="mb-4 rounded-xl border-2 p-4 border-black bg-white">
-            <option value="OGs">.OGs</option>
-            <option value="Sonatas">Sonatas</option>
-            <option value="LRC-20s">LRC-20s</option>
-            <option value="Tale of Shua Gears">Tale of Shua Gears</option>
+            <option value="OGs">Your .OGs</option>
+            <option value="Sonatas">Your Sonatas</option>
+            <option value="LRC-20s">Your LRC-20s</option>
+            <option value="Tale of Shua Gears">Your Tale of Shua Gears</option>
+            <option value="OG Marketplace">.OG Marketplace</option>
             <option value="Global Marketplace">Gear Marketplace</option>
             <option value="HODL Marketplace">HODL Marketplace</option>
-            <option value="OG Marketplace">OG Marketplace</option>
           </select>
 
           {renderContent()}

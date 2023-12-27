@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-const OGMarketplaceCard = ({ listing, purchaseOrdinal }) => {
+const OGMarketplaceCard = ({ listing, purchaseOrdinal, exchangeRate }) => {
     const [verificationStatus, setVerificationStatus] = useState('Pending');
     const [verificationStyle, setVerificationStyle] = useState({});
+
+    let price = (listing.data.list.price / 100000000).toFixed(4);
+    let USDprice = (price * exchangeRate).toFixed(2);
+
 
     useEffect(() => {
         verifyRecord();
@@ -20,7 +24,7 @@ const OGMarketplaceCard = ({ listing, purchaseOrdinal }) => {
 
     const handleBuyClick = () => {
         const outpoint = listing.outpoint;
-        const marketplaceRate = 0.01; // Example rate, adjust as needed
+        const marketplaceRate = 0.025; // Example rate, adjust as needed
         const marketplaceAddress = "1PSmNxwoBVcsAB3bRRccDqbFkjtBemS5qh"; // Replace with actual address
 
         purchaseOrdinal(outpoint, marketplaceRate, marketplaceAddress);
@@ -101,20 +105,20 @@ const OGMarketplaceCard = ({ listing, purchaseOrdinal }) => {
 
     return (
         <div className="marketplace-container">
-            <div className="listing-card rounded-lg overflow-hidden m-4 p-4 bg-white border-4 border-black shadow-xl hover:bg-gray-300">
+            <div className="listing-card rounded-lg overflow-hidden m-4 p-4 bg-white border-4 border-black shadow-xl hover:bg-blue-100">
                 <div className="px-6 py-4">
-                    <div className="font-bold text-lg mb-2">{listing.origin.data.insc.text}</div>
+                    <div className="font-bold text-2xl mb-2">{listing.origin.data.insc.text}</div>
                     <div style={verificationStyle}>{verificationStatus}</div>
-                    <div className="border-0 border-black text-md rounded-xl p-4 bg-white">
-                        <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/tx/${listing.txid}`}>tx</a></div>
-                        <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/block-height/${listing.height}`}>blk: {listing.height}</a></div>
-                        <div className="font-bold mb-2 underline"><a href={`https://1satordinals.com/inscription/${listing.origin.num}`}>#{listing.origin.num}</a></div>
+                    <div className="border-0 border-black text-md rounded-xl p-2">
+                        <div className="font-bold mb-2 underline hover:text-blue-500"><a href={`https://whatsonchain.com/tx/${listing.txid}`}>tx</a></div>
+                        <div className="font-bold mb-2 underline hover:text-blue-500"><a href={`https://whatsonchain.com/block-height/${listing.height}`}>blk: {listing.height}</a></div>
+                        <div className="font-bold mb-2 underline hover:text-blue-500"><a href={`https://1satordinals.com/inscription/${listing.origin.num}`}>#{listing.origin.num}</a></div>
                     </div>
                 </div>
                 <button
                     onClick={handleBuyClick}
                     className="buy-btn border-0 text-md bg-blue-400 hover:bg-green-700 hover:text-white border-black rounded-xl p-4">
-                    {listing.data.list.price / 100000000} BSV
+                    {price} BSV (${USDprice})
                 </button>
             </div>
         </div>
