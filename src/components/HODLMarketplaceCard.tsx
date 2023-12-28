@@ -93,8 +93,8 @@ const HODLMarketplaceCard: React.FC<HODLMarketplaceCardProps> = ({ listing, loca
                 </div>
             </div>
             <div>
-                <div className="text-sm p-2">
-                    Owned by: <span className="font-light">{listing?.owner}</span>
+                <div className="text-sm p-2 relative place-content-center">
+                    Owned by: <span className="font-light flex place-content-center">{listing?.owner}</span>
                 </div>
                 <button
                     onClick={handleBuyClick}
