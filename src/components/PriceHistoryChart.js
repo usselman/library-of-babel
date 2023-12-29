@@ -40,7 +40,7 @@ const PriceHistoryChart = ({ data }) => {
 
     // Calculate the price/amount ratio in USD
     const priceAmountRatioUSD = amounts.map((amt, index) => (amt / prices[index]) * exchangeRate);
-    console.log("Prices: ", prices);
+    //console.log("Prices: ", prices);
     const marketcap = (prices[0] * 21000) / 100000000 * exchangeRate;
 
     const chartData = {

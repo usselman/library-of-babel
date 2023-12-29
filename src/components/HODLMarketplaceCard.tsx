@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Buffer } from "buffer";
 
 type BSVOrder = string;
@@ -25,14 +25,21 @@ interface HODLMarketplaceCardProps {
 }
 
 const HODLMarketplaceCard: React.FC<HODLMarketplaceCardProps> = ({ listing, locations, purchaseOrdinal, exchangeRate }) => {
+    const [validListings, setValidListings] = React.useState<any[]>([]);
+
+    console.log("listing: ", validListings);
     let lrcName: string;
     let verificationMessage: string | null = null;
     let verificationStyle: React.CSSProperties = {};
     let valid: boolean = false;
 
+
     const inscData = listing?.origin?.data?.insc?.json;
     const MARKET_FEE_RATE = 0.015;
     let amount = parseFloat(inscData?.amt);
+    if (listing?.data?.insc?.json?.amt) {
+        amount = parseFloat(listing?.data?.insc?.json?.amt);
+    }
     let op = inscData?.op;
     let price: any = ((listing?.data?.list?.price / 100000000) + (listing?.data?.list?.price / 100000000 * MARKET_FEE_RATE)).toFixed(4);
     let pricePerToken: any = (price / amount).toFixed(4);
@@ -47,6 +54,7 @@ const HODLMarketplaceCard: React.FC<HODLMarketplaceCardProps> = ({ listing, loca
         if (locations.includes(txFormat)) {
             verificationMessage = 'Valid mint √';
             verificationStyle = { color: 'green' };
+            validListings.push(listing);
             valid = true;
         } else if (listing.height === null) {
             verificationMessage = 'Pending miner confirmation';

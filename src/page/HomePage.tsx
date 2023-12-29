@@ -88,7 +88,7 @@ export const HomePage = () => {
       try {
         const data = await getOGBook();
         setOGBook(data);
-        console.log('og book: ', data);
+        //console.log('og book: ', data);
       } catch (error) {
         console.error("Failed to fetch og book", error);
       }
