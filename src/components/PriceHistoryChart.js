@@ -83,7 +83,7 @@ const PriceHistoryChart = ({ data }) => {
 
     return (
         <div>
-            <h1 className="text-2xl font-bold m-4 text-center">Marketcap: ${marketcap.toFixed(0)}</h1>
+            {/* <h1 className="text-2xl font-bold m-4 text-center">Marketcap: ${marketcap.toFixed(0)}</h1> */}
             {/* <h2 className="font-bold">Listing Price History (USD) - WIP</h2> */}
             {/* <Line data={chartData} options={options} /> */}
         </div>
