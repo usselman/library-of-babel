@@ -533,39 +533,6 @@ export const HomePage = () => {
   return (
     <div className="App">
       <div className="bg-gray m-4 p-4">
-        {/* <img
-          src={pandaIcon}
-          alt="Panda Wallet Icon"
-          className="mx-auto h-20 w-20"
-        /> */}
-        {/* {ordinals.length == 0 &&
-
-          <>
-            <div className="h-8" />
-            <h1 className="text-2xl font-bold text-center text-black">Connect your <span className="underline hover:text-blue-500"><a href="https://github.com/Panda-Wallet/panda-wallet#getting-started-alpha">Panda Wallet</a></span> to view inscriptions:</h1>
-            <div className="place-content-center flex">
-              <PandaConnectButton
-                className="m-4 p-4 bg-blue-900 text-white rounded hover:bg-blue-600"
-                onClick={handleConnect}
-              />
-            </div>
-            <h2 className="text-lg font-bold text-center italic text-black mt-2">Refresh after logging in if nothing shows.</h2>
-            <h2 className="text-lg font-bold text-center italic text-black mt-2">If nothing shows after that, open extension and refresh.</h2>
-
-            <div className="h-8" />
-          </>
-
-        } */}
-
-        {/* {pubKey && (
-          <p className="mt-2 text-sm text-gray-700">Public Key: {pubKey}</p>
-        )}
-        {addresses && (
-          <p className="mt-2 text-sm text-gray-700">
-            Addresses: {JSON.stringify(addresses)}
-          </p>
-        )} */}
-        {/* {wallet && ordinals.length > 0 && ( */}
         <div className="mt-12">
           <div className="parchment-container">
             <h4 className="text-4xl font-semibold text-black text-center title">
@@ -588,12 +555,6 @@ export const HomePage = () => {
             Inscription Market
           </h4>
           <p className="text-md text-black text-center mt-2">Market Fee: 1.5%</p>
-          {/* <p className="text-md text-black text-center mt-4">
-            Keep in mind the amounts may not be accurate! <span className="underline hover:text-blue-500"><a href="https://github.com/Panda-Wallet/panda-wallet#getting-started-alpha">Panda Wallet</a></span> shows latest 1000 inscriptions as of v2.6.2.
-          </p> */}
-          {/* <p className="text-md text-black text-center mt-2">
-            Make sure you are running latest version of Panda (2.9.0).
-          </p> */}
           {wallet && (
             <div className="absolute top-8 left-8">
               <h4 className="text-md font-light text-black text-left">
@@ -635,8 +596,6 @@ export const HomePage = () => {
 
           {renderContent()}
         </div>
-
-        {/* )} */}
       </div>
     </div>
   );

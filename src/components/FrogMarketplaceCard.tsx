@@ -43,7 +43,11 @@ const FrogMarketplaceCard: React.FC<FrogMarketplaceCardProps> = ({ listing, purc
 
     return (
         <div className="ordinal-card">
-            <img src={imageURL} alt={`Frog #${frogNumber}`} />
+            <img
+                src={imageURL}
+                alt={`Frog #${frogNumber}`}
+                className="rounded-lg border-spacing-3 border-2 drop-shadow-xl border-black"
+            />
             <div className="ordinal-details">
                 <h3 className="p-2 text-2xl">Frog #{frogNumber}</h3>
                 {/* <p className="">Price: {price} BSV</p> */}
