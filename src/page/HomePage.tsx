@@ -58,7 +58,7 @@ export const HomePage = () => {
       try {
         const data = await getGlobalOrderBook();
         setOrderBook(data);
-        console.log('order book: ', data);
+        //console.log('order book: ', data);
       } catch (error) {
         console.error("Failed to fetch order book", error);
       }
@@ -101,6 +101,7 @@ export const HomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (wallet && wallet.isConnected) {
+        //location.reload();
         const isConnected = await wallet.isConnected();
         if (isConnected) {
           const addrs = await wallet.getAddresses();
@@ -112,6 +113,7 @@ export const HomePage = () => {
           }
           const ords = await wallet.getOrdinals();
           if (ords) setOrdinals(ords);
+          //console.log("Ordinals: ", ords);
         }
       }
     };

@@ -27,7 +27,7 @@ interface HODLMarketplaceCardProps {
 const HODLMarketplaceCard: React.FC<HODLMarketplaceCardProps> = ({ listing, locations, purchaseOrdinal, exchangeRate }) => {
     const [validListings, setValidListings] = React.useState<any[]>([]);
 
-    console.log("listing: ", validListings);
+    //console.log("listing: ", validListings);
     let lrcName: string;
     let verificationMessage: string | null = null;
     let verificationStyle: React.CSSProperties = {};
