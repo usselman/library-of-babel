@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import getGlobalOrderBook from './api/orderbook';
 import getHodlBook from './api/hodlbook';
 import getOGBook from './api/ogbook';
+import getFrogBook from './api/frogbook';
 import { PandaConnectButton } from "../components/PandaConnectButton";
 import OrdinalCard from "../components/OrdinalCard";
 import LRCCard from "../components/LRCCard";
@@ -10,6 +11,7 @@ import OGCards from "../components/OGCards";
 import MarketplaceCard from "../components/MarketplaceCard";
 import HODLMarketplaceCard from "../components/HODLMarketplaceCard";
 import OGMarketplaceCard from "../components/OGMarketplaceCard";
+import FrogMarketplaceCard from '../components/FrogMarketplaceCard';
 import PriceHistoryChart from "../components/PriceHistoryChart";
 import { Tooltip } from 'react-tooltip';
 import axios from 'axios';
@@ -47,6 +49,7 @@ export const HomePage = () => {
   const [orderBook, setOrderBook] = useState<any[]>([]);
   const [hodlBook, setHodlBook] = useState<any[]>([]);
   const [ogBook, setOGBook] = useState<any[]>([]);
+  const [frogBook, setFrogBook] = useState<any[]>([]);
   const [viewMode, setViewMode] = useState('collection');
   const [locations, setLocations] = useState<any[]>([]);
   const [exchangeRate, setExchangeRate] = useState<number>(0);
@@ -58,7 +61,7 @@ export const HomePage = () => {
       try {
         const data = await getGlobalOrderBook();
         setOrderBook(data);
-        console.log('order book: ', data);
+        //console.log('order book: ', data);
       } catch (error) {
         console.error("Failed to fetch order book", error);
       }
@@ -97,10 +100,26 @@ export const HomePage = () => {
     fetchOGBook();
   }, []);
 
+  /** FETCH GLOBAL FROG BOOK **/
+  useEffect(() => {
+    const fetchFrogBook = async () => {
+      try {
+        const data = await getFrogBook();
+        setFrogBook(data);
+        //console.log('frog book: ', data);
+      } catch (error) {
+        console.error("Failed to fetch frog book", error);
+      }
+    };
+
+    fetchFrogBook();
+  }, []);
+
   /** FETCH WALLET INFO **/
   useEffect(() => {
     const fetchData = async () => {
       if (wallet && wallet.isConnected) {
+        //location.reload();
         const isConnected = await wallet.isConnected();
         if (isConnected) {
           const addrs = await wallet.getAddresses();
@@ -112,6 +131,7 @@ export const HomePage = () => {
           }
           const ords = await wallet.getOrdinals();
           if (ords) setOrdinals(ords);
+          //console.log("Ordinals: ", ords);
         }
       }
     };
@@ -238,6 +258,8 @@ export const HomePage = () => {
         return renderGlobalHodlMarketplace();
       case 'OG Marketplace':
         return renderGlobalOGMarketplace();
+      case 'Frog Marketplace':
+        return renderFrogMarketplace();
         return null;
     }
   };
@@ -305,6 +327,33 @@ export const HomePage = () => {
         </div>
 
 
+      </>
+    )
+  }
+
+  const renderFrogMarketplace = () => {
+    const filteredListings = frogBook.sort((a, b) => {
+      // Assuming the price is stored in `listing.data.list.price` and is a number
+      const numA = extractNumber(a?.data?.list?.price?.toString());
+      const numB = extractNumber(b?.data?.list?.price?.toString());
+      return (numA ?? 0) - (numB ?? 0);
+    });
+
+    return (
+      <>
+        <div className="text-center text-2xl mt-4 mb-4">
+          <span className="underline hover:text-blue-500 rounded-xl"><a
+            href="https://www.raredropper.com/ogs/frogs"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Frogs</a></span> were minted using OG namespaces.
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {filteredListings.map((listing) => (
+            <FrogMarketplaceCard listing={listing} purchaseOrdinal={purchaseOrdinal} exchangeRate={exchangeRate} />
+
+          ))}
+        </div>
       </>
     )
   }
@@ -546,14 +595,14 @@ export const HomePage = () => {
             Make sure you are running latest version of Panda (2.9.0).
           </p> */}
           {wallet && (
-            <>
-              <h4 className="text-md font-light text-black text-center">
+            <div className="absolute top-8 left-8">
+              <h4 className="text-md font-light text-black text-left">
                 <span className="font-bold">Ord address:</span> {ordAddress}
               </h4>
-              <h4 className="text-md font-light text-black text-center">
+              <h4 className="text-md font-light text-black text-left">
                 <span className="font-bold">BSV address:</span> {bsvAddress}
               </h4>
-            </>)}
+            </div>)}
           <div className="text-xl font-bold text-red-500 p-4 text-center">
             <a
               data-tooltip-id={tooltipId}
@@ -578,6 +627,7 @@ export const HomePage = () => {
             <option value="OG Marketplace">.OG Marketplace</option>
             <option value="Global Marketplace">Gear Marketplace</option>
             <option value="HODL Marketplace">HODL Marketplace</option>
+            <option value="Frog Marketplace">Frog Marketplace</option>
           </select>
 
 
