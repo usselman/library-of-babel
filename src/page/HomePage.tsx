@@ -595,14 +595,14 @@ export const HomePage = () => {
             Make sure you are running latest version of Panda (2.9.0).
           </p> */}
           {wallet && (
-            <>
-              <h4 className="text-md font-light text-black text-center">
+            <div className="absolute top-8 left-8">
+              <h4 className="text-md font-light text-black text-left">
                 <span className="font-bold">Ord address:</span> {ordAddress}
               </h4>
-              <h4 className="text-md font-light text-black text-center">
+              <h4 className="text-md font-light text-black text-left">
                 <span className="font-bold">BSV address:</span> {bsvAddress}
               </h4>
-            </>)}
+            </div>)}
           <div className="text-xl font-bold text-red-500 p-4 text-center">
             <a
               data-tooltip-id={tooltipId}
