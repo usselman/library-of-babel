@@ -86,7 +86,7 @@ const HODLMarketplaceCard: React.FC<HODLMarketplaceCardProps> = ({ listing, loca
 
     return valid ? (
         <div>
-            <div className={`rounded-lg overflow-hidden m-2 p-4 bg-white border-4 border-black shadow-xl hover:bg-blue-100`}>
+            <div className={`rounded-lg overflow-hidden m-2 p-4 bg-white border-2 border-black shadow-xl`}>
                 <div className="px-6 py-4">
                     <div className="text-2xl mb-2 flex-grow tracking-wider"><span className="font-bold">{amount}</span> {lrcName}</div>
                     {verificationMessage && <div style={verificationStyle}>{verificationMessage}</div>}
@@ -102,7 +102,7 @@ const HODLMarketplaceCard: React.FC<HODLMarketplaceCardProps> = ({ listing, loca
             </div>
             <div>
                 <div className="text-sm p-2 relative place-content-center">
-                    Owned by: <span className="font-light flex place-content-center">{listing?.owner}</span>
+                    {/* Owned by: <span className="font-light flex place-content-center">{listing?.owner}</span> */}
                 </div>
                 <button
                     onClick={handleBuyClick}

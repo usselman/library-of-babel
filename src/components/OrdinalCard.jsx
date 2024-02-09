@@ -139,7 +139,7 @@ const OrdinalCard = ({ ordinal, transferOrdinal, listOrdinal }) => {
 
   return (
     <div className="border-0 border-black">
-      <div className={`relative rounded-lg overflow-hidden m-4 p-4 h-5/6 bg-white border-4 ${rarityStyles[rarity]} `}>
+      <div className={`relative rounded-lg overflow-hidden m-4 p-4 h-5/6 bg-white border-2 ${rarityStyles[rarity]} `}>
         <div className="px-6 py-4 mb-48">
           <div className={`border-0 rounded-lg p-4 bg-white ${rarityStyles[rarity]} hover:bg-white hover:border-0`}>
             <div className="font-bold text-lg mb-2 tracking-wider">{ordinal.data.insc.text}</div>

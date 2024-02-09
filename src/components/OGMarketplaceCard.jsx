@@ -106,7 +106,7 @@ const OGMarketplaceCard = ({ listing, purchaseOrdinal, exchangeRate }) => {
 
     return (
         <div className="marketplace-container">
-            <div className="listing-card rounded-lg overflow-hidden m-2 p-4 bg-white border-4 border-black shadow-xl hover:bg-blue-100">
+            <div className="listing-card rounded-lg overflow-hidden m-2 p-4 bg-white border-2 border-black shadow-xl ">
                 <div className="px-6 py-4">
                     <div className="font-bold text-2xl mb-2 tracking-widest">{listing.origin.data.insc.text}</div>
                     <div style={verificationStyle}>{verificationStatus}</div>

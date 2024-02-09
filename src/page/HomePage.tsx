@@ -418,7 +418,7 @@ export const HomePage = () => {
         ordinal?.data?.insc?.json?.p ===
         "lrc-20"
     );
-    console.log("LRC20s: ", filteredLRC20s);
+    //console.log("LRC20s: ", filteredLRC20s);
     return (
       <>
         <div className="text-center text-2xl mt-4 mb-4">

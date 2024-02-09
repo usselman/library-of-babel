@@ -16,7 +16,7 @@ const SonataCard = ({ ordinal, transferOrdinal }) => {
   };
 
   return (
-    <div className={`rounded-lg overflow-hidden m-4 p-4 bg-blue-200 border-4 border-black shadow-xl `}>
+    <div className={`rounded-lg overflow-hidden m-4 p-4 bg-blue-200 border-2 border-black shadow-xl `}>
       <div className="px-6 py-4 text-left">
         {/* <div className="font-bold mb-2 text-xs overflow-wrap"><a href={`https://whatsonchain.com/${ordinal.txid}`}>{ordinal.txid}</a></div> */}
         <div className="font-bold text-lg mb-2">Artist: {ordinal?.data?.insc?.json?.metadata?.artist}</div>
