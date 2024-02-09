@@ -3,11 +3,11 @@ import React, { useState, useEffect } from 'react';
 const OGMarketplaceCard = ({ listing, purchaseOrdinal, exchangeRate }) => {
     const [verificationStatus, setVerificationStatus] = useState('Pending');
     const [verificationStyle, setVerificationStyle] = useState({});
+    const lockQueryUrl = 'https://ordinals.gorillapool.io/api/locks/txid/';
 
     const MARKET_FEE_RATE = 0.015;
     let price = ((listing.data.list.price / 100000000) + (listing.data.list.price / 100000000 * MARKET_FEE_RATE)).toFixed(4);
     let USDprice = (price * exchangeRate).toFixed(2);
-
 
     useEffect(() => {
         verifyRecord();
@@ -25,84 +25,55 @@ const OGMarketplaceCard = ({ listing, purchaseOrdinal, exchangeRate }) => {
 
     const handleBuyClick = () => {
         const outpoint = listing.outpoint;
-        const marketplaceRate = MARKET_FEE_RATE; // Example rate, adjust as needed
-        const marketplaceAddress = "1PSmNxwoBVcsAB3bRRccDqbFkjtBemS5qh"; // Replace with actual address
-
-        purchaseOrdinal(outpoint, marketplaceRate, marketplaceAddress);
+        purchaseOrdinal(outpoint, MARKET_FEE_RATE, "1PSmNxwoBVcsAB3bRRccDqbFkjtBemS5qh");
     };
 
-    const checkOnOrdinalsGorillaPool = async (txid) => {
+    // Refactored checkLock function
+    const checkLock = async (txid) => {
+        const url = lockQueryUrl + txid;
         try {
-            const ordinalsResponse = await fetch(`https://ordinals.gorillapool.io/api/locks/txid/${txid}`);
-            const ordinalsData = await ordinalsResponse.json();
-            console.log("ordinal locks: ", ordinalsData);
-
-            let isVerified = false;
-            for (const item of ordinalsData) {
-                if (item.satoshis >= 1000000 && item.data && item.data.lock && item.data.lock.until === 1050000) {
-                    isVerified = true;
-                    break;
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            if (!data || data.length === 0) {
+                return false;
+            }
+            for (const item of data) {
+                if (item.data && item.data.lock && item.satoshis >= 1000000 && item.data.lock.until >= 1050000) {
+                    return true; // Valid lock found
                 }
             }
+            return false; // No valid lock found
+        } catch (error) {
+            console.error('Error fetching lock data:', error);
+            return false;
+        }
+    };
 
-            if (isVerified) {
+    const verifyRecord = async () => {
+        if (!isDigit(listing)) {
+            setVerificationStatus("Not A Number (✗)");
+            return;
+        }
+
+        try {
+            // Assuming the first check is to ensure the '.og' is the first of its kind
+            const hasLock = await checkLock(listing.origin.outpoint);
+            if (hasLock) {
                 setVerificationStatus("Verified (✓)");
                 setVerificationStyle({ color: 'green' });
             } else {
-                setVerificationStatus("Not Verified (✗)");
+                setVerificationStatus("Not Verified or Lock Invalid (✗)");
                 setVerificationStyle({ color: 'red' });
             }
         } catch (error) {
-            console.error('Error checking on Ordinals GorillaPool:', error);
+            console.error('Error verifying record:', error);
             setVerificationStatus("Verification Error");
+            setVerificationStyle({ color: 'red' });
         }
     };
-
-
-    const verifyRecord = async () => {
-        if (isDigit(listing)) {
-            try {
-                const searchResponse = await fetch('https://ordinals.gorillapool.io/api/inscriptions/search?dir=ASC&limit=1&offset=0', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ insc: { file: { hash: listing?.origin?.data?.insc?.file?.hash } } })
-                });
-                const searchData = await searchResponse.json();
-                console.log("searchData: ", searchData);
-
-                if (searchData[0] && searchData[0].spend === listing.txid) {
-                    checkOnOrdinalsGorillaPool(listing?.origin?.outpoint);
-                } else {
-                    setVerificationStatus("Not the first inscription (✗)");
-                    setVerificationStyle({ color: 'red' });
-                }
-            } catch (error) {
-                console.error('Error verifying record:', error);
-                setVerificationStatus("Verification Error");
-                setVerificationStyle({ color: 'red' });
-            }
-        } else {
-            setVerificationStatus("Not A Number (✗)");
-        }
-    };
-
-    // useEffect(() => {
-    //     switch (verificationStatus) {
-    //         case 'Verified (✓)':
-    //             setVerificationStyle({ color: 'green' });
-    //             break;
-    //         case 'Not Verified (✗)':
-    //         case 'Verification Error':
-    //         case 'Not A Number (✗)':
-    //         case 'Not the first inscription (✗)':
-    //             setVerificationStyle({ color: 'red' });
-    //             break;
-    //         default:
-    //             setVerificationStyle({});
-    //     }
-    // }, [verificationStatus]);
 
     return (
         <div className="marketplace-container">

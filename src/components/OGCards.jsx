@@ -2,6 +2,11 @@ import { useState, useEffect } from 'react';
 
 const OGCards = ({ ordinal, address, transferOrdinal }) => {
     const [verificationStatus, setVerificationStatus] = useState('Pending');
+    const lockQueryUrl = 'https://ordinals.gorillapool.io/api/locks/txid/';
+
+    useEffect(() => {
+        verifyRecord();
+    }, [ordinal]);
 
     const isDigit = (item) => {
         const selectedIndex = item.data?.insc?.words[0] === 'og' ? 1 : 0;
@@ -9,81 +14,42 @@ const OGCards = ({ ordinal, address, transferOrdinal }) => {
         return !isNaN(parsed);
     };
 
-    const checkOnOrdinalsGorillaPool = async (txid) => {
+    // Refactored checkLock function for streamlining the verification process
+    const checkLock = async (txid) => {
+        const url = lockQueryUrl + txid;
         try {
-            const ordinalsResponse = await fetch(`https://ordinals.gorillapool.io/api/locks/txid/${txid}`);
-            const ordinalsData = await ordinalsResponse.json();
-
-            // Iterate over the returned items and check for verification
-            let isVerified = false;
-            for (const item of ordinalsData) {
-                if (item.satoshis >= 1000000 && item.data && item.data.lock && item.data.lock.until === 1050000) {
-                    isVerified = true;
-                    break; // Found a verified item, no need to check further
-                }
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-
-            if (isVerified) {
-                setVerificationStatus("Verified (✓)");
-            } else {
-                setVerificationStatus("Not Verified (✗)");
-            }
+            const data = await response.json();
+            return data.some(item => item.satoshis >= 1000000 && item.data && item.data.lock && item.data.lock.until >= 1050000);
         } catch (error) {
-            console.error('Error checking on Ordinals GorillaPool:', error);
-            setVerificationStatus("Verification Error");
+            console.error('Error fetching lock data:', error);
+            return false;
         }
     };
-
 
     const verifyRecord = async () => {
-        if (isDigit(ordinal)) {
-            try {
-                const searchResponse = await fetch('https://ordinals.gorillapool.io/api/inscriptions/search?dir=ASC&limit=1&offset=0', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ insc: { file: { hash: ordinal.data.insc.file.hash } } })
-                });
-                const searchData = await searchResponse.json();
-
-                if (searchData[0] && searchData[0].txid === ordinal.txid) {
-                    checkOnOrdinalsGorillaPool(ordinal.txid);
-                } else {
-                    setVerificationStatus("Not the first inscription (✗)");
-                }
-            } catch (error) {
-                console.error('Error verifying record:', error);
-                setVerificationStatus("Verification Error");
-            }
-        } else {
+        if (!isDigit(ordinal)) {
             setVerificationStatus("Not A Number (✗)");
+            return;
         }
+
+        const hasLock = await checkLock(ordinal.txid);
+        setVerificationStatus(hasLock ? "Verified (✓)" : "Not Verified (✗)");
     };
 
-    useEffect(() => {
-        verifyRecord();
-    }, []);
-
     const handleTransfer = () => {
-        // Prompt for the receiver's address
         const receiverAddress = prompt("Enter the receiver's address:");
         if (!receiverAddress) return;
-
-        // Extract origin and outpoint from the ordinal
-        const { origin, outpoint } = ordinal;
-
-        // Call transferOrdinal function passed as a prop
-        transferOrdinal(receiverAddress, origin, outpoint);
+        transferOrdinal(receiverAddress, ordinal.origin, ordinal.outpoint);
     };
 
     return (
         <div className={`rounded-lg overflow-hidden m-4 p-4 bg-white border-2 border-black shadow-xl`}>
             <div className="px-6 py-4">
                 <div className="font-bold text-2xl mb-2 tracking-widest">{ordinal?.data?.insc?.text}</div>
-                {/* <button onClick={verifyRecord} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Verify
-                </button> */}
                 <div
                     className="m-4"
                     style={{ color: verificationStatus.includes("✓") ? 'green' : 'red' }}>
@@ -101,7 +67,6 @@ const OGCards = ({ ordinal, address, transferOrdinal }) => {
                     <div className="font-bold mb-2 underline"><a href={`https://whatsonchain.com/block-height/${ordinal.height}`}>blk: {ordinal.height}</a></div>
                     <div className="font-bold mb-2 underline"><a href={`https://1satordinals.com/inscription/${ordinal.origin.num}`}>#{ordinal.origin.num}</a></div>
                 </div>
-
             </div>
         </div>
     );
