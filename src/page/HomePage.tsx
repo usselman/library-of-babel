@@ -547,7 +547,7 @@ export const HomePage = () => {
           <h2 className="md:mt-2 sm:mt-0"><span className="text-green-600">${exchangeRate.toFixed(2)}</span> #{currentBlockHeight}</h2>
           <div className="h-16" />
           <PandaConnectButton
-            className="m-4 p-4 rounded-md bg-blue-900 text-white hover:bg-blue-600 md:absolute top-4 right-4 sm:hidden md:scale-100 sm:scale-50 place-content-center sm:justify-center md:flex"
+            className="m-4 p-4 z-50 rounded-md bg-blue-900 text-white hover:bg-blue-600 md:fixed top-4 right-4 sm:hidden md:scale-100 sm:scale-50 place-content-center sm:justify-center md:flex"
             onClick={handleConnect}
           />
 
