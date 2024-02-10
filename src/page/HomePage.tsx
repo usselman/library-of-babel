@@ -319,7 +319,7 @@ export const HomePage = () => {
         <div className="h-1/4">
           <PriceHistoryChart data={filteredListings} />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1">
           {filteredListings.map((listing, index) => (
             <HODLMarketplaceCard key={index} listing={listing} locations={locations} purchaseOrdinal={purchaseOrdinal} exchangeRate={exchangeRate} />
 
@@ -430,7 +430,7 @@ export const HomePage = () => {
           </h4>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
 
           {filteredLRC20s.map((ordinal, index) => (
             <LRCCard key={index} ordinal={ordinal} setHodlSum={setHodlSum} locations={locations} />
