@@ -6,7 +6,7 @@ const OGCards = ({ ordinal, address, transferOrdinal }) => {
 
     useEffect(() => {
         verifyRecord();
-    }, [ordinal]);
+    }, []);
 
     const isDigit = (item) => {
         const selectedIndex = item.data?.insc?.words[0] === 'og' ? 1 : 0;

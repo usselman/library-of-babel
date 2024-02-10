@@ -216,8 +216,8 @@ export const HomePage = () => {
     if (key) setPubKey(key);
   };
 
-  const handleChange = (event: any) => {
-    setSelectedType(event.target.value);
+  const handleChange = (newType: any) => {
+    setSelectedType(newType);
   };
 
   const listOrdinal = async () => {
@@ -578,22 +578,25 @@ export const HomePage = () => {
             <Tooltip id={tooltipId} />
           </div>
 
-
-          <div className="h-2" />
-          <select value={selectedType} onChange={handleChange} className="mb-4 rounded-xl border-2 p-4 border-black bg-white">
-            <option value="OGs">Your .OGs</option>
-            <option value="Sonatas">Your Sonatas</option>
-            <option value="LRC-20s">Your LRC-20s</option>
-            <option value="Tale of Shua Gears">Your Tale of Shua Gears</option>
-            <option value="OG Marketplace">.OG Marketplace</option>
-            <option value="Global Marketplace">Gear Marketplace</option>
-            <option value="HODL Marketplace">HODL Marketplace</option>
-            <option value="Frog Marketplace">Frog Marketplace</option>
-          </select>
-
-
-
-
+          <div className="flex justify-center space-x-4 mt-4">
+            {["OGs", "Sonatas", "LRC-20s", "Tale of Shua Gears", "OG Marketplace", "Global Marketplace", "HODL Marketplace", "Frog Marketplace"].map((type) => (
+              <div
+                key={type}
+                className={`cursor-pointer p-2 text-sm md:text-md lg:text-lg ${selectedType === type ? "bg-blue-500 text-white" : "bg-white text-black"} rounded-xl`}
+                onClick={() => handleChange(type)}
+              >
+                {type}
+              </div>
+            ))}
+          </div>
+          <div className="mt-4">
+            <svg height="1" width="100%">
+              <line x1="0" y1="0" x2="100%" y2="0"
+                stroke="black"
+                strokeWidth="2"
+              />
+            </svg>
+          </div>
           {renderContent()}
         </div>
       </div>
