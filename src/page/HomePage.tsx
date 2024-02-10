@@ -579,7 +579,7 @@ export const HomePage = () => {
           </div>
 
           <div className="flex justify-center space-x-4 mt-4">
-            {["OGs", "Sonatas", "LRC-20s", "Tale of Shua Gears", "OG Marketplace", "Global Marketplace", "HODL Marketplace", "Frog Marketplace"].map((type) => (
+            {["OGs", "Sonatas", "LRC-20s", "Tale of Shua Gears", "OG Marketplace", "Gear Marketplace", "HODL Marketplace", "Frog Marketplace"].map((type) => (
               <div
                 key={type}
                 className={`cursor-pointer p-2 text-sm md:text-md lg:text-lg ${selectedType === type ? "bg-blue-500 text-white" : "bg-white text-black"} rounded-xl`}
