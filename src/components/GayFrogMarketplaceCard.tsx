@@ -44,6 +44,9 @@ const GayFrogMarketplaceCard: React.FC<GayFrogMarketplaceCardProps> = ({ listing
             />
             <div className="ordinal-details">
                 <h3 className="p-2 text-2xl">Frog #{frogNumber}</h3>
+                Owned by: <span className="font-light flex place-content-center">
+                    {listing?.owner ? `${listing.owner.slice(0, 4)}...${listing.owner.slice(-4)}` : 'N/A'}
+                </span>
             </div>
             <button
                 onClick={handleBuyClick}

@@ -162,8 +162,9 @@ const MarketplaceCard = ({ listing, purchaseOrdinal, exchangeRate }) => {
                         <div className="font-bold mb-2 underline hover:text-blue-500"><a href={`https://whatsonchain.com/block-height/${listing.height}`}>blk: {listing.height}</a></div>
                         <div className="font-bold mb-2 underline hover:text-blue-500"><a href={`https://1satlistings.com/inscription/${listing.origin.num}`}>#{listing.origin.num}</a></div>
                         <div className="text-center text-black">
-                            {/* <p className="m-2">Owned by:</p>
-                            <p className="font-light text-xs m-2">{listing?.owner}</p> */}
+                            Owned by: <span className="font-light flex place-content-center">
+                                {listing?.owner ? `${listing.owner.slice(0, 4)}...${listing.owner.slice(-4)}` : 'N/A'}
+                            </span>
                         </div>
                     </div>
                 </div>
