@@ -393,7 +393,7 @@ export const HomePage = () => {
             href="https://www.hodlocker.com/bitcoiner/post/1ece58cc7c083cfb0382e5c0dbd7dc61e908d16ce4e6c2224e3b5283194f74f5"
             target="_blank"
             rel="noopener noreferrer"
-          >Gay Frogs</a></span> were minted through Hodlocker.
+          >Gay Frogs</a></span> were minted and distributed to lockers.
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredListings.map((listing) => (
