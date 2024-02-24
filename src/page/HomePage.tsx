@@ -3,6 +3,7 @@ import getGlobalOrderBook from './api/orderbook';
 import getHodlBook from './api/hodlbook';
 import getOGBook from './api/ogbook';
 import getFrogBook from './api/frogbook';
+import getGayFrogBook from './api/gayfrogbook';
 import { PandaConnectButton } from "../components/PandaConnectButton";
 import OrdinalCard from "../components/OrdinalCard";
 import LRCCard from "../components/LRCCard";
@@ -12,6 +13,7 @@ import MarketplaceCard from "../components/MarketplaceCard";
 import HODLMarketplaceCard from "../components/HODLMarketplaceCard";
 import OGMarketplaceCard from "../components/OGMarketplaceCard";
 import FrogMarketplaceCard from '../components/FrogMarketplaceCard';
+import GayFrogMarketplaceCard from '../components/GayFrogMarketplaceCard';
 import PriceHistoryChart from "../components/PriceHistoryChart";
 import { Tooltip } from 'react-tooltip';
 import axios from 'axios';
@@ -50,6 +52,7 @@ export const HomePage = () => {
   const [hodlBook, setHodlBook] = useState<any[]>([]);
   const [ogBook, setOGBook] = useState<any[]>([]);
   const [frogBook, setFrogBook] = useState<any[]>([]);
+  const [gayFrogBook, setGayFrogBook] = useState<any[]>([]);
   const [viewMode, setViewMode] = useState('collection');
   const [locations, setLocations] = useState<any[]>([]);
   const [exchangeRate, setExchangeRate] = useState<number>(0);
@@ -113,6 +116,21 @@ export const HomePage = () => {
     };
 
     fetchFrogBook();
+  }, []);
+
+  /** FETCH GLOBAL GAY FROG BOOK **/
+  useEffect(() => {
+    const fetchGayFrogBook = async () => {
+      try {
+        const data = await getGayFrogBook();
+        setGayFrogBook(data);
+        console.log('gay frog book: ', data);
+      } catch (error) {
+        console.error("Failed to fetch frog book", error);
+      }
+    };
+
+    fetchGayFrogBook();
   }, []);
 
   /** FETCH WALLET INFO **/
@@ -260,6 +278,8 @@ export const HomePage = () => {
         return renderGlobalOGMarketplace();
       case 'Frog Marketplace':
         return renderFrogMarketplace();
+      case 'Gay Frog Marketplace':
+        return renderGayFrogMarketplace();
         return null;
     }
   };
@@ -351,6 +371,33 @@ export const HomePage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredListings.map((listing) => (
             <FrogMarketplaceCard listing={listing} purchaseOrdinal={purchaseOrdinal} exchangeRate={exchangeRate} />
+
+          ))}
+        </div>
+      </>
+    )
+  }
+
+  const renderGayFrogMarketplace = () => {
+    const filteredListings = gayFrogBook.sort((a, b) => {
+      // Assuming the price is stored in `listing.data.list.price` and is a number
+      const numA = extractNumber(a?.data?.list?.price?.toString());
+      const numB = extractNumber(b?.data?.list?.price?.toString());
+      return (numA ?? 0) - (numB ?? 0);
+    });
+
+    return (
+      <>
+        <div className="text-center text-2xl mt-4 mb-4">
+          <span className="underline hover:text-blue-500 rounded-xl"><a
+            href="https://www.hodlocker.com/bitcoiner/post/1ece58cc7c083cfb0382e5c0dbd7dc61e908d16ce4e6c2224e3b5283194f74f5"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Gay Frogs</a></span> were minted through Hodlocker.
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {filteredListings.map((listing) => (
+            <GayFrogMarketplaceCard listing={listing} purchaseOrdinal={purchaseOrdinal} exchangeRate={exchangeRate} />
 
           ))}
         </div>
@@ -578,8 +625,8 @@ export const HomePage = () => {
             <Tooltip id={tooltipId} />
           </div>
 
-          <div className="flex justify-center space-x-4 mt-4">
-            {["OGs", "Sonatas", "LRC-20s", "Tale of Shua Gears", "OG Marketplace", "Gear Marketplace", "HODL Marketplace", "Frog Marketplace"].map((type) => (
+          <div className="flex justify-center space-x-2 mt-4">
+            {["OG Marketplace", "Gear Marketplace", "HODL Marketplace", "Frog Marketplace", "Gay Frog Marketplace"].map((type) => (
               <div
                 key={type}
                 className={`cursor-pointer p-2 text-sm md:text-md lg:text-lg ${selectedType === type ? "bg-blue-500 text-white" : "bg-white text-black"} rounded-xl`}
