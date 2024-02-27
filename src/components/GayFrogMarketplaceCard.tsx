@@ -17,7 +17,7 @@ const GayFrogMarketplaceCard: React.FC<GayFrogMarketplaceCardProps> = ({ listing
         origin: {
             data: {
                 insc: { file },
-                map: { name, subTypeData },
+                map: { name, gayness, subTypeData },
             },
             outpoint,
         },
@@ -25,7 +25,11 @@ const GayFrogMarketplaceCard: React.FC<GayFrogMarketplaceCardProps> = ({ listing
     } = listing;
 
     const imageURL = `https://ordinals.gorillapool.io/content/${outpoint}`;
-    const frogNumber = listing.name
+    const frogNumber = listing.origin.data.map.name;
+    const frogName = listing.origin.data.map.gayness;
+    const firstLetter = frogName.charAt(0).toUpperCase();
+    const restOfWord = frogName.slice(1);
+    const formattedFrogName = firstLetter + restOfWord;
 
     const handleBuyClick = () => {
         const outpoint = listing.outpoint;
@@ -43,7 +47,7 @@ const GayFrogMarketplaceCard: React.FC<GayFrogMarketplaceCardProps> = ({ listing
                 className="rounded-lg border-spacing-3 border-2 drop-shadow-xl border-black"
             />
             <div className="ordinal-details">
-                <h3 className="p-2 text-2xl">Frog #{frogNumber}</h3>
+                <h3 className="p-2 text-2xl">{formattedFrogName} Frog</h3>
                 Owned by: <span className="font-light flex place-content-center">
                     {listing?.owner ? `${listing.owner.slice(0, 4)}...${listing.owner.slice(-4)}` : 'N/A'}
                 </span>
