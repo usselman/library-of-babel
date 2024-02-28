@@ -31,6 +31,17 @@ const GayFrogMarketplaceCard: React.FC<GayFrogMarketplaceCardProps> = ({ listing
     const restOfWord = frogName.slice(1);
     const formattedFrogName = firstLetter + restOfWord;
 
+    // Function to get color class based on frogName
+    const colorMapping: { [key: string]: string } = {
+        'Happy': 'text-green-500', // Common
+        'Flaming': 'text-blue-500', // More rare
+        'Saved': 'text-yellow-500' // Rarest
+    };
+
+    const getColorClassForFrogName = (formattedFrogName: string) => {
+        return colorMapping[formattedFrogName] || 'text-black'; // Default color if not matched
+    };
+
     const handleBuyClick = () => {
         const outpoint = listing.outpoint;
         const marketplaceRate = MARKET_FEE_RATE;
@@ -47,7 +58,7 @@ const GayFrogMarketplaceCard: React.FC<GayFrogMarketplaceCardProps> = ({ listing
                 className="rounded-lg border-spacing-3 border-2 drop-shadow-xl border-black"
             />
             <div className="ordinal-details">
-                <h3 className="p-2 text-2xl">{formattedFrogName} Frog</h3>
+                <h3 className={`p-2 text-2xl ${getColorClassForFrogName(formattedFrogName)}`}>{formattedFrogName} <span className="">Frog</span></h3>
                 Owned by: <span className="font-light flex place-content-center">
                     {listing?.owner ? `${listing.owner.slice(0, 4)}...${listing.owner.slice(-4)}` : 'N/A'}
                 </span>
