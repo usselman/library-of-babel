@@ -62,7 +62,7 @@ const FrogMarketplaceCard: React.FC<FrogMarketplaceCardProps> = ({ listing, purc
             </div>
             <button
                 onClick={handleBuyClick}
-                className={`buy-btn text-black border-0 text-md bg-blue-400 border-black rounded-xl p-4 transition ease-in-out duration-300 ${isHovered ? 'bg-green-500 text-white' : ''}`}>
+                className={`buy-btn text-black border-0 text-md bg-blue-400 hover:bg-green-500 hover:text-white border-black rounded-xl p-4 transition ease-in-out duration-300 ${isHovered ? 'bg-green-500 text-white' : ''}`}>
                 {price} BSV (${USDPrice})
             </button>
         </div>
