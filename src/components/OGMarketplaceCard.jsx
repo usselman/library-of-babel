@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const OGMarketplaceCard = ({ listing, purchaseOrdinal, exchangeRate }) => {
     const [verificationStatus, setVerificationStatus] = useState('Pending');
+    const [isHovered, setIsHovered] = React.useState(false);
     const [verificationStyle, setVerificationStyle] = useState({});
     const lockQueryUrl = 'https://ordinals.gorillapool.io/api/locks/txid/';
 
@@ -76,8 +77,12 @@ const OGMarketplaceCard = ({ listing, purchaseOrdinal, exchangeRate }) => {
     };
 
     return (
-        <div className="marketplace-container">
-            <div className="listing-card rounded-lg overflow-hidden m-2 p-4 bg-white border-2 border-black shadow-xl ">
+        <div
+            className="marketplace-container"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+        >
+            <div className="listing-card rounded-lg overflow-hidden m-2 p-4 bg-white border-2 border-black shadow-xl hover:border-green-500 transition ease-in-out duration-300">
                 <div className="px-6 py-4">
                     <div className="font-bold text-2xl mb-2 tracking-widest">{listing.origin.data.insc.text}</div>
                     <div style={verificationStyle}>{verificationStatus}</div>
@@ -93,7 +98,7 @@ const OGMarketplaceCard = ({ listing, purchaseOrdinal, exchangeRate }) => {
 
                 <button
                     onClick={handleBuyClick}
-                    className="buy-btn border-0 text-md bg-blue-400 hover:bg-green-700 hover:text-white border-black rounded-xl p-4">
+                    className={`buy-btn text-black border-0 text-md bg-blue-400 border-black rounded-xl p-4 transition ease-in-out duration-300 ${isHovered ? 'bg-green-500 text-white' : ''}`}>
                     {price} BSV (${USDprice})
                 </button>
             </div>

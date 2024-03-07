@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Buffer } from "buffer";
 
 type BSVOrder = string;
@@ -26,6 +26,7 @@ interface HODLMarketplaceCardProps {
 
 const HODLMarketplaceCard: React.FC<HODLMarketplaceCardProps> = ({ listing, locations, purchaseOrdinal, exchangeRate }) => {
     const [validListings, setValidListings] = React.useState<any[]>([]);
+    const [isHovered, setIsHovered] = React.useState<boolean>(false);
 
     //console.log("listing: ", validListings);
     let lrcName: string;
@@ -86,7 +87,11 @@ const HODLMarketplaceCard: React.FC<HODLMarketplaceCardProps> = ({ listing, loca
 
     return valid ? (
         <div>
-            <div className={`rounded-lg overflow-hidden m-2 p-4 bg-white border-2 border-black shadow-xl`}>
+            <div
+                className={`rounded-lg overflow-hidden m-2 p-4 bg-white border-2 border-black shadow-xl hover:border-green-500 transition ease-in-out duration-300`}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+            >
                 <div className="px-6 py-4">
                     <div className="text-2xl mb-2 flex-grow tracking-wider"><span className="font-bold">{amount}</span> {lrcName}</div>
                     {verificationMessage && <div style={verificationStyle}>{verificationMessage}</div>}
@@ -108,7 +113,7 @@ const HODLMarketplaceCard: React.FC<HODLMarketplaceCardProps> = ({ listing, loca
                 </div>
                 <button
                     onClick={handleBuyClick}
-                    className="buy-btn text-black border-0 text-md bg-blue-400 hover:bg-green-700 hover:text-white border-black rounded-xl p-4">
+                    className={`buy-btn text-black border-0 text-md bg-blue-400 border-black rounded-xl p-4 transition ease-in-out duration-300 ${isHovered ? 'bg-green-500 text-white' : ''}`}>
                     {price} BSV (${USDPrice})
                 </button>
             </div>

@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import atkIcon from '../assets/atk.png';
 import defIcon from '../assets/def.png';
 import { Tooltip } from 'react-tooltip'
@@ -67,6 +68,7 @@ const calculateStats = (itemName) => {
 
 const MarketplaceCard = ({ listing, purchaseOrdinal, exchangeRate }) => {
     //console.log("passed listing", listing);
+    const [isHovered, setIsHovered] = React.useState(false);
 
     const MARKET_FEE_RATE = 0.015;
     let price = ((listing?.data?.list?.price / 100000000) + (listing?.data?.list?.price / 100000000 * MARKET_FEE_RATE)).toFixed(4);
@@ -117,9 +119,13 @@ const MarketplaceCard = ({ listing, purchaseOrdinal, exchangeRate }) => {
     };
 
     return (
-        <div className="border-0 border-black">
+        <div
+            className="border-0 border-black"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+        >
 
-            <div className={`relative rounded-lg overflow-hidden m-4 p-4 h-5/6 bg-white border-2 ${rarityStyles[rarity]} `}>
+            <div className={`relative rounded-lg overflow-hidden m-4 p-4 h-5/6 bg-white border-2 ${rarityStyles[rarity]}`}>
                 <div className="px-6 py-4 mb-64">
                     <div className={`border-0 rounded-lg p-4 bg-white ${rarityStyles[rarity]} hover:bg-white hover:border-0`}>
                         <div className="font-bold text-lg mb-2 tracking-wider">{listing?.origin?.data?.insc?.text}</div>
@@ -173,7 +179,7 @@ const MarketplaceCard = ({ listing, purchaseOrdinal, exchangeRate }) => {
             <div>
                 <button
                     onClick={handleBuyClick}
-                    className="buy-btn border-0 text-md bg-blue-400 hover:bg-green-700 hover:text-white border-black rounded-xl p-4">
+                    className={`buy-btn text-black border-0 text-md bg-blue-400 border-black rounded-xl p-4 transition ease-in-out duration-300 ${isHovered ? 'bg-green-500 text-white' : ''}`}>
                     {price} BSV (${USDprice})
                 </button>
             </div>
