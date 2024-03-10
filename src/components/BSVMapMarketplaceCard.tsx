@@ -17,11 +17,11 @@ interface BlockTransactionsDisplayProps {
  * @param props Contains the number of transactions to display.
  */
 const BlockTransactionsDisplay: React.FC<BlockTransactionsDisplayProps> = ({ txCount }) => {
-  const size = Math.ceil(Math.sqrt(txCount));
+  const size = Math.ceil(Math.sqrt(txCount / 6));
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', width: `${size * 20}px`, height: `${size * 20}px`, margin: '10px auto', justifyContent: 'center' }}>
       {Array.from({ length: txCount }).map((_, index) => (
-        <div key={index} style={{ width: '18px', height: '18px', margin: '1px', backgroundColor: 'orange' }}></div>
+        <div key={index} style={{ width: '8px', height: '8px', margin: '1px', backgroundColor: 'orange' }}></div>
       ))}
     </div>
   );
@@ -73,7 +73,7 @@ const BSVMapMarketplaceCard: React.FC<BSVMapMarketplaceCardProps> = ({ listing, 
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="listing-card rounded-lg overflow-hidden m-2 p-4 bg-white border-2 border-black shadow-xl hover:border-green-500 transition ease-in-out duration-300">
-        <div className="px-6 py-4">
+        <div className="px-6 py-0">
           <div className="font-bold text-2xl mb-2 tracking-widest">{listing.origin.data.insc.text}</div>
           <div className="border-0 border-black text-md rounded-xl p-2">
             <div className="font-bold mb-2 underline hover:text-blue-500"><a href={`https://whatsonchain.com/tx/${listing.txid}`}>tx</a></div>
@@ -85,14 +85,16 @@ const BSVMapMarketplaceCard: React.FC<BSVMapMarketplaceCardProps> = ({ listing, 
           </div>
         </div>
         <div className="place-content-center">
+          {/* {txCount} Transactions */}
           <BlockTransactionsDisplay txCount={txCount} />
         </div>
-        <button
-          onClick={handleBuyClick}
-          className={`buy-btn text-black border-0 text-md bg-blue-400 hover:bg-green-500 hover:text-white border-black rounded-xl p-4 transition ease-in-out duration-300 ${isHovered ? 'bg-green-500 text-white' : ''}`}>
-          {price} BSV (${USDprice})
-        </button>
+
       </div>
+      <button
+        onClick={handleBuyClick}
+        className={`buy-btn text-black border-0 mt-4 text-md bg-blue-400 hover:bg-green-500 hover:text-white border-black rounded-xl p-4 transition ease-in-out duration-300 ${isHovered ? 'bg-green-500 text-white' : ''}`}>
+        {price} BSV (${USDprice})
+      </button>
     </div>
   );
 };

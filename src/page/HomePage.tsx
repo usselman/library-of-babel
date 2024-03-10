@@ -388,7 +388,7 @@ export const HomePage = () => {
     return (
       <>
         <div className="text-center text-2xl mt-4 mb-4">
-          BSV Map represent individual blocks.
+          BSVMaps represent individual blocks.
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredListings.map((listing, index) => (
