@@ -325,7 +325,7 @@ export const HomePage = () => {
         <div className="text-center text-2xl mt-4 mb-4">
           <span className="underline hover:text-blue-500 rounded-xl"><a href="https://taleofshua.com">Gear</a></span> is a lock-to-mint collection by Joshua Henslee.
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredListings.map((listing, index) => (
             <MarketplaceCard key={index} listing={listing} purchaseOrdinal={purchaseOrdinal} exchangeRate={exchangeRate} />
           ))}
@@ -358,7 +358,7 @@ export const HomePage = () => {
         <div className="h-1/4">
           <PriceHistoryChart data={filteredListings} />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1">
+        <div className="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1">
           {filteredListings.map((listing, index) => (
             <HODLMarketplaceCard key={index} listing={listing} locations={locations} purchaseOrdinal={purchaseOrdinal} exchangeRate={exchangeRate} />
 
@@ -390,7 +390,7 @@ export const HomePage = () => {
         <div className="text-center text-2xl mt-4 mb-4">
           BSVMaps represent individual blocks.
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredListings.map((listing, index) => (
             <BSVMapMarketplaceCard key={index} listing={listing} purchaseOrdinal={purchaseOrdinal} exchangeRate={exchangeRate} />
           ))}
@@ -416,7 +416,7 @@ export const HomePage = () => {
             rel="noopener noreferrer"
           >Frogs</a></span> were minted using OG namespaces.
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredListings.map((listing) => (
             <FrogMarketplaceCard listing={listing} purchaseOrdinal={purchaseOrdinal} exchangeRate={exchangeRate} />
 
@@ -443,7 +443,7 @@ export const HomePage = () => {
             rel="noopener noreferrer"
           >Gay Frogs</a></span> were minted and distributed to lockers.
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredListings.map((listing) => (
             <GayFrogMarketplaceCard listing={listing} purchaseOrdinal={purchaseOrdinal} exchangeRate={exchangeRate} />
 
@@ -472,7 +472,7 @@ export const HomePage = () => {
         <div className="text-center text-2xl mt-4 mb-4">
           <span className="underline hover:text-blue-500 rounded-xl"><a href="https://www.hodlocker.com/zackwins/post/d2167c682c0ce72574fe2d21a81987571d42dc51b38c94c0cbe16ac40ad770c0">.OG</a></span> is the first of its kind lock-to-mint numbered namespace.
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredListings.map((listing, index) => (
             <OGMarketplaceCard listing={listing} purchaseOrdinal={purchaseOrdinal} exchangeRate={exchangeRate} />
 
@@ -497,7 +497,7 @@ export const HomePage = () => {
         <div className="text-center text-2xl m-8">
           <a className="hover:text-blue-900 hover:bg-blue-200 bg-gray-100 text-gray-900 border-0 border-black rounded-xl p-4 m-4" href="https://usselman.github.io/distromint/">Inscribe here</a>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredSonatas.map((ordinal, index) => (
             <SonataCard key={index} ordinal={ordinal} transferOrdinal={transferOrdinal} />
           ))}
@@ -525,7 +525,7 @@ export const HomePage = () => {
           </h4>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <div className="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
 
           {filteredLRC20s.map((ordinal, index) => (
             <LRCCard key={index} ordinal={ordinal} setHodlSum={setHodlSum} locations={locations} />
@@ -564,7 +564,7 @@ export const HomePage = () => {
         <div className="text-center text-2xl mt-4 mb-4">
           <span className="underline hover:text-blue-500 rounded-xl"><a href="https://www.hodlocker.com/zackwins/post/d2167c682c0ce72574fe2d21a81987571d42dc51b38c94c0cbe16ac40ad770c0">.OG</a></span> is the first of its kind lock-to-mint numbered namespace.
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {filteredOGs.map((ordinal, index) => (
             <OGCards key={index} ordinal={ordinal} address={ordAddress} transferOrdinal={transferOrdinal} />
           ))}
@@ -605,7 +605,7 @@ export const HomePage = () => {
         <div className="text-center text-2xl mt-4 mb-4">
           <span className="underline hover:text-blue-500 rounded-xl"><a href="https://taleofshua.com">Tale of Shua Gear</a></span> is a lock-to-mint collection by Joshua Henslee.
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-8">
           {filteredOrdinals}
         </div>
       </>
@@ -630,7 +630,7 @@ export const HomePage = () => {
       <div className="bg-gray m-4 p-4">
         <div className="mt-12">
           <div className="parchment-container">
-            <h4 className="text-4xl font-semibold text-black text-center title">
+            <h4 className="sm:text-xl md:text-4xl font-semibold text-black text-center title">
               <span className="hover:text-blue-500"><a href="https://github.com/usselman/library-of-babel">Library of Babel</a></span>
             </h4>
 
@@ -642,23 +642,25 @@ export const HomePage = () => {
           <h2 className="md:mt-2 sm:mt-0"><span className="text-green-600">${exchangeRate.toFixed(2)}</span> #{currentBlockHeight}</h2>
           <div className="h-16" />
           <PandaConnectButton
-            className="m-4 p-4 z-50 rounded-md bg-blue-900 text-white hover:bg-blue-600 md:fixed top-4 right-4 sm:hidden md:scale-100 sm:scale-50 place-content-center sm:justify-center md:flex"
+            className="m-4 p-4 z-50 rounded-md bg-white text-black hover:bg-green-500 hover:text-white hover:border-green-500 md:fixed top-2 right-2 md:scale-75 lg:scale-100 sm:scale-50 place-content-center sm:justify-center md:flex"
             onClick={handleConnect}
           />
 
-          <h4 className="text-4xl font-semibold text-black text-center">
+          <h4 className="sm:text-xl md:text-4xl font-semibold text-black text-center">
             Inscription Market
           </h4>
           <p className="text-md text-black text-center mt-2">Market Fee: 1.5%</p>
+
           {wallet && (
-            <div className="absolute top-8 left-8">
+            <div className="sm:hidden absolute top-2 left-2">
               <h4 className="text-md font-light text-black text-left">
                 <span className="font-bold">Ord address:</span> {ordAddress}
               </h4>
               <h4 className="text-md font-light text-black text-left">
                 <span className="font-bold">BSV address:</span> {bsvAddress}
               </h4>
-            </div>)}
+            </div>
+          )}
           <div className="text-xl font-bold text-red-500 p-4 text-center">
             <a
               data-tooltip-id={tooltipId}
@@ -673,7 +675,7 @@ export const HomePage = () => {
             <Tooltip id={tooltipId} />
           </div>
 
-          <div className="flex justify-center space-x-2 mt-4">
+          <div className="flex justify-center space-x-2 mt-4 sm:text-sm md:text-md">
             {[".OG", "Gear", "HODL", "OG Frogs", "Gay Frogs", "BSVMap"].map((type) => (
               <div
                 key={type}
