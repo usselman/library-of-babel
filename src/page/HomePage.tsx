@@ -652,11 +652,11 @@ export const HomePage = () => {
           <p className="text-md text-black text-center mt-2">Market Fee: 1.5%</p>
 
           {wallet && (
-            <div className="sm:hidden absolute top-2 left-2">
-              <h4 className="text-md font-light text-black text-left">
+            <div className="absolute top-8 left-8 z-30 md:text-md">
+              <h4 className="sm:hidden md:block md:text-sm font-light text-black text-left">
                 <span className="font-bold">Ord address:</span> {ordAddress}
               </h4>
-              <h4 className="text-md font-light text-black text-left">
+              <h4 className="sm:hidden md:block md:text-sm font-light text-black text-left">
                 <span className="font-bold">BSV address:</span> {bsvAddress}
               </h4>
             </div>
