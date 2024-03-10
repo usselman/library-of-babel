@@ -8,7 +8,7 @@ const getBSVMapBook = async () => {
         sort: "recent",
         dir: "DESC",
         q: "eyJpbnNjIjp7IndvcmRzIjpbImJzdm1hcCJdfX0",
-        limit: 1000,
+        limit: 100,
         offset: 0,
         type: "text",
         bsv20: false,

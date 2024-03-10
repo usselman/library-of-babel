@@ -4,6 +4,7 @@ import getHodlBook from './api/hodlbook';
 import getOGBook from './api/ogbook';
 import getFrogBook from './api/frogbook';
 import getGayFrogBook from './api/gayfrogbook';
+import getBSVMapBook from './api/bsvmap';
 import { PandaConnectButton } from "../components/PandaConnectButton";
 import OrdinalCard from "../components/OrdinalCard";
 import LRCCard from "../components/LRCCard";
@@ -14,6 +15,7 @@ import HODLMarketplaceCard from "../components/HODLMarketplaceCard";
 import OGMarketplaceCard from "../components/OGMarketplaceCard";
 import FrogMarketplaceCard from '../components/FrogMarketplaceCard';
 import GayFrogMarketplaceCard from '../components/GayFrogMarketplaceCard';
+import BSVMapMarketplaceCard from '../components/BSVMapMarketplaceCard';
 import PriceHistoryChart from "../components/PriceHistoryChart";
 import { Tooltip } from 'react-tooltip';
 import axios from 'axios';
@@ -53,6 +55,7 @@ export const HomePage = () => {
   const [ogBook, setOGBook] = useState<any[]>([]);
   const [frogBook, setFrogBook] = useState<any[]>([]);
   const [gayFrogBook, setGayFrogBook] = useState<any[]>([]);
+  const [bsvMapBook, setBSVMapBook] = useState<any[]>([]);
   const [viewMode, setViewMode] = useState('collection');
   const [locations, setLocations] = useState<any[]>([]);
   const [exchangeRate, setExchangeRate] = useState<number>(0);
@@ -71,6 +74,20 @@ export const HomePage = () => {
     };
 
     fetchOrderBook();
+  }, []);
+
+  /** FETCH BSVMAP ORDER BOOK **/
+  useEffect(() => {
+    const fetchBSVMapBook = async () => {
+      try {
+        const data = await getBSVMapBook();
+        setBSVMapBook(data);
+        //console.log('order book: ', data);
+      } catch (error) {
+        console.error("Failed to fetch order book", error);
+      }
+    };
+    fetchBSVMapBook();
   }, []);
 
   /** FETCH GLOBAL HODL BOOK **/
@@ -272,14 +289,16 @@ export const HomePage = () => {
       default:
       case 'Global Marketplace':
         return renderGlobalMarketplace();
-      case 'HODL Marketplace':
+      case 'HODL':
         return renderGlobalHodlMarketplace();
-      case 'OG Marketplace':
+      case '.OG':
         return renderGlobalOGMarketplace();
-      case 'Frog Marketplace':
+      case 'OG Frogs':
         return renderFrogMarketplace();
-      case 'Gay Frog Marketplace':
+      case 'Gay Frogs':
         return renderGayFrogMarketplace();
+      case 'BSVMap':
+        return renderBSVMapMarketplace();
         return null;
     }
   };
@@ -347,6 +366,35 @@ export const HomePage = () => {
         </div>
 
 
+      </>
+    )
+  }
+
+  const renderBSVMapMarketplace = () => {
+    const filteredListings = bsvMapBook.filter(
+      (listing: any) => {
+        return (
+          listing?.origin?.data?.insc?.words[1] === "bsvmap"
+        )
+      }
+    ).sort((a, b) => {
+      const numA = extractNumber(a?.data?.list?.price?.toString());
+      const numB = extractNumber(b?.data?.list?.price?.toString());
+      return (numA ?? 0) - (numB ?? 0);
+    });
+
+    console.log("BSV Map Listings: ", filteredListings)
+
+    return (
+      <>
+        <div className="text-center text-2xl mt-4 mb-4">
+          <span className="underline hover:text-blue-500 rounded-xl"><a href="https://bsvmap.io">BSV Map</a></span> is a lock-to-mint collection by Joshua Henslee.
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {filteredListings.map((listing, index) => (
+            <BSVMapMarketplaceCard key={index} listing={listing} purchaseOrdinal={purchaseOrdinal} exchangeRate={exchangeRate} />
+          ))}
+        </div>
       </>
     )
   }
@@ -626,7 +674,7 @@ export const HomePage = () => {
           </div>
 
           <div className="flex justify-center space-x-2 mt-4">
-            {["OG Marketplace", "Gear Marketplace", "HODL Marketplace", "Frog Marketplace", "Gay Frog Marketplace"].map((type) => (
+            {[".OG", "Gear", "HODL", "OG Frogs", "Gay Frogs", "BSVMap"].map((type) => (
               <div
                 key={type}
                 className={`cursor-pointer p-2 text-sm md:text-md lg:text-lg ${selectedType === type ? "bg-blue-500 text-white" : "bg-white text-black"} rounded-xl`}
