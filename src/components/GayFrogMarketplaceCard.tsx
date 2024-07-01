@@ -1,4 +1,5 @@
 import React from 'react';
+import cover from "../assets/gay-frogs-cover.jpg";
 
 interface GayFrogMarketplaceCardProps {
     listing: any;
@@ -24,7 +25,8 @@ const GayFrogMarketplaceCard: React.FC<GayFrogMarketplaceCardProps> = ({ listing
         owner,
     } = listing;
 
-    const imageURL = `https://ordinals.gorillapool.io/content/${outpoint}`;
+    //const imageURL = `https://ordinals.gorillapool.io/content/${outpoint}`;
+    const imageURL = '../assets/gay-frogs-cover.jpg';
     const frogNumber = listing.origin.data.map.name;
     const frogName = listing.origin.data.map.gayness;
     const firstLetter = frogName.charAt(0).toUpperCase();
@@ -57,7 +59,7 @@ const GayFrogMarketplaceCard: React.FC<GayFrogMarketplaceCardProps> = ({ listing
             onMouseLeave={() => setIsHovered(false)}
         >
             <img
-                src={imageURL}
+                src={cover}
                 alt={`Gay Frog #${frogNumber}`}
                 className="rounded-lg border-spacing-3 border-2 drop-shadow-xl border-black hover:border-green-500 transition ease-in-out duration-300`"
             />
