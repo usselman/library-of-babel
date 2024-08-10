@@ -544,34 +544,35 @@ export const HomePage = () => {
   };
 
   const renderOGCards = () => {
-
-    const filteredOGs = ordinals
-      .filter((ordinal) => {
-        return (
-          ordinal?.origin?.data?.insc?.words &&
-          ordinal.origin.data.insc.words.length > 1 &&
-          ordinal.origin.data.insc.words[1] === "og"
-        );
-      })
-    // .sort((a, b) => {
-    //   const numA = extractNumber(a?.data?.insc?.text);
-    //   const numB = extractNumber(b?.data?.insc?.text);
-    //   return (numA ?? 0) - (numB ?? 0);
-    // });
+    const filteredOGs = ordinals.filter((ordinal) => {
+      return (
+        ordinal?.origin?.data?.insc?.words &&
+        ordinal.origin.data.insc.words.length > 1 &&
+        ordinal.origin.data.insc.words[1] === "og"
+      );
+    });
 
     return (
       <>
         <div className="text-center text-2xl mt-4 mb-4">
-          <span className="underline hover:text-blue-500 rounded-xl"><a href="https://www.hodlocker.com/zackwins/post/d2167c682c0ce72574fe2d21a81987571d42dc51b38c94c0cbe16ac40ad770c0">.OG</a></span> is the first of its kind lock-to-mint numbered namespace.
+          <span className="underline hover:text-blue-500 rounded-xl">
+            <a href="https://www.hodlocker.com/zackwins/post/d2167c682c0ce72574fe2d21a81987571d42dc51b38c94c0cbe16ac40ad770c0">.OG</a>
+          </span> is the first of its kind lock-to-mint numbered namespace.
         </div>
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {filteredOGs.map((ordinal, index) => (
-            <OGCards key={index} ordinal={ordinal} address={ordAddress} transferOrdinal={transferOrdinal} />
+            <OGCards
+              key={index}
+              ordinal={ordinal}
+              address={ordAddress ?? null}  // Ensure address is string or null
+              transferOrdinal={transferOrdinal}
+            />
           ))}
         </div>
       </>
     );
-  }
+  };
+
 
   const getRarityValue = (name: string) => {
     const parts = name.split(" ");
@@ -612,7 +613,7 @@ export const HomePage = () => {
     );
   };
 
-  const transferOrdinal = async (address: string, origin: string, outpoint: string) => {
+  const transferOrdinal = async (address: string, origin: any, outpoint: string) => {
     try {
       const txid = await wallet.transferOrdinal({ address, origin, outpoint });
       console.log(txid);
