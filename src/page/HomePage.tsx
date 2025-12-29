@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import getGlobalOrderBook from './api/orderbook';
-import getHodlBook from './api/hodlbook';
-import getOGBook from './api/ogbook';
-import getFrogBook from './api/frogbook';
-import getGayFrogBook from './api/gayfrogbook';
-import getBSVMapBook from './api/bsvmap';
+import React, { useEffect, useState } from "react";
+import getGlobalOrderBook from "./api/orderbook";
+import getHodlBook from "./api/hodlbook";
+import getOGBook from "./api/ogbook";
+import getFrogBook from "./api/frogbook";
+import getGayFrogBook from "./api/gayfrogbook";
+import getBSVMapBook from "./api/bsvmap";
 import { PandaConnectButton } from "../components/PandaConnectButton";
 import OrdinalCard from "../components/OrdinalCard";
 import LRCCard from "../components/LRCCard";
@@ -13,12 +13,12 @@ import OGCards from "../components/OGCards";
 import MarketplaceCard from "../components/MarketplaceCard";
 import HODLMarketplaceCard from "../components/HODLMarketplaceCard";
 import OGMarketplaceCard from "../components/OGMarketplaceCard";
-import FrogMarketplaceCard from '../components/FrogMarketplaceCard';
-import GayFrogMarketplaceCard from '../components/GayFrogMarketplaceCard';
-import BSVMapMarketplaceCard from '../components/BSVMapMarketplaceCard';
+import FrogMarketplaceCard from "../components/FrogMarketplaceCard";
+import GayFrogMarketplaceCard from "../components/GayFrogMarketplaceCard";
+import BSVMapMarketplaceCard from "../components/BSVMapMarketplaceCard";
 import PriceHistoryChart from "../components/PriceHistoryChart";
-import { Tooltip } from 'react-tooltip';
-import axios from 'axios';
+import { Tooltip } from "react-tooltip";
+import axios from "axios";
 import {
   Addresses,
   SignedMessage,
@@ -49,14 +49,14 @@ export const HomePage = () => {
   const [bsvAddress, setBsvAddress] = useState<string | undefined>();
   const [identityAddress, setIdentityAddress] = useState<string | undefined>();
   const [hodlSum, setHodlSum] = useState<number>(0);
-  const [selectedType, setSelectedType] = useState('HODL Marketplace');
+  const [selectedType, setSelectedType] = useState("HODL Marketplace");
   const [orderBook, setOrderBook] = useState<any[]>([]);
   const [hodlBook, setHodlBook] = useState<any[]>([]);
   const [ogBook, setOGBook] = useState<any[]>([]);
   const [frogBook, setFrogBook] = useState<any[]>([]);
   const [gayFrogBook, setGayFrogBook] = useState<any[]>([]);
   const [bsvMapBook, setBSVMapBook] = useState<any[]>([]);
-  const [viewMode, setViewMode] = useState('collection');
+  const [viewMode, setViewMode] = useState("collection");
   const [locations, setLocations] = useState<any[]>([]);
   const [exchangeRate, setExchangeRate] = useState<number>(0);
   const [currentBlockHeight, setCurrentBlockHeight] = useState<number>(0);
@@ -141,7 +141,7 @@ export const HomePage = () => {
       try {
         const data = await getGayFrogBook();
         setGayFrogBook(data);
-        console.log('gay frog book: ', data);
+        console.log("gay frog book: ", data);
       } catch (error) {
         console.error("Failed to fetch frog book", error);
       }
@@ -184,15 +184,21 @@ export const HomePage = () => {
       `;
 
       try {
-        const response = await axios.post('https://api.hodlock.com/graphql', { query });
-        if (response.data && response.data.data && response.data.data.locations) {
+        const response = await axios.post("https://api.hodlock.com/graphql", {
+          query,
+        });
+        if (
+          response.data &&
+          response.data.data &&
+          response.data.data.locations
+        ) {
           setLocations(response.data.data.locations);
           console.log("GraphQL: ", response.data);
         } else {
-          console.error('GraphQL response does not contain expected data.');
+          console.error("GraphQL response does not contain expected data.");
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -203,11 +209,11 @@ export const HomePage = () => {
   /** GET EXCHANGE RATE **/
   useEffect(() => {
     async function getExchangeRate() {
-      const url = 'https://api.whatsonchain.com/v1/bsv/main/exchangerate';
+      const url = "https://api.whatsonchain.com/v1/bsv/main/exchangerate";
       try {
         const response = await fetch(url);
         if (!response.ok) {
-          throw new Error('Network response was not ok ' + response.statusText);
+          throw new Error("Network response was not ok " + response.statusText);
         }
         const data = await response.json();
         setExchangeRate(parseFloat(data.rate));
@@ -223,11 +229,11 @@ export const HomePage = () => {
   /** GET CURRENT BLOCK HEIGHT **/
   useEffect(() => {
     async function getCurrentBlockHeight() {
-      const url = 'https://api.whatsonchain.com/v1/bsv/main/chain/info';
+      const url = "https://api.whatsonchain.com/v1/bsv/main/chain/info";
       try {
         const response = await fetch(url);
         if (!response.ok) {
-          throw new Error('Network response was not ok ' + response.statusText);
+          throw new Error("Network response was not ok " + response.statusText);
         }
         const data = await response.json();
         setCurrentBlockHeight(parseInt(data.blocks, 10));
@@ -256,14 +262,18 @@ export const HomePage = () => {
   };
 
   const listOrdinal = async () => {
-    alert('Coming soon!');
-  }
+    alert("Coming soon!");
+  };
 
-  const purchaseOrdinal = async (outpoint: any, marketplaceRate: any, marketplaceAddress: string) => {
+  const purchaseOrdinal = async (
+    outpoint: any,
+    marketplaceRate: any,
+    marketplaceAddress: string
+  ) => {
     const purchaseParams = {
       outpoint,
       marketplaceRate,
-      marketplaceAddress
+      marketplaceAddress,
     };
 
     try {
@@ -278,44 +288,42 @@ export const HomePage = () => {
 
   const renderContent = () => {
     switch (selectedType) {
-      case 'OGs':
+      case "OGs":
         return renderOGCards();
-      case 'Sonatas':
+      case "Sonata":
         return renderSonatas();
-      case 'LRC-20s':
+      case "LRC-20s":
         return renderLRC20Cards();
-      case 'Tale of Shua Gears':
+      case "Tale of Shua Gears":
         return renderOrdinalCards();
       default:
-      case 'Global Marketplace':
+      case "Global Marketplace":
         return renderGlobalMarketplace();
-      case 'HODL':
+      case "HODL":
         return renderGlobalHodlMarketplace();
-      case '.OG':
+      case ".OG":
         return renderGlobalOGMarketplace();
-      case 'OG Frogs':
+      case "OG Frogs":
         return renderFrogMarketplace();
-      case 'Gay Frogs':
+      case "Gay Frogs":
         return renderGayFrogMarketplace();
-      case 'BSVMap':
+      case "BSVMap":
         return renderBSVMapMarketplace();
         return null;
     }
   };
 
   const renderGlobalMarketplace = () => {
-    const filteredListings = orderBook.filter(
-      (listing: any) => {
-        return (
-          listing?.origin?.data?.map?.app === "taleofshua"
-        )
-      }
-    ).sort((a, b) => {
-      // Assuming the price is stored in `listing.data.list.price` and is a number
-      const numA = extractNumber(a?.data?.list?.price?.toString());
-      const numB = extractNumber(b?.data?.list?.price?.toString());
-      return (numA ?? 0) - (numB ?? 0);
-    });
+    const filteredListings = orderBook
+      .filter((listing: any) => {
+        return listing?.origin?.data?.map?.app === "taleofshua";
+      })
+      .sort((a, b) => {
+        // Assuming the price is stored in `listing.data.list.price` and is a number
+        const numA = extractNumber(a?.data?.list?.price?.toString());
+        const numB = extractNumber(b?.data?.list?.price?.toString());
+        return (numA ?? 0) - (numB ?? 0);
+      });
 
     return (
       <>
@@ -323,29 +331,38 @@ export const HomePage = () => {
           Tale of Shua Gear Marketplace
         </div> */}
         <div className="text-center text-2xl mt-4 mb-4">
-          <span className="underline hover:text-blue-500 rounded-xl"><a href="https://taleofshua.com">Gear</a></span> is a lock-to-mint collection by Joshua Henslee.
+          <span className="underline hover:text-blue-500 rounded-xl">
+            <a href="https://taleofshua.com">Gear</a>
+          </span>{" "}
+          is a lock-to-mint collection by Joshua Henslee.
         </div>
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredListings.map((listing, index) => (
-            <MarketplaceCard key={index} listing={listing} purchaseOrdinal={purchaseOrdinal} exchangeRate={exchangeRate} />
+            <MarketplaceCard
+              key={index}
+              listing={listing}
+              purchaseOrdinal={purchaseOrdinal}
+              exchangeRate={exchangeRate}
+            />
           ))}
         </div>
       </>
-    )
-  }
+    );
+  };
 
   const renderGlobalHodlMarketplace = () => {
-    const filteredListings = hodlBook?.filter(
-      (listing: any) => {
+    const filteredListings = hodlBook
+      ?.filter((listing: any) => {
         return (
-          listing?.origin?.data?.insc?.json?.id === "bfd3bfe2d65a131e9792ee04a2da9594d9dc8741a7ab362c11945bfc368d2063_1"
-        )
-      }
-    ).sort((a, b) => {
-      const numA = extractNumber(a?.data?.list?.price?.toString());
-      const numB = extractNumber(b?.data?.list?.price?.toString());
-      return (numA ?? 0) - (numB ?? 0);
-    });
+          listing?.origin?.data?.insc?.json?.id ===
+          "bfd3bfe2d65a131e9792ee04a2da9594d9dc8741a7ab362c11945bfc368d2063_1"
+        );
+      })
+      .sort((a, b) => {
+        const numA = extractNumber(a?.data?.list?.price?.toString());
+        const numB = extractNumber(b?.data?.list?.price?.toString());
+        return (numA ?? 0) - (numB ?? 0);
+      });
 
     // let marketcap = (filteredListings[0].origin.data.list.price / filteredListings[0].origin.data.insc.json.amt) * exchangeRate;
     // console.log("Hodl Marketcap: ", marketcap);
@@ -353,37 +370,43 @@ export const HomePage = () => {
     return (
       <>
         <div className="text-center text-2xl mt-4 mb-4">
-          <span className="underline hover:text-blue-500 rounded-xl"><a href="https://ordinals.gorillapool.io/content/1f2d8349d15ef5287c5cada779f7e6875e123fe0ab788b478a17514b5746db90_0">$hodl</a></span> is the first of its kind LRC-20 token.
+          <span className="underline hover:text-blue-500 rounded-xl">
+            <a href="https://ordinals.gorillapool.io/content/1f2d8349d15ef5287c5cada779f7e6875e123fe0ab788b478a17514b5746db90_0">
+              $hodl
+            </a>
+          </span>{" "}
+          is the first of its kind LRC-20 token.
         </div>
         <div className="h-1/4">
           <PriceHistoryChart data={filteredListings} />
         </div>
         <div className="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1">
           {filteredListings.map((listing, index) => (
-            <HODLMarketplaceCard key={index} listing={listing} locations={locations} purchaseOrdinal={purchaseOrdinal} exchangeRate={exchangeRate} />
-
+            <HODLMarketplaceCard
+              key={index}
+              listing={listing}
+              locations={locations}
+              purchaseOrdinal={purchaseOrdinal}
+              exchangeRate={exchangeRate}
+            />
           ))}
         </div>
-
-
       </>
-    )
-  }
+    );
+  };
 
   const renderBSVMapMarketplace = () => {
-    const filteredListings = bsvMapBook.filter(
-      (listing: any) => {
-        return (
-          listing?.origin?.data?.insc?.words[1] === "bsvmap"
-        )
-      }
-    ).sort((a, b) => {
-      const numA = extractNumber(a?.data?.list?.price?.toString());
-      const numB = extractNumber(b?.data?.list?.price?.toString());
-      return (numA ?? 0) - (numB ?? 0);
-    });
+    const filteredListings = bsvMapBook
+      .filter((listing: any) => {
+        return listing?.origin?.data?.insc?.words[1] === "bsvmap";
+      })
+      .sort((a, b) => {
+        const numA = extractNumber(a?.data?.list?.price?.toString());
+        const numB = extractNumber(b?.data?.list?.price?.toString());
+        return (numA ?? 0) - (numB ?? 0);
+      });
 
-    console.log("BSV Map Listings: ", filteredListings)
+    console.log("BSV Map Listings: ", filteredListings);
 
     return (
       <>
@@ -392,12 +415,17 @@ export const HomePage = () => {
         </div>
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredListings.map((listing, index) => (
-            <BSVMapMarketplaceCard key={index} listing={listing} purchaseOrdinal={purchaseOrdinal} exchangeRate={exchangeRate} />
+            <BSVMapMarketplaceCard
+              key={index}
+              listing={listing}
+              purchaseOrdinal={purchaseOrdinal}
+              exchangeRate={exchangeRate}
+            />
           ))}
         </div>
       </>
-    )
-  }
+    );
+  };
 
   const renderFrogMarketplace = () => {
     const filteredListings = frogBook.sort((a, b) => {
@@ -410,21 +438,29 @@ export const HomePage = () => {
     return (
       <>
         <div className="text-center text-2xl mt-4 mb-4">
-          <span className="underline hover:text-blue-500 rounded-xl"><a
-            href="https://www.raredropper.com/ogs/frogs"
-            target="_blank"
-            rel="noopener noreferrer"
-          >Frogs</a></span> were minted using OG namespaces.
+          <span className="underline hover:text-blue-500 rounded-xl">
+            <a
+              href="https://www.raredropper.com/ogs/frogs"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Frogs
+            </a>
+          </span>{" "}
+          were minted using OG namespaces.
         </div>
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredListings.map((listing) => (
-            <FrogMarketplaceCard listing={listing} purchaseOrdinal={purchaseOrdinal} exchangeRate={exchangeRate} />
-
+            <FrogMarketplaceCard
+              listing={listing}
+              purchaseOrdinal={purchaseOrdinal}
+              exchangeRate={exchangeRate}
+            />
           ))}
         </div>
       </>
-    )
-  }
+    );
+  };
 
   const renderGayFrogMarketplace = () => {
     const filteredListings = gayFrogBook.sort((a, b) => {
@@ -437,57 +473,68 @@ export const HomePage = () => {
     return (
       <>
         <div className="text-center text-2xl mt-4 mb-4">
-          <span className="underline hover:text-blue-500 rounded-xl"><a
-            href="https://www.hodlocker.com/bitcoiner/post/1ece58cc7c083cfb0382e5c0dbd7dc61e908d16ce4e6c2224e3b5283194f74f5"
-            target="_blank"
-            rel="noopener noreferrer"
-          >Gay Frogs</a></span> were minted and distributed to lockers.
+          <span className="underline hover:text-blue-500 rounded-xl">
+            <a
+              href="https://www.hodlocker.com/bitcoiner/post/1ece58cc7c083cfb0382e5c0dbd7dc61e908d16ce4e6c2224e3b5283194f74f5"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Gay Frogs
+            </a>
+          </span>{" "}
+          were minted and distributed to lockers.
         </div>
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredListings.map((listing) => (
-            <GayFrogMarketplaceCard listing={listing} purchaseOrdinal={purchaseOrdinal} exchangeRate={exchangeRate} />
-
+            <GayFrogMarketplaceCard
+              listing={listing}
+              purchaseOrdinal={purchaseOrdinal}
+              exchangeRate={exchangeRate}
+            />
           ))}
         </div>
       </>
-    )
-  }
+    );
+  };
 
   const renderGlobalOGMarketplace = () => {
-    const filteredListings = ogBook.filter(
-      (listing: any) => {
-        return (
-          listing?.origin?.data?.insc?.words[1] === "og"
-        )
-      }
-    ).sort((a, b) => {
-      // Assuming the price is stored in `listing.data.list.price` and is a number
-      const numA = extractNumber(a?.data?.list?.price?.toString());
-      const numB = extractNumber(b?.data?.list?.price?.toString());
-      return (numA ?? 0) - (numB ?? 0);
-    });
+    const filteredListings = ogBook
+      .filter((listing: any) => {
+        return listing?.origin?.data?.insc?.words[1] === "og";
+      })
+      .sort((a, b) => {
+        // Assuming the price is stored in `listing.data.list.price` and is a number
+        const numA = extractNumber(a?.data?.list?.price?.toString());
+        const numB = extractNumber(b?.data?.list?.price?.toString());
+        return (numA ?? 0) - (numB ?? 0);
+      });
 
     return (
       <>
         <div className="text-center text-2xl mt-4 mb-4">
-          <span className="underline hover:text-blue-500 rounded-xl"><a href="https://www.hodlocker.com/zackwins/post/d2167c682c0ce72574fe2d21a81987571d42dc51b38c94c0cbe16ac40ad770c0">.OG</a></span> is the first of its kind lock-to-mint numbered namespace.
+          <span className="underline hover:text-blue-500 rounded-xl">
+            <a href="https://www.hodlocker.com/zackwins/post/d2167c682c0ce72574fe2d21a81987571d42dc51b38c94c0cbe16ac40ad770c0">
+              .OG
+            </a>
+          </span>{" "}
+          is the first of its kind lock-to-mint numbered namespace.
         </div>
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredListings.map((listing, index) => (
-            <OGMarketplaceCard listing={listing} purchaseOrdinal={purchaseOrdinal} exchangeRate={exchangeRate} />
-
+            <OGMarketplaceCard
+              listing={listing}
+              purchaseOrdinal={purchaseOrdinal}
+              exchangeRate={exchangeRate}
+            />
           ))}
         </div>
       </>
-    )
-  }
+    );
+  };
 
   const renderSonatas = () => {
-
     const filteredSonatas = ordinals.filter(
-      (ordinal) =>
-        ordinal?.data?.insc?.json?.p ===
-        "sonata"
+      (ordinal) => ordinal?.data?.insc?.json?.p === "sonata"
     );
     return (
       <>
@@ -495,29 +542,40 @@ export const HomePage = () => {
           Sonata is an experimental format to inscribe music metadata on-chain.
         </div>
         <div className="text-center text-2xl m-8">
-          <a className="hover:text-blue-900 hover:bg-blue-200 bg-gray-100 text-gray-900 border-0 border-black rounded-xl p-4 m-4" href="https://usselman.github.io/distromint/">Inscribe here</a>
+          <a
+            className="hover:text-blue-900 hover:bg-blue-200 bg-gray-100 text-gray-900 border-0 border-black rounded-xl p-4 m-4"
+            href="https://usselman.github.io/distromint/"
+          >
+            Inscribe here
+          </a>
         </div>
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredSonatas.map((ordinal, index) => (
-            <SonataCard key={index} ordinal={ordinal} transferOrdinal={transferOrdinal} />
+            <SonataCard
+              key={index}
+              ordinal={ordinal}
+              transferOrdinal={transferOrdinal}
+            />
           ))}
         </div>
       </>
     );
-
-  }
+  };
 
   const renderLRC20Cards = () => {
     const filteredLRC20s = ordinals.filter(
-      (ordinal) =>
-        ordinal?.data?.insc?.json?.p ===
-        "lrc-20"
+      (ordinal) => ordinal?.data?.insc?.json?.p === "lrc-20"
     );
     //console.log("LRC20s: ", filteredLRC20s);
     return (
       <>
         <div className="text-center text-2xl mt-4 mb-4">
-          <span className="underline hover:text-blue-500 rounded-xl"><a href="https://ordinals.gorillapool.io/content/1f2d8349d15ef5287c5cada779f7e6875e123fe0ab788b478a17514b5746db90_0">$hodl</a></span> is the first of its kind LRC-20 token.
+          <span className="underline hover:text-blue-500 rounded-xl">
+            <a href="https://ordinals.gorillapool.io/content/1f2d8349d15ef5287c5cada779f7e6875e123fe0ab788b478a17514b5746db90_0">
+              $hodl
+            </a>
+          </span>{" "}
+          is the first of its kind LRC-20 token.
         </div>
         <div>
           <h4 className="text-2xl font-semibold text-black text-center">
@@ -526,14 +584,18 @@ export const HomePage = () => {
         </div>
 
         <div className="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-
           {filteredLRC20s.map((ordinal, index) => (
-            <LRCCard key={index} ordinal={ordinal} setHodlSum={setHodlSum} locations={locations} />
+            <LRCCard
+              key={index}
+              ordinal={ordinal}
+              setHodlSum={setHodlSum}
+              locations={locations}
+            />
           ))}
         </div>
       </>
     );
-  }
+  };
 
   const extractNumber = (text: string): number | null => {
     const parts = text.split(" ");
@@ -556,15 +618,18 @@ export const HomePage = () => {
       <>
         <div className="text-center text-2xl mt-4 mb-4">
           <span className="underline hover:text-blue-500 rounded-xl">
-            <a href="https://www.hodlocker.com/zackwins/post/d2167c682c0ce72574fe2d21a81987571d42dc51b38c94c0cbe16ac40ad770c0">.OG</a>
-          </span> is the first of its kind lock-to-mint numbered namespace.
+            <a href="https://www.hodlocker.com/zackwins/post/d2167c682c0ce72574fe2d21a81987571d42dc51b38c94c0cbe16ac40ad770c0">
+              .OG
+            </a>
+          </span>{" "}
+          is the first of its kind lock-to-mint numbered namespace.
         </div>
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {filteredOGs.map((ordinal, index) => (
             <OGCards
               key={index}
               ordinal={ordinal}
-              address={ordAddress ?? null}  // Ensure address is string or null
+              address={ordAddress ?? null} // Ensure address is string or null
               transferOrdinal={transferOrdinal}
             />
           ))}
@@ -572,7 +637,6 @@ export const HomePage = () => {
       </>
     );
   };
-
 
   const getRarityValue = (name: string) => {
     const parts = name.split(" ");
@@ -585,26 +649,35 @@ export const HomePage = () => {
   };
 
   const renderOrdinalCards = () => {
-    const dataToShow = viewMode === 'collection' ? ordinals : orderBook;
+    const dataToShow = viewMode === "collection" ? ordinals : orderBook;
 
-    const filteredOrdinals = ordinals.filter(
-      (ordinal) =>
-        ordinal?.data?.map?.subTypeData?.collectionId ===
-        "b68a700c91c6ece44aa6c2148c84c25a9a22da739769110e1ba01dbb0ff2df4a_1"
-    )
-      .map(ordinal => ({
+    const filteredOrdinals = ordinals
+      .filter(
+        (ordinal) =>
+          ordinal?.data?.map?.subTypeData?.collectionId ===
+          "b68a700c91c6ece44aa6c2148c84c25a9a22da739769110e1ba01dbb0ff2df4a_1"
+      )
+      .map((ordinal) => ({
         ...ordinal,
-        rarityValue: getRarityValue(ordinal.data.insc.text)
+        rarityValue: getRarityValue(ordinal.data.insc.text),
       }))
       .sort((a, b) => b.rarityValue - a.rarityValue) // Sort by descending rarity value
       .map((ordinal, index) => (
-        <OrdinalCard key={index} ordinal={ordinal} transferOrdinal={transferOrdinal} listOrdinal={listOrdinal} />
+        <OrdinalCard
+          key={index}
+          ordinal={ordinal}
+          transferOrdinal={transferOrdinal}
+          listOrdinal={listOrdinal}
+        />
       ));
 
     return (
       <>
         <div className="text-center text-2xl mt-4 mb-4">
-          <span className="underline hover:text-blue-500 rounded-xl"><a href="https://taleofshua.com">Tale of Shua Gear</a></span> is a lock-to-mint collection by Joshua Henslee.
+          <span className="underline hover:text-blue-500 rounded-xl">
+            <a href="https://taleofshua.com">Tale of Shua Gear</a>
+          </span>{" "}
+          is a lock-to-mint collection by Joshua Henslee.
         </div>
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-8">
           {filteredOrdinals}
@@ -613,7 +686,11 @@ export const HomePage = () => {
     );
   };
 
-  const transferOrdinal = async (address: string, origin: any, outpoint: string) => {
+  const transferOrdinal = async (
+    address: string,
+    origin: any,
+    outpoint: string
+  ) => {
     try {
       const txid = await wallet.transferOrdinal({ address, origin, outpoint });
       console.log(txid);
@@ -632,7 +709,11 @@ export const HomePage = () => {
         <div className="mt-12">
           <div className="parchment-container">
             <h4 className="sm:text-xl md:text-4xl font-semibold text-black text-center title">
-              <span className="hover:text-blue-500"><a href="https://github.com/usselman/library-of-babel">Library of Babel</a></span>
+              <span className="hover:text-blue-500">
+                <a href="https://github.com/usselman/library-of-babel">
+                  Library of Babel
+                </a>
+              </span>
             </h4>
 
             <p className="text-sm font-semibold text-black text-center hover:text-blue-500 rounded-xl author">
@@ -640,7 +721,10 @@ export const HomePage = () => {
             </p>
           </div>
 
-          <h2 className="md:mt-2 sm:mt-0"><span className="text-green-600">${exchangeRate.toFixed(2)}</span> #{currentBlockHeight}</h2>
+          <h2 className="md:mt-2 sm:mt-0">
+            <span className="text-green-600">${exchangeRate.toFixed(2)}</span> #
+            {currentBlockHeight}
+          </h2>
           <div className="h-16" />
           <PandaConnectButton
             className="m-4 p-4 z-50 rounded-md bg-white text-black hover:bg-green-500 hover:text-white hover:border-green-500 md:fixed top-2 right-2 md:scale-75 lg:scale-100 sm:scale-50 place-content-center sm:justify-center md:flex"
@@ -650,7 +734,9 @@ export const HomePage = () => {
           <h4 className="sm:text-xl md:text-4xl font-semibold text-black text-center">
             Inscription Market
           </h4>
-          <p className="text-md text-black text-center mt-2">Market Fee: 1.5%</p>
+          <p className="text-md text-black text-center mt-2">
+            Market Fee: 1.5%
+          </p>
 
           {wallet && (
             <div className="absolute top-8 left-8 z-30 md:text-md">
@@ -677,10 +763,22 @@ export const HomePage = () => {
           </div>
 
           <div className="flex justify-center space-x-2 mt-4 sm:text-sm md:text-md">
-            {[".OG", "Gear", "HODL", "OG Frogs", "Gay Frogs", "BSVMap"].map((type) => (
+            {[
+              ".OG",
+              "Sonata",
+              "Gear",
+              "HODL",
+              "OG Frogs",
+              "Gay Frogs",
+              "BSVMap",
+            ].map((type) => (
               <div
                 key={type}
-                className={`cursor-pointer p-2 text-sm md:text-md lg:text-lg ${selectedType === type ? "bg-blue-500 text-white" : "bg-white text-black"} rounded-xl`}
+                className={`cursor-pointer p-2 text-sm md:text-md lg:text-lg ${
+                  selectedType === type
+                    ? "bg-blue-500 text-white"
+                    : "bg-white text-black"
+                } rounded-xl`}
                 onClick={() => handleChange(type)}
               >
                 {type}
@@ -689,7 +787,11 @@ export const HomePage = () => {
           </div>
           <div className="mt-4">
             <svg height="1" width="100%">
-              <line x1="0" y1="0" x2="100%" y2="0"
+              <line
+                x1="0"
+                y1="0"
+                x2="100%"
+                y2="0"
                 stroke="black"
                 strokeWidth="2"
               />
